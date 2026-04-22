@@ -76,8 +76,8 @@ Mirror the spec exactly. One-time pain, clean forever.
 assets/
 ├── avatar.jpg
 ├── icons/
-│   ├── zbrush.svg, maya.svg, substance.svg, marmoset.svg, blender.svg,
-│   ├── unreal.svg, xgen.svg, photoshop.svg, unity.svg
+│   ├── zbrush.png, maya.png, substance.png, marmoset.png, blender.png,
+│   ├── unreal.png, xgen.png, photoshop.png, unity.png
 ├── characters/
 │   ├── thumb.jpg
 │   └── assassin-elf/
@@ -363,7 +363,7 @@ When `project.hero.type === "video"`, replace the hero's `background-image` div 
 
 ### 4.6 Tool icons — extend the set
 
-From the folder evidence you'll need at minimum: `zbrush`, `maya`, `substance`, `marmoset`, `blender`, `unreal`, `xgen`, `photoshop`, `unity`. Source SVGs from each tool's brand kit or use generic glyphs. Keep the white-filter convention from the existing spec.
+From the folder evidence you'll need at minimum: `zbrush`, `maya`, `substance`, `marmoset`, `blender`, `unreal`, `xgen`, `photoshop`, `unity`. Source pngs from each tool's brand kit or use generic glyphs. Keep the white-filter convention from the existing spec.
 
 ### 4.7 Category landing tiles — 5 categories now
 

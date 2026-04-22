@@ -720,7 +720,7 @@ function renderProjectGallery(project) {
 
 function renderProjectHero(project) {
   const toolsHtml = project.tools.map(tool =>
-    `<img src="assets/icons/${tool}.svg" alt="${tool} icon" class="project-hero__tool-icon" loading="lazy" decoding="async" width="32" height="32">`
+    `<img src="assets/icons/${tool}.png" alt="${tool} icon" class="project-hero__tool-icon" loading="lazy" decoding="async" width="32" height="32">`
   ).join('');
 
   const bgSrc = project.hero

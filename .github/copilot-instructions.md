@@ -93,7 +93,7 @@ Always use these variables. Never hardcode equivalent values.
 - Never use `href="#section"` anchor jumps — always use `scrollIntoView`.
 
 ### Tool icons (project hero)
-- Icons are `<img>` tags pointing to `assets/icons/[tool].svg`.
+- Icons are `<img>` tags pointing to `assets/icons/[tool].png`.
 - Always apply this CSS class to make them white:
   ```css
   .project-hero__tool-icon {
@@ -111,7 +111,7 @@ Always use these variables. Never hardcode equivalent values.
 
 ### Asset paths
 - Always relative. Pattern: `assets/[category]/[project-slug]/[image].jpg`
-- Icons: `assets/icons/[tool-name].svg`
+- Icons: `assets/icons/[tool-name].png`
 - Avatar: `assets/avatar.jpg`
 
 ---
@@ -153,7 +153,7 @@ Only these steps are needed:
 
 ## When Adding a New Tool Icon
 
-1. Add the SVG file to `assets/icons/[tool-name].svg`.
+1. Add the png file to `assets/icons/[tool-name].png`.
 2. Add the tool slug string to the project's `tools` array in `portfolioData`.
 3. No other changes needed.
 
@@ -172,10 +172,10 @@ portfolio/
 └── assets/
     ├── avatar.jpg
     ├── icons/
-    │   ├── zbrush.svg
-    │   ├── maya.svg
-    │   ├── substance.svg
-    │   └── blender.svg
+    │   ├── zbrush.png
+    │   ├── maya.png
+    │   ├── substance.png
+    │   └── blender.png
     ├── characters/
     │   ├── thumb.jpg
     │   └── [project-slug]/

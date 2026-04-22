@@ -100,7 +100,7 @@ If you need a new variable, add it here. Don't introduce one-off literal values.
 - Never use `<a href="#section">` anchor jumps.
 
 ### Tool icons
-- `<img>` tags pointing to `assets/icons/[tool-slug].svg`. White via CSS filter:
+- `<img>` tags pointing to `assets/icons/[tool-slug].png`. White via CSS filter:
   ```css
   .project-hero__tool-icon { filter: brightness(0) invert(1); opacity: 0.85; width: 32px; height: 32px; }
   ```
@@ -152,7 +152,7 @@ If you need a new variable, add it here. Don't introduce one-off literal values.
 3. Done. No HTML changes, no CSS changes.
 
 **New tool icon:**
-1. Drop `assets/icons/[tool-slug].svg`.
+1. Drop `assets/icons/[tool-slug].png`.
 2. Add the slug to the project's `tools` array.
 
 **New category:**

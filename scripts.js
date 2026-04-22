@@ -507,7 +507,7 @@ function renderMediaTile(mediaItem, altText) {
   return `
     <figure class="media-tile" tabindex="0"
       data-type="image" data-src="${mediaItem.src}"${aspectStyle}>
-      <img src="${mediaItem.src}" alt="${alt}" loading="lazy" decoding="async">
+      <img src="${mediaItem.src}" alt="${alt}" loading="lazy" decoding="async"${mediaItem.aspect ? ` width="800" height="${Math.round(800 / mediaItem.aspect)}"` : ''}>
     </figure>
   `;
 }
@@ -720,7 +720,7 @@ function renderProjectGallery(project) {
 
 function renderProjectHero(project) {
   const toolsHtml = project.tools.map(tool =>
-    `<img src="assets/icons/${tool}.svg" alt="${tool} icon" class="project-hero__tool-icon">`
+    `<img src="assets/icons/${tool}.svg" alt="${tool} icon" class="project-hero__tool-icon" loading="lazy" decoding="async" width="32" height="32">`
   ).join('');
 
   const bgSrc = project.hero
@@ -728,8 +728,9 @@ function renderProjectHero(project) {
     : '';
 
   return `
-    <div class="project-hero" style="background-image: url('${bgSrc}');">
+    <div id="${project.id}" class="project-hero" style="background-image: url('${bgSrc}');">
       <div class="project-hero__overlay"></div>
+      <button class="project-hero__anchor" aria-label="Copy link to ${project.name}">#</button>
       <h3 class="project-hero__title">${project.name}</h3>
       <div class="project-hero__tools">${toolsHtml}</div>
     </div>
@@ -776,6 +777,36 @@ function init() {
 
   mountLightbox();
   attachHoverPlay(document.body);
+
+  document.querySelectorAll('.project-hero__anchor').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      e.stopPropagation();
+      const projectId = anchor.closest('.project-hero').id;
+      history.replaceState(null, '', '#' + projectId);
+    });
+  });
+
+  if (location.hash) {
+    const target = document.getElementById(location.hash.slice(1));
+    if (target) {
+      requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth' }));
+    }
+  }
+
+  const backToTop = document.createElement('button');
+  backToTop.className = 'back-to-top';
+  backToTop.setAttribute('aria-label', 'Back to top');
+  backToTop.textContent = '↑';
+  document.body.appendChild(backToTop);
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  const observer = new IntersectionObserver(([entry]) => {
+    backToTop.classList.toggle('back-to-top--visible', !entry.isIntersecting);
+  }, { threshold: 0 });
+  observer.observe(document.getElementById('info-section'));
 }
 
 document.addEventListener('DOMContentLoaded', init);

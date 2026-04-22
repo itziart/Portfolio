@@ -1,0 +1,267 @@
+old_path,new_path
+# ─────────────────────────────────────────────────────────────
+# CREATURES — Alien
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Alien/360video.mp4,assets/creatures/alien/360.mp4
+assets/Portfolio/Alien/Blockout/alien.jpg,assets/creatures/alien/blockout/alien.jpg
+assets/Portfolio/Alien/Blockout/aliencual.jpg,assets/creatures/alien/blockout/alien-cual.jpg
+assets/Portfolio/Alien/Blockout/closeup.jpg,assets/creatures/alien/blockout/closeup.jpg
+assets/Portfolio/Alien/Blockout/CRIATURE_BLOCKING02.jpg,assets/creatures/alien/blockout/blocking-02.jpg
+assets/Portfolio/Alien/Blockout/CRIATURE_BLOCKING05.jpg,assets/creatures/alien/blockout/blocking-05.jpg
+assets/Portfolio/Alien/Blockout/perspvsneutral.jpg,assets/creatures/alien/blockout/persp-vs-neutral.jpg
+assets/Portfolio/Alien/Blockout/teeth.jpg,assets/creatures/alien/blockout/teeth.jpg
+assets/Portfolio/Alien/Blockout/uvs.jpg,assets/creatures/alien/blockout/uvs.jpg
+assets/Portfolio/Alien/HighPoly/apof.jpg,assets/creatures/alien/highpoly/apof.jpg
+assets/Portfolio/Alien/HighPoly/apof (1).jpg,SKIP
+assets/Portfolio/Alien/HighPoly/head.jpg,assets/creatures/alien/highpoly/head.jpg
+assets/Portfolio/Alien/HighPoly/veins.jpg,assets/creatures/alien/highpoly/veins.jpg
+assets/Portfolio/Alien/HighPoly/veins (1).jpg,SKIP
+assets/Portfolio/Alien/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_CREATURE_01.png,assets/creatures/alien/highpoly/highpoly-01.png
+assets/Portfolio/Alien/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_CREATURE_02.png,assets/creatures/alien/highpoly/highpoly-02.png
+assets/Portfolio/Alien/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_CREATURE_03.png,assets/creatures/alien/highpoly/highpoly-03.png
+assets/Portfolio/Alien/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_CREATURE_04.png,assets/creatures/alien/highpoly/highpoly-04.png
+assets/Portfolio/Alien/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_CREATURE_05.png,assets/creatures/alien/highpoly/highpoly-05.png
+assets/Portfolio/Alien/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_CREATURE_06.png,assets/creatures/alien/highpoly/highpoly-06.png
+assets/Portfolio/Alien/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_CREATURE_07.png,assets/creatures/alien/highpoly/highpoly-07.png
+assets/Portfolio/Alien/Render/MA1_CHAR_2526_ItziarMartinMolina_Creature_01.mp4,assets/creatures/alien/hero.mp4
+assets/Portfolio/Alien/Render/MA1_CHAR_2526_ItziarMartinMolina_Creature_01.png,assets/creatures/alien/render/render-01.png
+assets/Portfolio/Alien/Render/MA1_CHAR_2526_ItziarMartinMolina_Creature_02.png,assets/creatures/alien/render/render-02.png
+assets/Portfolio/Alien/Render/MA1_CHAR_2526_ItziarMartinMolina_Creature_03.png,assets/creatures/alien/render/render-03.png
+assets/Portfolio/Alien/Render/MA1_CHAR_2526_ItziarMartinMolina_Creature_04.png,assets/creatures/alien/render/render-04.png
+assets/Portfolio/Alien/Render/MA1_CHAR_2526_ItziarMartinMolina_Creature_05.png,assets/creatures/alien/render/render-05.png
+assets/Portfolio/Alien/Render/MA1_CHAR_2526_ItziarMartinMolina_Creature_06.png,assets/creatures/alien/render/render-06.png
+assets/Portfolio/Alien/Render/MA1_CHAR_2526_ItziarMartinMolina_Creature_07.png,assets/creatures/alien/render/render-07.png
+assets/Portfolio/Alien/Render/MA1_CHAR_2526_ItziarMartinMolina_Creature_08.png,assets/creatures/alien/render/render-08.png
+assets/Portfolio/Alien/Textures/e52a07e1-ebbc-4621-98b6-a1a3060a0c07.png,assets/creatures/alien/textures/texture-01.png
+assets/Portfolio/Alien/Textures/Screen Recording 2026-02-25 172658.mp4,assets/creatures/alien/textures/process-01.mp4
+assets/Portfolio/Alien/Udims/image (2).png,assets/creatures/alien/udims/udim-01.png
+assets/Portfolio/Alien/Udims/image (3).png,assets/creatures/alien/udims/udim-02.png
+# ─────────────────────────────────────────────────────────────
+# CHARACTERS — Assassin Elf
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Assassin_Elf/MA1_CHAR_2526_ItziarMartinMolina_Character_01.mp4,assets/characters/assassin-elf/hero.mp4
+assets/Portfolio/Assassin_Elf/Bakes/image (2).png,assets/characters/assassin-elf/bakes/bake-01.png
+assets/Portfolio/Assassin_Elf/Bakes/image (3).png,assets/characters/assassin-elf/bakes/bake-02.png
+assets/Portfolio/Assassin_Elf/Bakes/image (4).png,assets/characters/assassin-elf/bakes/bake-03.png
+assets/Portfolio/Assassin_Elf/Bakes/image (8).png,assets/characters/assassin-elf/bakes/bake-04.png
+assets/Portfolio/Assassin_Elf/Blockout/elf.jpg,assets/characters/assassin-elf/blockout/elf.jpg
+assets/Portfolio/Assassin_Elf/Blockout/elf02.jpg,assets/characters/assassin-elf/blockout/elf-02.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/bru.jpg,assets/characters/assassin-elf/highpoly/bru.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/bru (1).jpg,assets/characters/assassin-elf/highpoly/shoes.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/done.jpg,assets/characters/assassin-elf/highpoly/done.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/DUDAS.jpg,assets/characters/assassin-elf/highpoly/dudas.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/DUDAS (1).jpg,assets/characters/assassin-elf/highpoly/dudas-02.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/orna.jpg,assets/characters/assassin-elf/highpoly/orna.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/ornamentos.jpg,assets/characters/assassin-elf/highpoly/ornamentos.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/ornamentstry.jpg,assets/characters/assassin-elf/highpoly/ornaments-try-01.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/ornamentstry2.jpg,assets/characters/assassin-elf/highpoly/ornaments-try-02.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/pof.gif,assets/characters/assassin-elf/highpoly/pof.gif
+assets/Portfolio/Assassin_Elf/HighPoly/skin.jpg,assets/characters/assassin-elf/highpoly/skin.jpg
+assets/Portfolio/Assassin_Elf/HighPoly/solo.jpg,assets/characters/assassin-elf/highpoly/solo.jpg
+assets/Portfolio/Assassin_Elf/Render/MA1_CHAR_2526_ItziarMartinMolina_Character_01.png,assets/characters/assassin-elf/render/render-01.png
+assets/Portfolio/Assassin_Elf/Render/MA1_CHAR_2526_ItziarMartinMolina_Character_02.png,assets/characters/assassin-elf/render/render-02.png
+assets/Portfolio/Assassin_Elf/Render/MA1_CHAR_2526_ItziarMartinMolina_Character_03.png,assets/characters/assassin-elf/render/render-03.png
+assets/Portfolio/Assassin_Elf/Render/MA1_CHAR_2526_ItziarMartinMolina_Character_04.png,assets/characters/assassin-elf/render/render-04.png
+assets/Portfolio/Assassin_Elf/Render/MA1_CHAR_2526_ItziarMartinMolina_Character_05.png,assets/characters/assassin-elf/render/render-05.png
+assets/Portfolio/Assassin_Elf/Render/MA1_CHAR_2526_ItziarMartinMolina_Character_06.png,assets/characters/assassin-elf/render/render-06.png
+assets/Portfolio/Assassin_Elf/Retopolgy/image (4).png,assets/characters/assassin-elf/retopology/retopo-01.png
+assets/Portfolio/Assassin_Elf/Retopolgy/image (5).png,assets/characters/assassin-elf/retopology/retopo-02.png
+assets/Portfolio/Assassin_Elf/Retopolgy/image (6).png,assets/characters/assassin-elf/retopology/retopo-03.png
+assets/Portfolio/Assassin_Elf/Retopolgy/image (7).png,assets/characters/assassin-elf/retopology/retopo-04.png
+assets/Portfolio/Assassin_Elf/Retopolgy/Screen Recording 2026-02-08 174059.mp4,assets/characters/assassin-elf/retopology/process-01.mp4
+assets/Portfolio/Assassin_Elf/Textures/image (6).png,assets/characters/assassin-elf/textures/texture-01.png
+assets/Portfolio/Assassin_Elf/Textures/image (7).png,assets/characters/assassin-elf/textures/texture-02.png
+assets/Portfolio/Assassin_Elf/Textures/image (8).png,assets/characters/assassin-elf/textures/texture-03.png
+assets/Portfolio/Assassin_Elf/Textures/image (9).png,assets/characters/assassin-elf/textures/texture-04.png
+assets/Portfolio/Assassin_Elf/Textures/image (10).png,assets/characters/assassin-elf/textures/texture-05.png
+assets/Portfolio/Assassin_Elf/Textures/image (11).png,assets/characters/assassin-elf/textures/texture-06.png
+assets/Portfolio/Assassin_Elf/Textures/image (13).png,assets/characters/assassin-elf/textures/texture-07.png
+assets/Portfolio/Assassin_Elf/Textures/image (14).png,assets/characters/assassin-elf/textures/texture-08.png
+assets/Portfolio/Assassin_Elf/Textures/image (15).png,assets/characters/assassin-elf/textures/texture-09.png
+assets/Portfolio/Assassin_Elf/Textures/image (16).png,assets/characters/assassin-elf/textures/texture-10.png
+assets/Portfolio/Assassin_Elf/Textures/image (17).png,assets/characters/assassin-elf/textures/texture-11.png
+assets/Portfolio/Assassin_Elf/Textures/image (18).png,assets/characters/assassin-elf/textures/texture-12.png
+assets/Portfolio/Assassin_Elf/Textures/Screen Recording 2026-02-22 125242.mp4,assets/characters/assassin-elf/textures/process-01.mp4
+assets/Portfolio/Assassin_Elf/Textures/Screen Recording 2026-02-22 194510.mp4,assets/characters/assassin-elf/textures/process-02.mp4
+assets/Portfolio/Assassin_Elf/Textures/Screen Recording 2026-02-22 195447.mp4,assets/characters/assassin-elf/textures/process-03.mp4
+assets/Portfolio/Assassin_Elf/Textures/Screen Recording 2026-02-23 115744.mp4,assets/characters/assassin-elf/textures/process-04.mp4
+assets/Portfolio/Assassin_Elf/Textures/Screen Recording 2026-02-23 144901.mp4,assets/characters/assassin-elf/textures/process-05.mp4
+assets/Portfolio/Assassin_Elf/XGen/image (12).png,assets/characters/assassin-elf/xgen/xgen-01.png
+assets/Portfolio/Assassin_Elf/XGen/Screen Recording 2026-02-22 235850.mp4,assets/characters/assassin-elf/xgen/process-01.mp4
+assets/Portfolio/Assassin_Elf/XGen/Screen Recording 2026-02-23 173434.mp4,assets/characters/assassin-elf/xgen/process-02.mp4
+assets/Portfolio/Assassin_Elf/XGen/Screen Recording 2026-02-24 100047.mp4,assets/characters/assassin-elf/xgen/process-03.mp4
+assets/Portfolio/Assassin_Elf/XGen/Screen Recording 2026-02-24 100337.mp4,assets/characters/assassin-elf/xgen/process-04.mp4
+assets/Portfolio/Assassin_Elf/XGen/Screen Recording 2026-02-25 093027.mp4,assets/characters/assassin-elf/xgen/process-05.mp4
+assets/Portfolio/Assassin_Elf/XGen/Screen Recording 2026-02-25 094030.mp4,assets/characters/assassin-elf/xgen/process-06.mp4
+# ─────────────────────────────────────────────────────────────
+# PROPS — Bone Dagger (2-image gallery per Section 10 Q4)
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/BoneDagger/BoneDagger_Render_ItziarMartinMolina_PruebaAcceso.jpg,assets/props/bone-dagger/render.jpg
+assets/Portfolio/BoneDagger/BoneDagger_WireFrame_ItziarMartinMolina_PruebaAcceso.jpg,assets/props/bone-dagger/wireframe.jpg
+# ─────────────────────────────────────────────────────────────
+# PROPS — Crime Shoes (Blockout folder is empty, stage omitted)
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Crime_Shoes/MA1_CHAR_2526_ItziarMartinMolina_Asset_01.mp4,assets/props/crime-shoes/hero.mp4
+assets/Portfolio/Crime_Shoes/HighPoly/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.jpg,assets/props/crime-shoes/highpoly/reference.jpg
+assets/Portfolio/Crime_Shoes/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_ASSET_01.png,assets/props/crime-shoes/highpoly/highpoly-01.png
+assets/Portfolio/Crime_Shoes/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_ASSET_02.png,assets/props/crime-shoes/highpoly/highpoly-02.png
+assets/Portfolio/Crime_Shoes/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_ASSET_03.png,assets/props/crime-shoes/highpoly/highpoly-03.png
+assets/Portfolio/Crime_Shoes/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_ASSET_04.png,assets/props/crime-shoes/highpoly/highpoly-04.png
+assets/Portfolio/Crime_Shoes/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_ASSET_05.png,assets/props/crime-shoes/highpoly/highpoly-05.png
+assets/Portfolio/Crime_Shoes/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_ASSET_06.png,assets/props/crime-shoes/highpoly/highpoly-06.png
+assets/Portfolio/Crime_Shoes/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_ASSET_07.png,assets/props/crime-shoes/highpoly/highpoly-07.png
+assets/Portfolio/Crime_Shoes/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_ASSET_08.png,assets/props/crime-shoes/highpoly/highpoly-08.png
+assets/Portfolio/Crime_Shoes/HighPoly/MA1_CHAR_2526_ItziarMartinMolina_ASSET_09.png,assets/props/crime-shoes/highpoly/highpoly-09.png
+assets/Portfolio/Crime_Shoes/Render/MA1_CHAR_2526_ItziarMartinMolina_Asset_01.png,assets/props/crime-shoes/render/render-01.png
+assets/Portfolio/Crime_Shoes/Render/MA1_CHAR_2526_ItziarMartinMolina_Asset_02.png,assets/props/crime-shoes/render/render-02.png
+assets/Portfolio/Crime_Shoes/Render/MA1_CHAR_2526_ItziarMartinMolina_Asset_03.png,assets/props/crime-shoes/render/render-03.png
+assets/Portfolio/Crime_Shoes/Render/MA1_CHAR_2526_ItziarMartinMolina_Asset_04.png,assets/props/crime-shoes/render/render-04.png
+assets/Portfolio/Crime_Shoes/Render/MA1_CHAR_2526_ItziarMartinMolina_Asset_05.png,assets/props/crime-shoes/render/render-05.png
+assets/Portfolio/Crime_Shoes/Render/MA1_CHAR_2526_ItziarMartinMolina_Asset_06.png,assets/props/crime-shoes/render/render-06.png
+assets/Portfolio/Crime_Shoes/Render/MA1_CHAR_2526_ItziarMartinMolina_Asset_07.png,assets/props/crime-shoes/render/render-07.png
+assets/Portfolio/Crime_Shoes/Render/MA1_CHAR_2526_ItziarMartinMolina_Asset_08.png,assets/props/crime-shoes/render/render-08.png
+assets/Portfolio/Crime_Shoes/Render/MA1_CHAR_2526_ItziarMartinMolina_Asset_09.png,assets/props/crime-shoes/render/render-09.png
+assets/Portfolio/Crime_Shoes/Retopolgy/Screen Recording 2026-01-27 042631.mp4,assets/props/crime-shoes/retopology/process-01.mp4
+assets/Portfolio/Crime_Shoes/Textures/Screen Recording 2026-02-15 193512.mp4,assets/props/crime-shoes/textures/process-01.mp4
+assets/Portfolio/Crime_Shoes/Textures/Screen Recording 2026-02-15 202127.mp4,assets/props/crime-shoes/textures/process-02.mp4
+# ─────────────────────────────────────────────────────────────
+# GENERALIST — The Foot (hormigas.png moved here, ants theme)
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Generalist/Animations/The Foot/THE_FOOT_.mp4,assets/generalist/the-foot/hero.mp4
+assets/Portfolio/Generalist/Animations/The Foot/Screen Recording 2025-02-26 184702.mp4,assets/generalist/the-foot/process-01.mp4
+assets/Portfolio/Generalist/Animations/The Foot/Screen Recording 2025-02-26 210828.mp4,assets/generalist/the-foot/process-02.mp4
+assets/Portfolio/Generalist/Animations/The Foot/Screen Recording 2025-03-05 194845.mp4,assets/generalist/the-foot/process-03.mp4
+assets/Portfolio/Generalist/Animations/The Foot/Screen Recording 2025-03-05 195608.mp4,assets/generalist/the-foot/process-04.mp4
+assets/Portfolio/Generalist/Animations/The Foot/StoryboardAnts 2024-12-18 10.28.42_pages-to-jpg-0001.jpg,assets/generalist/the-foot/storyboard-01.jpg
+assets/Portfolio/Generalist/Animations/The Foot/StoryboardAnts 2024-12-18 10.28.42_pages-to-jpg-0002.jpg,assets/generalist/the-foot/storyboard-02.jpg
+assets/Portfolio/Generalist/Animations/The Foot/StoryboardAnts 2024-12-18 10.28.42_pages-to-jpg-0003.jpg,assets/generalist/the-foot/storyboard-03.jpg
+assets/Portfolio/Generalist/Animations/The Foot/StoryboardAnts 2024-12-18 10.28.42.pdf,SKIP
+assets/Portfolio/Generalist/Sketches/hormigas.png,assets/generalist/the-foot/ants-concept.png
+# ─────────────────────────────────────────────────────────────
+# GENERALIST — Xali (modelofinal.png → hero per plan, "cleanest render")
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Generalist/Animations/Xali/modelofinal.png,assets/generalist/xali/hero.png
+assets/Portfolio/Generalist/Animations/Xali/axolotereferencia.png,assets/generalist/xali/reference.png
+assets/Portfolio/Generalist/Animations/Xali/maps.png,assets/generalist/xali/maps.png
+assets/Portfolio/Generalist/Animations/Xali/model.png,assets/generalist/xali/model.png
+assets/Portfolio/Generalist/Animations/Xali/modelosidefinal.png,assets/generalist/xali/model-side.png
+assets/Portfolio/Generalist/Animations/Xali/retopo2.png,assets/generalist/xali/retopo-02.png
+assets/Portfolio/Generalist/Animations/Xali/retopo3.png,assets/generalist/xali/retopo-03.png
+assets/Portfolio/Generalist/Animations/Xali/retopo4.png,assets/generalist/xali/retopo-04.png
+assets/Portfolio/Generalist/Animations/Xali/UvsMap.png,assets/generalist/xali/uvs-map.png
+assets/Portfolio/Generalist/Animations/Xali/versiones.png,assets/generalist/xali/versions.png
+assets/Portfolio/Generalist/Animations/Xali/xali.png,assets/generalist/xali/xali.png
+assets/Portfolio/Generalist/Animations/Xali/Screen Recording 2025-05-21 114050.mp4,assets/generalist/xali/process-01.mp4
+assets/Portfolio/Generalist/Animations/Xali/Screen Recording 2025-05-24 141043.mp4,assets/generalist/xali/process-02.mp4
+assets/Portfolio/Generalist/Animations/Xali/Screen Recording 2025-05-30 104243.mp4,assets/generalist/xali/process-03.mp4
+assets/Portfolio/Generalist/Animations/Xali/Screen Recording 2025-05-30 133218.mp4,assets/generalist/xali/process-04.mp4
+assets/Portfolio/Generalist/Animations/Xali/Screen Recording 2025-05-30 152823.mp4,assets/generalist/xali/process-05.mp4
+assets/Portfolio/Generalist/Animations/Xali/Screen Recording 2025-05-30 153152.mp4,assets/generalist/xali/process-06.mp4
+assets/Portfolio/Generalist/Animations/Xali/Screen Recording 2025-05-30 220225.mp4,assets/generalist/xali/process-07.mp4
+assets/Portfolio/Generalist/Animations/Xali/Screen Recording 2025-05-31 223231.mp4,assets/generalist/xali/process-08.mp4
+# ─────────────────────────────────────────────────────────────
+# GENERALIST — Showreel (Section 10 Q5: autoplays as Generalist thumbnail)
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Generalist/Animations/GeneralistShowReel.mp4,assets/generalist/showreel/showreel.mp4
+assets/Portfolio/Generalist/Animations/ItziarMartinMolina_Animacion10s.mp4,assets/generalist/showreel/animation-10s.mp4
+# ─────────────────────────────────────────────────────────────
+# GENERALIST — Black Lodge (Twin Peaks scene)
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Generalist/Scene/BLACKLODGEOFFICIALrenderdia.jpg,assets/generalist/black-lodge/hero.jpg
+assets/Portfolio/Generalist/Scene/BLACKLODGEOFFICIALrenderdia - copia.jpg,SKIP
+assets/Portfolio/Generalist/Scene/BLACKLODGEOFFICIALrenderdia - copia (2).jpg,SKIP
+assets/Portfolio/Generalist/Scene/BLACKLODGEOFFICIALrendernoche (1).jpg,assets/generalist/black-lodge/render-night-01.jpg
+assets/Portfolio/Generalist/Scene/BLACKLODGEOFFICIALrendernoche (1) - copia.jpg,SKIP
+assets/Portfolio/Generalist/Scene/BLACKLODGEOFFICIALrendernoche (2) - copia.jpg,SKIP
+assets/Portfolio/Generalist/Scene/wireframe try.jpg,assets/generalist/black-lodge/wireframe-01.jpg
+assets/Portfolio/Generalist/Scene/wireframe2.jpg,assets/generalist/black-lodge/wireframe-02.jpg
+# ─────────────────────────────────────────────────────────────
+# GENERALIST — Sketches split (Section 10 Q2: Dolfo+Snake / Tiger / Player)
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Generalist/Sketches/CONCEPTDOLFO.jpg,assets/generalist/dolfo-snake/concept-dolfo.jpg
+assets/Portfolio/Generalist/Sketches/DOLFOPOSES.jpg,assets/generalist/dolfo-snake/dolfo-poses.jpg
+assets/Portfolio/Generalist/Sketches/COCNEPTSNAKE.jpg,assets/generalist/dolfo-snake/concept-snake.jpg
+assets/Portfolio/Generalist/Sketches/EXPRESSIONSNAKE.jpg,assets/generalist/dolfo-snake/expression-snake.jpg
+assets/Portfolio/Generalist/Sketches/COCNEPT.jpg,assets/generalist/dolfo-snake/concept-misc.jpg
+assets/Portfolio/Generalist/Sketches/CONCEPTTIGER.jpg,assets/generalist/tiger/concept-tiger.jpg
+assets/Portfolio/Generalist/Sketches/EXPRESSIONSTIGER.jpg,assets/generalist/tiger/expression-tiger.jpg
+assets/Portfolio/Generalist/Sketches/DEATHplayer.png (1).png,assets/generalist/player/death-player.png
+assets/Portfolio/Generalist/Sketches/Game_Player (2).gif,assets/generalist/player/game-player.gif
+assets/Portfolio/Generalist/Sketches/Game_Player-4.png (2).png,assets/generalist/player/game-player-04.png
+# ─────────────────────────────────────────────────────────────
+# GENERALIST — Games (empty per plan, nothing to move)
+# ─────────────────────────────────────────────────────────────
+# ─────────────────────────────────────────────────────────────
+# MAKEUP — Kelsier
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Makeup and Sculpture/modeladoskelsier.jpg,assets/makeup/kelsier/kelsier-01.jpg
+assets/Portfolio/Makeup and Sculpture/modeladokelsier2.png,assets/makeup/kelsier/kelsier-02.png
+assets/Portfolio/Makeup and Sculpture/modelokelsier3.png,assets/makeup/kelsier/kelsier-03.png
+assets/Portfolio/Makeup and Sculpture/modeladokelsier4.jpg,assets/makeup/kelsier/kelsier-04.jpg
+# ─────────────────────────────────────────────────────────────
+# MAKEUP — The Doll
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Makeup and Sculpture/DOLL.png,assets/makeup/the-doll/doll-01.png
+assets/Portfolio/Makeup and Sculpture/DOLL1 - copia.png,assets/makeup/the-doll/doll-02.png
+assets/Portfolio/Makeup and Sculpture/DOLL2.png,assets/makeup/the-doll/doll-03.png
+assets/Portfolio/Makeup and Sculpture/DOLL3.png,assets/makeup/the-doll/doll-04.png
+assets/Portfolio/Makeup and Sculpture/DOLL4.png,assets/makeup/the-doll/doll-05.png
+assets/Portfolio/Makeup and Sculpture/DOLL5.png,assets/makeup/the-doll/doll-06.png
+assets/Portfolio/Makeup and Sculpture/DOLL6.png,assets/makeup/the-doll/doll-07.png
+# ─────────────────────────────────────────────────────────────
+# MAKEUP — Old Skin (FX makeup)
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Makeup and Sculpture/OldSkin1.jpeg,assets/makeup/old-skin/old-skin-01.jpg
+assets/Portfolio/Makeup and Sculpture/OldSkin2.jpeg,assets/makeup/old-skin/old-skin-02.jpg
+assets/Portfolio/Makeup and Sculpture/OldSkin3.jpeg,assets/makeup/old-skin/old-skin-03.jpg
+assets/Portfolio/Makeup and Sculpture/OldSkin4.jpeg,assets/makeup/old-skin/old-skin-04.jpg
+assets/Portfolio/Makeup and Sculpture/prosthethic.jpg,assets/makeup/old-skin/prosthetic.jpg
+assets/Portfolio/Makeup and Sculpture/prosthethic.png,assets/makeup/old-skin/prosthetic.png
+# ─────────────────────────────────────────────────────────────
+# MAKEUP — Beast Book
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Makeup and Sculpture/BeastBook.jpeg,assets/makeup/beast-book/beast-book-01.jpg
+assets/Portfolio/Makeup and Sculpture/BeastBook2.jpeg,assets/makeup/beast-book/beast-book-02.jpg
+assets/Portfolio/Makeup and Sculpture/BeastBook3.jpeg,assets/makeup/beast-book/beast-book-03.jpg
+# ─────────────────────────────────────────────────────────────
+# MAKEUP — Clay Face (hehehehe.png + Sin título-1.png parked here, verify origin)
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Makeup and Sculpture/clayface.jpg,assets/makeup/clay-face/clay-face-01.jpg
+assets/Portfolio/Makeup and Sculpture/clayface.png,assets/makeup/clay-face/clay-face-02.png
+assets/Portfolio/Makeup and Sculpture/clayfacesquare.png,assets/makeup/clay-face/clay-face-square.png
+assets/Portfolio/Makeup and Sculpture/face.jpg,assets/makeup/clay-face/face-01.jpg
+assets/Portfolio/Makeup and Sculpture/face.png,assets/makeup/clay-face/face-02.png
+assets/Portfolio/Makeup and Sculpture/PAINTEDFCE.png,assets/makeup/clay-face/painted-face.png
+assets/Portfolio/Makeup and Sculpture/detailsface.jpg,assets/makeup/clay-face/details-face.jpg
+assets/Portfolio/Makeup and Sculpture/sideface.jpg,assets/makeup/clay-face/side-face.jpg
+assets/Portfolio/Makeup and Sculpture/leftside.png,assets/makeup/clay-face/left-side.png
+assets/Portfolio/Makeup and Sculpture/Sin título-1.png,assets/makeup/clay-face/wip-01.png
+assets/Portfolio/Makeup and Sculpture/hehehehe.png,assets/makeup/clay-face/wip-02.png
+# ─────────────────────────────────────────────────────────────
+# MAKEUP — Dolfo Makeup
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/Makeup and Sculpture/dolfomakinfof.jpg,assets/makeup/dolfo/dolfo-01.jpg
+assets/Portfolio/Makeup and Sculpture/MEWORKIGFINALSLIDE.jpg,assets/makeup/dolfo/dolfo-02.jpg
+assets/Portfolio/Makeup and Sculpture/Screenshot 2024-02-24 174530.png,assets/makeup/dolfo/dolfo-03.png
+assets/Portfolio/Makeup and Sculpture/Screenshot 2024-02-24 174554.png,assets/makeup/dolfo/dolfo-04.png
+assets/Portfolio/Makeup and Sculpture/Screenshot 2024-02-24 174659.png,assets/makeup/dolfo/dolfo-05.png
+assets/Portfolio/Makeup and Sculpture/Screenshot 2024-02-24 174743.png,assets/makeup/dolfo/dolfo-06.png
+# ─────────────────────────────────────────────────────────────
+# SoftwareLogos — SKIPPED (plan calls for SVG tool icons, these are PNG brand photos)
+# ─────────────────────────────────────────────────────────────
+assets/Portfolio/SoftwareLogos/4373281_artstation_logo_logos_icon.png,SKIP
+assets/Portfolio/SoftwareLogos/4373281_artstation_logo_logos_icon - copia.png,SKIP
+assets/Portfolio/SoftwareLogos/4373281_artstation_logo_logos_icon - copia (2).png,SKIP
+assets/Portfolio/SoftwareLogos/blenderlogo.png,SKIP
+assets/Portfolio/SoftwareLogos/githublogo.png,SKIP
+assets/Portfolio/SoftwareLogos/GMAILOGO.png,SKIP
+assets/Portfolio/SoftwareLogos/INSTAGRAMLOGO.webp,SKIP
+assets/Portfolio/SoftwareLogos/mayalogo.png,SKIP
+assets/Portfolio/SoftwareLogos/phlogo.png,SKIP
+assets/Portfolio/SoftwareLogos/portfoliopublico.png,SKIP
+assets/Portfolio/SoftwareLogos/portfolioslay.png,SKIP
+assets/Portfolio/SoftwareLogos/socials.png,SKIP
+assets/Portfolio/SoftwareLogos/unitylogo.png,SKIP
+assets/Portfolio/SoftwareLogos/unitylogocut.PNG,SKIP
+assets/Portfolio/SoftwareLogos/WASLOGO.png,SKIP
+assets/Portfolio/SoftwareLogos/zbrushlogo.png,SKIP

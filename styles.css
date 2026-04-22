@@ -19,6 +19,10 @@
   --spacing-xl: 8rem;
 
   --transition-default: 0.3s ease;
+
+  --nav-height: 48px;
+  --color-surface-translucent: rgba(26, 26, 26, 0.85);
+  --color-accent-soft: rgba(200, 169, 110, 0.3);
 }
 
 /* ==========================================================================
@@ -225,6 +229,64 @@ h1, h2, h3, h4, h5, h6, .display-text {
 }
 
 /* ==========================================================================
+   Site Nav
+   ========================================================================== */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 600;
+  height: var(--nav-height);
+  background: var(--color-surface-translucent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-accent-soft);
+}
+
+.site-nav__list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  height: 100%;
+  padding: 0 var(--spacing-md);
+  margin: 0;
+  list-style: none;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.site-nav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.site-nav__link {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-default);
+}
+
+.site-nav__link:hover,
+.site-nav__link--active {
+  color: var(--color-accent);
+}
+
+.site-nav__link:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+section,
+#info-section {
+  scroll-margin-top: var(--nav-height);
+}
+
+/* ==========================================================================
    Category Section Layout
    ========================================================================== */
 section {
@@ -265,6 +327,15 @@ section {
   align-items: flex-end;
   justify-content: space-between;
   padding: var(--spacing-md);
+}
+
+.project-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
 }
 
 .project-hero__overlay {
@@ -334,6 +405,66 @@ section {
     justify-content: flex-end;
     gap: var(--spacing-sm);
   }
+}
+
+/* Project body (collapsible) */
+.project-body {
+  display: none;
+}
+
+.project-body--visible {
+  display: block;
+}
+
+.project-hero__expand-btn {
+  position: absolute;
+  bottom: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5em 1.25em;
+  cursor: pointer;
+  transition: background var(--transition-default), color var(--transition-default);
+}
+
+.project-hero__expand-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.project-hero__expand-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.project-hero__expand-chevron {
+  display: inline-block;
+  transition: transform var(--transition-default);
+}
+
+.project-hero__expand-btn--open .project-hero__expand-chevron {
+  transform: rotate(180deg);
+}
+
+.project-body__collapse {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-md) 0 var(--spacing-lg);
+}
+
+.project-body__collapse .project-hero__expand-btn {
+  position: static;
+  transform: none;
 }
 
 /* 2. Stage Images */

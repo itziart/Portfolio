@@ -694,8 +694,18 @@ function renderCategorySection(category, projects) {
 
 function renderProjectBody(project) {
   const normalized = normalizeProject(project);
-  if (normalized.type === "gallery") return renderProjectGallery(normalized);
-  return renderProjectStages(normalized);
+  const inner = normalized.type === "gallery"
+    ? renderProjectGallery(normalized)
+    : renderProjectStages(normalized);
+  const collapseBtn = `
+    <div class="project-body__collapse">
+      <button class="project-hero__expand-btn project-hero__expand-btn--open" type="button"
+        data-target="body-${project.id}" aria-expanded="true" aria-controls="body-${project.id}">
+        <span class="project-hero__expand-label">Hide</span>
+        <span class="project-hero__expand-chevron" aria-hidden="true">▾</span>
+      </button>
+    </div>`;
+  return `<div class="project-body" id="body-${project.id}">${inner}${collapseBtn}</div>`;
 }
 
 function renderStageBlock(stage, projectName) {
@@ -723,16 +733,25 @@ function renderProjectHero(project) {
     `<img src="assets/icons/${tool}.png" alt="${tool} icon" class="project-hero__tool-icon" loading="lazy" decoding="async" width="32" height="32">`
   ).join('');
 
-  const bgSrc = project.hero
-    ? (project.hero.type === "video" ? project.hero.poster : project.hero.src)
-    : '';
+  const isVideo = project.hero?.type === "video";
+  const bgStyle = isVideo ? '' : `style="background-image: url('${project.hero?.src ?? ''}');"`;
+  const videoHtml = isVideo ? `
+    <video class="project-hero__video" autoplay muted loop playsinline preload="metadata" poster="${project.hero.poster}">
+      <source src="${project.hero.src}" type="video/mp4">
+    </video>` : '';
 
   return `
-    <div id="${project.id}" class="project-hero" style="background-image: url('${bgSrc}');">
+    <div id="${project.id}" class="project-hero" ${bgStyle}>
+      ${videoHtml}
       <div class="project-hero__overlay"></div>
       <button class="project-hero__anchor" aria-label="Copy link to ${project.name}">#</button>
       <h3 class="project-hero__title">${project.name}</h3>
       <div class="project-hero__tools">${toolsHtml}</div>
+      <button class="project-hero__expand-btn" type="button"
+        data-target="body-${project.id}" aria-expanded="false" aria-controls="body-${project.id}">
+        <span class="project-hero__expand-label">Show More</span>
+        <span class="project-hero__expand-chevron" aria-hidden="true">▾</span>
+      </button>
     </div>
   `;
 }
@@ -778,6 +797,24 @@ function init() {
   mountLightbox();
   attachHoverPlay(document.body);
 
+  document.body.addEventListener('click', e => {
+    const btn = e.target.closest('.project-hero__expand-btn');
+    if (!btn) return;
+    const body = document.getElementById(btn.dataset.target);
+    if (!body) return;
+    const willOpen = !body.classList.contains('project-body--visible');
+    body.classList.toggle('project-body--visible', willOpen);
+    document.querySelectorAll(`.project-hero__expand-btn[data-target="${btn.dataset.target}"]`).forEach(b => {
+      b.classList.toggle('project-hero__expand-btn--open', willOpen);
+      b.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      b.querySelector('.project-hero__expand-label').textContent = willOpen ? 'Hide' : 'Show More';
+    });
+    if (!willOpen) {
+      const hero = document.getElementById(btn.dataset.target.replace('body-', ''));
+      if (hero) hero.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+
   document.querySelectorAll('.project-hero__anchor').forEach(anchor => {
     anchor.addEventListener('click', e => {
       e.stopPropagation();
@@ -791,6 +828,39 @@ function init() {
     if (target) {
       requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth' }));
     }
+  }
+
+  // 3. Sticky nav
+  const siteNav = document.getElementById('site-nav');
+  if (siteNav) {
+    siteNav.innerHTML = `<ul class="site-nav__list">
+      <li class="site-nav__item"><a class="site-nav__link" href="#info-section" data-target="info-section">Home</a></li>
+      ${portfolioData.categories.map(c =>
+        `<li class="site-nav__item"><a class="site-nav__link" href="#${c.id}" data-target="${c.id}">${c.label}</a></li>`
+      ).join('')}
+    </ul>`;
+
+    siteNav.addEventListener('click', e => {
+      const link = e.target.closest('.site-nav__link');
+      if (!link) return;
+      e.preventDefault();
+      document.getElementById(link.dataset.target)?.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    const navLinks = siteNav.querySelectorAll('.site-nav__link');
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('site-nav__link--active'));
+          const active = siteNav.querySelector(`.site-nav__link[data-target="${entry.target.id}"]`);
+          if (active) active.classList.add('site-nav__link--active');
+        }
+      });
+    }, { rootMargin: '-50% 0px -50% 0px' });
+
+    document.querySelectorAll('main > section').forEach(s => sectionObserver.observe(s));
+    const infoSection = document.getElementById('info-section');
+    if (infoSection) sectionObserver.observe(infoSection);
   }
 
   const backToTop = document.createElement('button');

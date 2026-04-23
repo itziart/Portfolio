@@ -771,13 +771,30 @@ function renderProjectGallery(project) {
   return renderStageMedia(project.media || [], project.name);
 }
 
+const TOOL_DISPLAY_NAMES = Object.freeze({
+  blender: 'Blender',
+  marmoset: 'Marmoset',
+  maya: 'Maya',
+  photoshop: 'Photoshop',
+  substance: 'Substance',
+  unity: 'Unity',
+  xgen: 'XGen',
+  zbrush: 'ZBrush'
+});
+
+function getToolDisplayName(tool) {
+  return TOOL_DISPLAY_NAMES[tool] || tool;
+}
+
 function renderProjectHero(project) {
-  const toolsHtml = project.tools.map(tool => `
+  const toolsHtml = project.tools.map(tool => {
+    const toolName = getToolDisplayName(tool);
+    return `
     <span class="project-hero__tool" data-tool="${tool}">
-      <img src="assets/icons/${tool}.png" alt="${tool} icon" class="project-hero__tool-icon" loading="lazy" decoding="async" width="32" height="32">
-      <span class="project-hero__tool-fallback">${tool}</span>
+      <span class="project-hero__tool-fallback">${toolName}</span>
     </span>
-  `).join('');
+  `;
+  }).join('');
 
   const isVideo = project.hero?.type === "video";
   const bgStyle = isVideo ? '' : `style="background-image: url('${project.hero?.src ?? ''}');"`;
@@ -800,22 +817,6 @@ function renderProjectHero(project) {
       </button>
     </div>
   `;
-}
-
-function attachToolIconFallbacks(container) {
-  const activateFallback = icon => {
-    const wrapper = icon.closest('.project-hero__tool');
-    if (!wrapper) return;
-    wrapper.classList.add('project-hero__tool--fallback');
-  };
-
-  container.querySelectorAll('.project-hero__tool-icon').forEach(icon => {
-    icon.addEventListener('error', () => activateFallback(icon), { once: true });
-
-    if (icon.complete && icon.naturalWidth === 0) {
-      activateFallback(icon);
-    }
-  });
 }
 
 function renderProjectStage(stage) {
@@ -866,7 +867,6 @@ function init() {
 
   mountLightbox();
   attachHoverPlay(document.body);
-  attachToolIconFallbacks(document.body);
 
   document.body.addEventListener('click', e => {
     const btn = e.target.closest('.project-hero__expand-btn');

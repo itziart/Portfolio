@@ -5,8 +5,8 @@
 This is a **static Single Page Application** portfolio for a 3D artist.
 - Stack: plain HTML + CSS + JavaScript. No frameworks, no build tools, no npm.
 - Hosted on GitHub Pages.
-- Three files only: `index.html`, `styles.css`, `script.js`.
-- All content is data-driven from `portfolioData` in `script.js`. Never hardcode content in HTML.
+- Three files only: `index.html`, `styles.css`, `scripts.js`.
+- All content is data-driven from `portfolioData` in `scripts.js`. Never hardcode content in HTML.
 - Full project spec is in `DESIGN.md`. Always respect it.
 
 ---
@@ -14,7 +14,7 @@ This is a **static Single Page Application** portfolio for a 3D artist.
 ## Architecture Rules
 
 ### Data
-- All content (artist info, categories, projects, stages) lives in the `portfolioData` object at the top of `script.js`.
+- All content (artist info, categories, projects, stages) lives in the `portfolioData` object at the top of `scripts.js`.
 - Never read content from the DOM. Always read from `portfolioData`.
 - When adding a new project, only `portfolioData` should need to change — no HTML edits.
 
@@ -145,7 +145,7 @@ Always write mobile-first CSS (`min-width` media queries).
 ## When Adding a New Project
 
 Only these steps are needed:
-1. Add a new object to the `projects` array in `portfolioData` in `script.js`.
+1. Add a new object to the `projects` array in `portfolioData` in `scripts.js`.
 2. Add the image files to `assets/[category]/[project-slug]/`.
 3. No HTML changes. No CSS changes. The render functions handle everything.
 
@@ -167,7 +167,7 @@ portfolio/
 │   └── copilot-instructions.md   ← this file
 ├── index.html
 ├── styles.css
-├── script.js
+├── scripts.js
 ├── DESIGN.md                     ← full design spec and wireframe reference
 └── assets/
     ├── avatar.jpg

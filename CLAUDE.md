@@ -14,16 +14,16 @@ If any of those docs are out of date with the code, **say so in your reply** and
 
 ## Project context
 
-Static SPA portfolio for a 3D artist. Plain HTML + CSS + JavaScript. No frameworks, no bundlers, no npm dependencies. Three files: `index.html`, `styles.css`, `script.js`. Hosted on GitHub Pages.
+Static SPA portfolio for a 3D artist. Plain HTML + CSS + JavaScript. No frameworks, no bundlers, no npm dependencies. Three files: `index.html`, `styles.css`, `scripts.js`. Hosted on GitHub Pages.
 
-All content is data-driven from a single `portfolioData` object at the top of `script.js`. **Never hardcode content in HTML.** Adding a new project should mean editing only `portfolioData` and dropping files into `assets/`.
+All content is data-driven from a single `portfolioData` object at the top of `scripts.js`. **Never hardcode content in HTML.** Adding a new project should mean editing only `portfolioData` and dropping files into `assets/`.
 
 ---
 
 ## Architecture rules
 
 ### Data
-- All content (artist info, categories, projects, stages, media) lives in `portfolioData` in `script.js`.
+- All content (artist info, categories, projects, stages, media) lives in `portfolioData` in `scripts.js`.
 - Schema v2 supports two project types: `"staged"` (Characters / Creatures / Props — has named stages) and `"gallery"` (Makeup / Generalist — single mosaic, no stage labels).
 - Each "stage" or "gallery" holds a `media` array of `{ type: "image" | "video", src, poster?, alt?, aspect? }` items.
 - Never read content from the DOM. Always read from `portfolioData`.

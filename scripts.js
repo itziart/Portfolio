@@ -7,6 +7,8 @@ const portfolioData = {
     bio: "Passionate 3D Artist specializing in Characters, Props, and Creatures. Dedicated to bringing high-quality digital art to life.",
     contact: {
       email: "email@example.com",
+      phone: "+34 600 000 000",
+      instagram: "https://instagram.com/",
       artstation: "https://artstation.com/",
       linkedin: "https://linkedin.com/"
     }
@@ -292,7 +294,7 @@ const portfolioData = {
       id: "old-skin",
       category: "sfx",
       type: "gallery",
-      name: "Old Skin",
+      name: "Aging Makeup",
       tools: [],
       hero: { type: "image", src: "assets/makeup/old-skin/old-skin-01.jpg", aspect: 0.75 },
       media: [
@@ -633,24 +635,57 @@ function mountLightbox() {
 }
 
 function renderInfoPersonal(artist) {
-  let socialsHtml = '';
-  if (artist.contact) {
-    const { email, artstation, linkedin } = artist.contact;
-    if (email) socialsHtml += `<a href="mailto:${email}" class="info-personal__social-link">Email</a>`;
-    if (artstation) socialsHtml += `<a href="${artstation}" target="_blank" rel="noopener noreferrer" class="info-personal__social-link">ArtStation</a>`;
-    if (linkedin) socialsHtml += `<a href="${linkedin}" target="_blank" rel="noopener noreferrer" class="info-personal__social-link">LinkedIn</a>`;
-  }
+  const contact = artist.contact || {};
+  const socialMeta = {
+    instagram: { label: 'Instagram', icon: 'assets/icons/instagram.svg' },
+    linkedin: { label: 'LinkedIn', icon: 'assets/icons/linkedin.svg' },
+    artstation: { label: 'ArtStation', icon: 'assets/icons/artstation.svg' }
+  };
+
+  const socialOrder = ['instagram', 'linkedin', 'artstation'];
+  const socialsHtml = socialOrder.map((key) => {
+    const url = contact[key];
+    if (!url) return '';
+    const meta = socialMeta[key];
+    return `
+      <a href="${url}" target="_blank" rel="noopener noreferrer" class="info-sidebar__social-link" aria-label="${meta.label}">
+        <img src="${meta.icon}" alt="${meta.label}" class="info-sidebar__social-icon" loading="lazy" decoding="async" width="24" height="24">
+      </a>
+    `;
+  }).join('');
+
+  const phoneHref = contact.phone ? `tel:${contact.phone.replace(/[^+\d]/g, '')}` : '';
+  const portfolioHeading = `PORTFOLIO ${artist.name} ${artist.title}`.toUpperCase();
+
   return `
-    <aside class="info-personal">
-      <div class="info-personal__bg" style="background-image: url('${artist.avatar}');"></div>
-      <div class="overlay">
-        <p class="info-personal__bio">${artist.bio}</p>
-        <div class="info-personal__socials">${socialsHtml}</div>
-      </div>
-      <div class="info-personal__content">
-        <span class="info-personal__eyebrow">Portfolio</span>
-        <h1 class="info-personal__name">${artist.name}</h1>
-        <h2 class="info-personal__title">${artist.title}</h2>
+    <aside class="info-sidebar">
+      <div class="info-sidebar__bg" style="background-image: url('${artist.avatar}');"></div>
+      <div class="info-sidebar__content">
+        <div class="info-sidebar__intro">
+          <figure class="info-sidebar__avatar-wrap">
+            <img src="${artist.avatar}" alt="Portrait of ${artist.name}" class="info-sidebar__avatar" loading="lazy" decoding="async" width="160" height="160">
+          </figure>
+          <div class="info-sidebar__identity">
+            <span class="info-sidebar__eyebrow">About Me</span>
+            <h1 class="info-sidebar__name">${artist.name}</h1>
+            <p class="info-sidebar__role">${artist.title}</p>
+          </div>
+        </div>
+
+        <p class="info-sidebar__bio">${artist.bio}</p>
+
+        <ul class="info-sidebar__contact" aria-label="Contact details">
+          ${contact.email ? `<li><span>Email</span><a href="mailto:${contact.email}">${contact.email}</a></li>` : ''}
+          ${contact.phone ? `<li><span>Phone</span><a href="${phoneHref}">${contact.phone}</a></li>` : ''}
+        </ul>
+
+        <nav class="info-sidebar__socials" aria-label="Social links">
+          ${socialsHtml}
+        </nav>
+
+        <div class="info-sidebar__title-wrap">
+          <h2 class="info-sidebar__title">${portfolioHeading}</h2>
+        </div>
       </div>
     </aside>
   `;

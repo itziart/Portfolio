@@ -6,9 +6,13 @@ const portfolioData = {
     avatar: "assets/avatar.png",
     bio: "Passionate 3D Artist specializing in Characters, Props, and Creatures. Dedicated to bringing high-quality digital art to life.",
     contact: {
-      email: "email@example.com",
-      artstation: "https://artstation.com/",
-      linkedin: "https://linkedin.com/"
+      email: "itziarfx@gmail.com",
+      phone: "+34 601030660",
+      instagram: "https://www.instagram.com/itzi.artt/",
+      artstation: "https://www.artstation.com/itziart",
+      linkedin: "https://linkedin.com/in/itziart",
+      languages: "English, Spanish",
+      location: "Madrid, Spain / Wroclaw, Poland, willing to relocate"
     }
   },
 
@@ -633,26 +637,93 @@ function mountLightbox() {
 }
 
 function renderInfoPersonal(artist) {
-  let socialsHtml = '';
+  let metaRowsHtml = '';
+  let pillsHtml = '';
+
   if (artist.contact) {
-    const { email, artstation, linkedin } = artist.contact;
-    if (email) socialsHtml += `<a href="mailto:${email}" class="info-personal__social-link">Email</a>`;
-    if (artstation) socialsHtml += `<a href="${artstation}" target="_blank" rel="noopener noreferrer" class="info-personal__social-link">ArtStation</a>`;
-    if (linkedin) socialsHtml += `<a href="${linkedin}" target="_blank" rel="noopener noreferrer" class="info-personal__social-link">LinkedIn</a>`;
+    const { email, phone, instagram, artstation, linkedin, languages, location } = artist.contact;
+
+    if (email) metaRowsHtml += `
+      <li class="info-personal__meta-row">
+        <span class="info-personal__meta-label">Mail</span>
+        <a href="mailto:${email}" class="info-personal__meta-value info-personal__meta-value--link">${email}</a>
+      </li>`;
+    if (phone) metaRowsHtml += `
+      <li class="info-personal__meta-row">
+        <span class="info-personal__meta-label">Phone</span>
+        <a href="tel:${phone.replace(/\s+/g, '')}" class="info-personal__meta-value info-personal__meta-value--link">${phone}</a>
+      </li>`;
+    if (languages) metaRowsHtml += `
+      <li class="info-personal__meta-row">
+        <span class="info-personal__meta-label">Languages</span>
+        <span class="info-personal__meta-value">${languages}</span>
+      </li>`;
+    if (location) metaRowsHtml += `
+      <li class="info-personal__meta-row">
+        <span class="info-personal__meta-label">Location</span>
+        <span class="info-personal__meta-value">${location}</span>
+      </li>`;
+
+    if (instagram) pillsHtml += `<a href="${instagram}" target="_blank" rel="noopener noreferrer" class="info-personal__pill">Instagram</a>`;
+    if (artstation) pillsHtml += `<a href="${artstation}" target="_blank" rel="noopener noreferrer" class="info-personal__pill">ArtStation</a>`;
+    if (linkedin) pillsHtml += `<a href="${linkedin}" target="_blank" rel="noopener noreferrer" class="info-personal__pill">LinkedIn</a>`;
   }
+
   return `
     <aside class="info-personal">
       <div class="info-personal__bg" style="background-image: url('${artist.avatar}');"></div>
       <div class="overlay">
+        <div class="info-personal__overlay-header">Contact</div>
         <p class="info-personal__bio">${artist.bio}</p>
-        <div class="info-personal__socials">${socialsHtml}</div>
+        <ul class="info-personal__meta">${metaRowsHtml}</ul>
+        <div class="info-personal__pills">${pillsHtml}</div>
       </div>
       <div class="info-personal__content">
         <span class="info-personal__eyebrow">Portfolio</span>
         <h1 class="info-personal__name">${artist.name}</h1>
         <h2 class="info-personal__title">${artist.title}</h2>
+        <p class="info-personal__hint" aria-hidden="true">— Contact Me —</p>
       </div>
     </aside>
+  `;
+}
+
+function renderContactSection(artist) {
+  const contact = artist.contact || {};
+  const socialLinks = [];
+  const contactRows = [];
+
+  if (contact.email) {
+    socialLinks.push(`<a href="mailto:${contact.email}" class="contact-section__link">Email</a>`);
+    contactRows.push(`<li class="contact-section__item"><span class="contact-section__label">Mail</span><span class="contact-section__value">${contact.email}</span></li>`);
+  }
+  if (contact.phone) {
+    socialLinks.push(`<a href="tel:${contact.phone.replace(/\s+/g, '')}" class="contact-section__link">Phone</a>`);
+    contactRows.push(`<li class="contact-section__item"><span class="contact-section__label">Phone</span><span class="contact-section__value">${contact.phone}</span></li>`);
+  }
+  if (contact.instagram) {
+    socialLinks.push(`<a href="${contact.instagram}" target="_blank" rel="noopener noreferrer" class="contact-section__link">Instagram</a>`);
+  }
+  if (contact.linkedin) {
+    socialLinks.push(`<a href="${contact.linkedin}" target="_blank" rel="noopener noreferrer" class="contact-section__link">LinkedIn</a>`);
+  }
+  if (contact.artstation) {
+    socialLinks.push(`<a href="${contact.artstation}" target="_blank" rel="noopener noreferrer" class="contact-section__link">ArtStation</a>`);
+  }
+  if (contact.languages) {
+    contactRows.push(`<li class="contact-section__item"><span class="contact-section__label">Languages</span><span class="contact-section__value">${contact.languages}</span></li>`);
+  }
+  if (contact.location) {
+    contactRows.push(`<li class="contact-section__item"><span class="contact-section__label">Location</span><span class="contact-section__value">${contact.location}</span></li>`);
+  }
+
+  return `
+    <div class="contact-section__inner">
+      <p class="contact-section__eyebrow">Get In Touch</p>
+      <h2 class="contact-section__title">Contact</h2>
+      <ul class="contact-section__list">${contactRows.join('')}</ul>
+      <div class="contact-section__links">${socialLinks.join('')}</div>
+    </div>
   `;
 }
 
@@ -862,6 +933,11 @@ function init() {
     }
   });
 
+  const contactSection = document.getElementById('contact');
+  if (contactSection) {
+    contactSection.innerHTML = renderContactSection(portfolioData.artist);
+  }
+
   mountLightbox();
   attachHoverPlay(document.body);
 
@@ -911,6 +987,7 @@ function init() {
       ${portfolioData.categories.map(c =>
         `<li class="site-nav__item"><a class="site-nav__link" href="#${c.id}" data-target="${c.id}">${c.label}</a></li>`
       ).join('')}
+      <li class="site-nav__item"><a class="site-nav__link" href="#contact" data-target="contact">Contact</a></li>
     </ul>`;
 
     siteNav.addEventListener('click', e => {

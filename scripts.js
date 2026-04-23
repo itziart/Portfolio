@@ -21,7 +21,7 @@ const portfolioData = {
     { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures", focalPoint: "15% 100%" },
     { id: "props",      label: "Props",                  thumbnail: "assets/props/crime-shoes/hero-poster.jpg",       hoverText: "View Props", focalPoint: "40% 50%" },
     { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/the-foot/hero-poster.jpg", hoverText: "View Generalist", focalPoint: "50% 50%", layout: "mosaic" },
-    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/makeup/clay-face/details-face.jpg",           hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }
+    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/sfx/clay-face/details-face.jpg",           hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }
   ],
 
   projects: [
@@ -266,13 +266,13 @@ const portfolioData = {
       type: "gallery",
       name: "Kelsier",
       tools: [],
-      hero: { type: "image", src: "assets/makeup/kelsier/kelsier-01.jpg", aspect: 0.753 },
+      hero: { type: "image", src: "assets/sfx/kelsier/kelsier-01.jpg", aspect: 0.753 },
       media: [
-        { type: "image", src: "assets/makeup/kelsier/kelsier-01.jpg", aspect: 0.753 },
-        { type: "image", src: "assets/makeup/kelsier/kelsier-02.png", aspect: 0.753 },
-        { type: "image", src: "assets/makeup/kelsier/kelsier-03.png", aspect: 0.753 },
-        { type: "image", src: "assets/makeup/kelsier/kelsier-04.jpg", aspect: 0.799 },
-        { type: "image", src: "assets/makeup/kelsier/kelsier-05.png", aspect: 0.726 }
+        { type: "image", src: "assets/sfx/kelsier/kelsier-01.jpg", aspect: 0.753 },
+        { type: "image", src: "assets/sfx/kelsier/kelsier-02.png", aspect: 0.753 },
+        { type: "image", src: "assets/sfx/kelsier/kelsier-03.png", aspect: 0.753 },
+        { type: "image", src: "assets/sfx/kelsier/kelsier-04.jpg", aspect: 0.799 },
+        { type: "image", src: "assets/sfx/kelsier/kelsier-05.png", aspect: 0.726 }
       ]
     },
     {
@@ -282,35 +282,35 @@ const portfolioData = {
       name: "The Doll + Clay Face",
       tools: [],
       rendersStageLabel: null,
-      hero: { type: "image", src: "assets/makeup/the-doll/doll-01.png", aspect: 1.001 },
+      hero: { type: "image", src: "assets/sfx/the-doll/doll-01.png", aspect: 1.001 },
       stages: [
         {
           label: "Doll Miniature Visualization",
           media: [
-            { type: "image", src: "assets/makeup/the-doll/doll-01.png", aspect: 1.001 },
-            { type: "image", src: "assets/makeup/the-doll/doll-02.png", aspect: 1.001 },
-            { type: "image", src: "assets/makeup/the-doll/doll-03.png", aspect: 1.001 },
-            { type: "image", src: "assets/makeup/the-doll/doll-04.png", aspect: 1.001 },
-            { type: "image", src: "assets/makeup/the-doll/doll-05.png", aspect: 1.001 },
-            { type: "image", src: "assets/makeup/the-doll/doll-06.png", aspect: 1.001 },
-            { type: "image", src: "assets/makeup/the-doll/doll-07.png", aspect: 1.001 }
+            { type: "image", src: "assets/sfx/the-doll/doll-01.png", aspect: 1.001 },
+            { type: "image", src: "assets/sfx/the-doll/doll-02.png", aspect: 1.001 },
+            { type: "image", src: "assets/sfx/the-doll/doll-03.png", aspect: 1.001 },
+            { type: "image", src: "assets/sfx/the-doll/doll-04.png", aspect: 1.001 },
+            { type: "image", src: "assets/sfx/the-doll/doll-05.png", aspect: 1.001 },
+            { type: "image", src: "assets/sfx/the-doll/doll-06.png", aspect: 1.001 },
+            { type: "image", src: "assets/sfx/the-doll/doll-07.png", aspect: 1.001 }
           ]
         },
         {
           label: "The Clay Face",
           media: [
-            { type: "image", src: "assets/makeup/clay-face/clay-face-01.jpg",     aspect: 0.75  },
-            { type: "image", src: "assets/makeup/clay-face/clay-face-02.png",     aspect: 1.778 },
-            { type: "image", src: "assets/makeup/clay-face/clay-face-square.png", aspect: 1     },
-            { type: "image", src: "assets/makeup/clay-face/details-face.jpg",     aspect: 0.75  },
-            { type: "image", src: "assets/makeup/clay-face/face-01.jpg",          aspect: 0.75  },
-            { type: "image", src: "assets/makeup/clay-face/face-02.png",          aspect: 0.75  },
-            { type: "image", src: "assets/makeup/clay-face/prosthetic.jpg",       aspect: 0.75  },
-            { type: "image", src: "assets/makeup/clay-face/prosthetic.png",       aspect: 1     },
-            { type: "image", src: "assets/makeup/clay-face/painted-face.png",     aspect: 1     },
-            { type: "image", src: "assets/makeup/clay-face/side-face.jpg",        aspect: 0.75  },
-            { type: "image", src: "assets/makeup/clay-face/wip-01.png",           aspect: 1.778 },
-            { type: "image", src: "assets/makeup/clay-face/wip-02.png",           aspect: 1.778 }
+            { type: "image", src: "assets/sfx/clay-face/clay-face-01.jpg",     aspect: 0.75  },
+            { type: "image", src: "assets/sfx/clay-face/clay-face-02.png",     aspect: 1.778 },
+            { type: "image", src: "assets/sfx/clay-face/clay-face-square.png", aspect: 1     },
+            { type: "image", src: "assets/sfx/clay-face/details-face.jpg",     aspect: 0.75  },
+            { type: "image", src: "assets/sfx/clay-face/face-01.jpg",          aspect: 0.75  },
+            { type: "image", src: "assets/sfx/clay-face/face-02.png",          aspect: 0.75  },
+            { type: "image", src: "assets/sfx/clay-face/prosthetic.jpg",       aspect: 0.75  },
+            { type: "image", src: "assets/sfx/clay-face/prosthetic.png",       aspect: 1     },
+            { type: "image", src: "assets/sfx/clay-face/painted-face.png",     aspect: 1     },
+            { type: "image", src: "assets/sfx/clay-face/side-face.jpg",        aspect: 0.75  },
+            { type: "image", src: "assets/sfx/clay-face/wip-01.png",           aspect: 1.778 },
+            { type: "image", src: "assets/sfx/clay-face/wip-02.png",           aspect: 1.778 }
           ]
         }
       ]
@@ -321,12 +321,12 @@ const portfolioData = {
       type: "gallery",
       name: "Old Skin",
       tools: [],
-      hero: { type: "image", src: "assets/makeup/old-skin/old-skin-01.jpg", aspect: 0.75 },
+      hero: { type: "image", src: "assets/sfx/old-skin/old-skin-01.jpg", aspect: 0.75 },
       media: [
-        { type: "image", src: "assets/makeup/old-skin/old-skin-01.jpg", aspect: 0.75 },
-        { type: "image", src: "assets/makeup/old-skin/old-skin-02.jpg", aspect: 0.75 },
-        { type: "image", src: "assets/makeup/old-skin/old-skin-03.jpg", aspect: 0.75 },
-        { type: "image", src: "assets/makeup/old-skin/old-skin-04.jpg", aspect: 0.75 }
+        { type: "image", src: "assets/sfx/old-skin/old-skin-01.jpg", aspect: 0.75 },
+        { type: "image", src: "assets/sfx/old-skin/old-skin-02.jpg", aspect: 0.75 },
+        { type: "image", src: "assets/sfx/old-skin/old-skin-03.jpg", aspect: 0.75 },
+        { type: "image", src: "assets/sfx/old-skin/old-skin-04.jpg", aspect: 0.75 }
       ]
     },
     {
@@ -335,11 +335,11 @@ const portfolioData = {
       type: "gallery",
       name: "Beast Book",
       tools: [],
-      hero: { type: "image", src: "assets/makeup/beast-book/beast-book-01.jpg", aspect: 1.333 },
+      hero: { type: "image", src: "assets/sfx/beast-book/beast-book-01.jpg", aspect: 1.333 },
       media: [
-        { type: "image", src: "assets/makeup/beast-book/beast-book-01.jpg", aspect: 1.333 },
-        { type: "image", src: "assets/makeup/beast-book/beast-book-02.jpg", aspect: 1.333 },
-        { type: "image", src: "assets/makeup/beast-book/beast-book-03.jpg", aspect: 1.333 }
+        { type: "image", src: "assets/sfx/beast-book/beast-book-01.jpg", aspect: 1.333 },
+        { type: "image", src: "assets/sfx/beast-book/beast-book-02.jpg", aspect: 1.333 },
+        { type: "image", src: "assets/sfx/beast-book/beast-book-03.jpg", aspect: 1.333 }
       ]
     },
     {
@@ -348,13 +348,13 @@ const portfolioData = {
       type: "gallery",
       name: "Social Makeup",
       tools: [],
-      hero: { type: "image", src: "assets/makeup/social-makeup/social-makeup-01.jpg", aspect: 1.39 },
+      hero: { type: "image", src: "assets/sfx/social-makeup/social-makeup-01.jpg", aspect: 1.39 },
       media: [
-        { type: "image", src: "assets/makeup/social-makeup/social-makeup-01.jpg", aspect: 1.39  },
-        { type: "image", src: "assets/makeup/social-makeup/social-makeup-02.png", aspect: 0.767 },
-        { type: "image", src: "assets/makeup/social-makeup/social-makeup-03.png", aspect: 0.736 },
-        { type: "image", src: "assets/makeup/social-makeup/social-makeup-04.png", aspect: 2.307 },
-        { type: "image", src: "assets/makeup/social-makeup/social-makeup-05.png", aspect: 1.483 }
+        { type: "image", src: "assets/sfx/social-makeup/social-makeup-01.jpg", aspect: 1.39  },
+        { type: "image", src: "assets/sfx/social-makeup/social-makeup-02.png", aspect: 0.767 },
+        { type: "image", src: "assets/sfx/social-makeup/social-makeup-03.png", aspect: 0.736 },
+        { type: "image", src: "assets/sfx/social-makeup/social-makeup-04.png", aspect: 2.307 },
+        { type: "image", src: "assets/sfx/social-makeup/social-makeup-05.png", aspect: 1.483 }
       ]
     },
 
@@ -398,10 +398,28 @@ const portfolioData = {
       tools: ["maya", "blender"],
       hero: { type: "video", src: "assets/generalist/xali/xalihello.mp4", poster: "assets/generalist/xali/xalihello-poster.jpg", aspect: 1.741 },
       media: [
-        { type: "image", src: "assets/generalist/xali/hero.png",      aspect: 1.741 },
-        { type: "image", src: "assets/generalist/xali/modell.png",    aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/xalirig.webp",  aspect: 1.778 },
-        { type: "video", src: "assets/generalist/xali/xalihello.mp4", poster: "assets/generalist/xali/xalihello-poster.jpg", aspect: 1.741 }
+        { type: "image", src: "assets/generalist/xali/hero.png",       aspect: 1.741 },
+        { type: "image", src: "assets/generalist/xali/maps.png",       aspect: 1.778 },
+        { type: "image", src: "assets/generalist/xali/model-side.png", aspect: 1.669 },
+        { type: "image", src: "assets/generalist/xali/model.png",      aspect: 1.778 },
+        { type: "image", src: "assets/generalist/xali/modell.png",     aspect: 1.778 },
+        { type: "image", src: "assets/generalist/xali/reference.png",  aspect: 1.778 },
+        { type: "image", src: "assets/generalist/xali/retopo-02.png",  aspect: 1.012 },
+        { type: "image", src: "assets/generalist/xali/retopo-03.png",  aspect: 1.066 },
+        { type: "image", src: "assets/generalist/xali/retopo-04.png",  aspect: 1.032 },
+        { type: "image", src: "assets/generalist/xali/uvs-map.png",    aspect: 1     },
+        { type: "image", src: "assets/generalist/xali/versions.png",   aspect: 1.74  },
+        { type: "image", src: "assets/generalist/xali/xali.png",       aspect: 1.778 },
+        { type: "image", src: "assets/generalist/xali/xalirig.webp",   aspect: 1.778 },
+        { type: "video", src: "assets/generalist/xali/process-01.mp4", poster: "assets/generalist/xali/process-01-poster.jpg", aspect: 1.898 },
+        { type: "video", src: "assets/generalist/xali/process-02.mp4", poster: "assets/generalist/xali/process-02-poster.jpg", aspect: 3.097 },
+        { type: "video", src: "assets/generalist/xali/process-03.mp4", poster: "assets/generalist/xali/process-03-poster.jpg", aspect: 1.874 },
+        { type: "video", src: "assets/generalist/xali/process-04.mp4", poster: "assets/generalist/xali/process-04-poster.jpg", aspect: 1.77  },
+        { type: "video", src: "assets/generalist/xali/process-05.mp4", poster: "assets/generalist/xali/process-05-poster.jpg", aspect: 1.403 },
+        { type: "video", src: "assets/generalist/xali/process-06.mp4", poster: "assets/generalist/xali/process-06-poster.jpg", aspect: 1.339 },
+        { type: "video", src: "assets/generalist/xali/process-07.mp4", poster: "assets/generalist/xali/process-07-poster.jpg", aspect: 1.238 },
+        { type: "video", src: "assets/generalist/xali/process-08.mp4", poster: "assets/generalist/xali/process-08-poster.jpg", aspect: 2.252 },
+        { type: "video", src: "assets/generalist/xali/xalihello.mp4",  poster: "assets/generalist/xali/xalihello-poster.jpg",  aspect: 1.741 }
       ]
     },
     {
@@ -412,7 +430,11 @@ const portfolioData = {
       tools: ["blender"],
       hero: { type: "video", src: "assets/generalist/black-lodge/turnaorundscene.mp4", poster: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrenderdia-copia-2.jpg", aspect: 1.778 },
       media: [
+        { type: "image", src: "assets/generalist/black-lodge/hero.jpg", aspect: 1.778 },
         { type: "video", src: "assets/generalist/black-lodge/turnaorundscene.mp4", poster: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrenderdia-copia-2.jpg", aspect: 1.778 },
+        { type: "image", src: "assets/generalist/black-lodge/render-night-01.jpg", aspect: 1.778 },
+        { type: "image", src: "assets/generalist/black-lodge/wireframe-01.jpg", aspect: 1.778 },
+        { type: "image", src: "assets/generalist/black-lodge/wireframe-02.jpg", aspect: 1.778 },
         { type: "image", src: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrenderdia-copia-2.jpg", aspect: 1.778 },
         { type: "image", src: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrendernoche-1-copia.jpg", aspect: 1.778 },
         { type: "image", src: "assets/generalist/black-lodge/itzi-art-blacklodgeofficial.jpg", aspect: 1.778 },
@@ -427,29 +449,24 @@ const portfolioData = {
       name: "Dolfo (Stop Motion + Character Cards)",
       tools: [],
       rendersStageLabel: "Stop Motion",
-      hero: { type: "image", src: "assets/makeup/dolfo/dolfo-01.jpg", aspect: 1.333 },
+      hero: { type: "image", src: "assets/generalist/dolfo/dolfo-01.jpg", aspect: 1.333 },
       stages: [
         {
           label: "Stop Motion",
           media: [
-            { type: "image", src: "assets/makeup/dolfo/dolfo-01.jpg", aspect: 1.333 }
+            { type: "image", src: "assets/generalist/dolfo/dolfo-01.jpg", aspect: 1.333 }
           ]
         },
         {
-          label: "Dolfo & Snake Sketches",
+          label: "Dolfo, Snake & Tiger Sketches",
           media: [
             { type: "image", src: "assets/generalist/dolfo-snake/concept-dolfo.jpg",    aspect: 0.726 },
             { type: "image", src: "assets/generalist/dolfo-snake/concept-misc.jpg",     aspect: 0.726 },
             { type: "image", src: "assets/generalist/dolfo-snake/concept-snake.jpg",    aspect: 0.726 },
             { type: "image", src: "assets/generalist/dolfo-snake/dolfo-poses.jpg",      aspect: 0.726 },
-            { type: "image", src: "assets/generalist/dolfo-snake/expression-snake.jpg", aspect: 0.726 }
-          ]
-        },
-        {
-          label: "Tiger Sketches",
-          media: [
-            { type: "image", src: "assets/generalist/tiger/concept-tiger.jpg",    aspect: 0.726 },
-            { type: "image", src: "assets/generalist/tiger/expression-tiger.jpg", aspect: 0.726 }
+            { type: "image", src: "assets/generalist/dolfo-snake/expression-snake.jpg", aspect: 0.726 },
+            { type: "image", src: "assets/generalist/dolfo-snake/concept-tiger.jpg",    aspect: 0.726 },
+            { type: "image", src: "assets/generalist/dolfo-snake/expression-tiger.jpg", aspect: 0.726 }
           ]
         }
       ]

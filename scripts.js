@@ -21,7 +21,7 @@ const portfolioData = {
     { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures", focalPoint: "15% 100%" },
     { id: "props",      label: "Props",                  thumbnail: "assets/props/crime-shoes/hero-poster.jpg",       hoverText: "View Props", focalPoint: "40% 50%" },
     { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/the-foot/hero-poster.jpg", hoverText: "View Generalist", focalPoint: "50% 50%", layout: "mosaic" },
-    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/sfx/clay-face/details-face.jpg",           hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }
+    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/sfx/highlights/details-face.jpg",           hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }
   ],
 
   projects: [
@@ -36,79 +36,20 @@ const portfolioData = {
       hero: { type: "video", src: "assets/characters/assassin-elf/hero.mp4", poster: "assets/characters/assassin-elf/hero-poster.jpg", aspect: 1.778 },
       stages: [
         {
-          label: "Blockout",
-          media: [
-            { type: "image", src: "assets/characters/assassin-elf/blockout/elf.jpg",    aspect: 2.38  },
-            { type: "image", src: "assets/characters/assassin-elf/blockout/elf-02.jpg", aspect: 2.273 }
-          ]
-        },
-        {
           label: "High Poly",
           media: [
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/bru.jpg",              aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/skin.jpg",             aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/solo.jpg",             aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/orna.jpg",             aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/ornamentos.jpg",       aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/ornaments-try-01.jpg", aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/ornaments-try-02.jpg", aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/shoes.jpg",            aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/dudas.jpg",            aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/dudas-02.jpg",         aspect: 1.631 },
-            { type: "image", src: "assets/characters/assassin-elf/highpoly/done.jpg",             aspect: 1.631 }
-          ]
-        },
-        {
-          label: "Retopology",
-          media: [
-            { type: "image", src: "assets/characters/assassin-elf/retopology/retopo-01.png", aspect: 0.846 },
-            { type: "image", src: "assets/characters/assassin-elf/retopology/retopo-02.png", aspect: 0.472 },
-            { type: "image", src: "assets/characters/assassin-elf/retopology/retopo-03.png", aspect: 0.701 },
-            { type: "image", src: "assets/characters/assassin-elf/retopology/retopo-04.png", aspect: 0.711 },
-            { type: "video", src: "assets/characters/assassin-elf/retopology/process-01.mp4", poster: "assets/characters/assassin-elf/retopology/process-01-poster.jpg", aspect: 0.578 }
-          ]
-        },
-        {
-          label: "Bakes",
-          media: [
-            { type: "image", src: "assets/characters/assassin-elf/bakes/bake-01.png", aspect: 0.573  },
-            { type: "image", src: "assets/characters/assassin-elf/bakes/bake-02.png", aspect: 0.521  },
-            { type: "image", src: "assets/characters/assassin-elf/bakes/bake-03.png", aspect: 1.49   },
-            { type: "image", src: "assets/characters/assassin-elf/bakes/bake-04.png", aspect: 1.516  }
-          ]
-        },
-        {
-          label: "Textures",
-          media: [
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-01.png", aspect: 1.077 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-02.png", aspect: 1.228 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-03.png", aspect: 1.882 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-04.png", aspect: 0.569 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-05.png", aspect: 0.342 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-06.png", aspect: 1     },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-07.png", aspect: 0.532 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-08.png", aspect: 1.037 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-09.png", aspect: 0.521 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-10.png", aspect: 1.186 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-11.png", aspect: 1.007 },
-            { type: "image", src: "assets/characters/assassin-elf/textures/texture-12.png", aspect: 0.521 },
-            { type: "video", src: "assets/characters/assassin-elf/textures/process-01.mp4", poster: "assets/characters/assassin-elf/textures/process-01-poster.jpg", aspect: 1.002 },
-            { type: "video", src: "assets/characters/assassin-elf/textures/process-02.mp4", poster: "assets/characters/assassin-elf/textures/process-02-poster.jpg", aspect: 0.582 },
-            { type: "video", src: "assets/characters/assassin-elf/textures/process-03.mp4", poster: "assets/characters/assassin-elf/textures/process-03-poster.jpg", aspect: 1.155 },
-            { type: "video", src: "assets/characters/assassin-elf/textures/process-04.mp4", poster: "assets/characters/assassin-elf/textures/process-04-poster.jpg", aspect: 0.554 },
-            { type: "video", src: "assets/characters/assassin-elf/textures/process-05.mp4", poster: "assets/characters/assassin-elf/textures/process-05-poster.jpg", aspect: 0.865 }
+            { type: "image", src: "assets/characters/assassin-elf/highpoly/skin.jpg", aspect: 1.631 }
           ]
         },
         {
           label: "XGen",
           media: [
-            { type: "image", src: "assets/characters/assassin-elf/xgen/xgen-01.png",                                                                                    aspect: 0.759 },
+            { type: "image", src: "assets/characters/assassin-elf/xgen/xgen-01.png", aspect: 0.759 },
             { type: "video", src: "assets/characters/assassin-elf/xgen/process-01.mp4", poster: "assets/characters/assassin-elf/xgen/process-01-poster.jpg", aspect: 2.618 },
             { type: "video", src: "assets/characters/assassin-elf/xgen/process-02.mp4", poster: "assets/characters/assassin-elf/xgen/process-02-poster.jpg", aspect: 0.674 },
             { type: "video", src: "assets/characters/assassin-elf/xgen/process-03.mp4", poster: "assets/characters/assassin-elf/xgen/process-03-poster.jpg", aspect: 1.044 },
             { type: "video", src: "assets/characters/assassin-elf/xgen/process-04.mp4", poster: "assets/characters/assassin-elf/xgen/process-04-poster.jpg", aspect: 1.227 },
-            { type: "video", src: "assets/characters/assassin-elf/xgen/process-05.mp4", poster: "assets/characters/assassin-elf/xgen/process-05-poster.jpg", aspect: 1.053 },
-            { type: "video", src: "assets/characters/assassin-elf/xgen/process-06.mp4", poster: "assets/characters/assassin-elf/xgen/process-06-poster.jpg", aspect: 0.911 }
+            { type: "video", src: "assets/characters/assassin-elf/xgen/process-05.mp4", poster: "assets/characters/assassin-elf/xgen/process-05-poster.jpg", aspect: 1.053 }
           ]
         },
         {
@@ -117,9 +58,7 @@ const portfolioData = {
             { type: "image", src: "assets/characters/assassin-elf/render/render-01.png", aspect: 1.778 },
             { type: "image", src: "assets/characters/assassin-elf/render/render-02.png", aspect: 1.778 },
             { type: "image", src: "assets/characters/assassin-elf/render/render-03.png", aspect: 1.778 },
-            { type: "image", src: "assets/characters/assassin-elf/render/render-04.png", aspect: 1.778 },
-            { type: "image", src: "assets/characters/assassin-elf/render/render-05.png", aspect: 1.778 },
-            { type: "image", src: "assets/characters/assassin-elf/render/render-06.png", aspect: 1.778 }
+            { type: "image", src: "assets/characters/assassin-elf/render/render-04.png", aspect: 1.778 }
           ]
         }
       ]
@@ -130,23 +69,10 @@ const portfolioData = {
       id: "alien",
       category: "creatures",
       type: "staged",
-      name: "Alien",
+      name: "Xenomorph Alien",
       tools: ["zbrush", "maya", "substance", "marmoset"],
       hero: { type: "video", src: "assets/creatures/alien/hero.mp4", poster: "assets/creatures/alien/hero-poster.jpg", aspect: 1.778 },
       stages: [
-        {
-          label: "Blockout",
-          media: [
-            { type: "image", src: "assets/creatures/alien/blockout/alien.jpg",            aspect: 3.111 },
-            { type: "image", src: "assets/creatures/alien/blockout/alien-cual.jpg",       aspect: 2.051 },
-            { type: "image", src: "assets/creatures/alien/blockout/blocking-02.jpg",      aspect: 1.579 },
-            { type: "image", src: "assets/creatures/alien/blockout/blocking-05.jpg",      aspect: 1.616 },
-            { type: "image", src: "assets/creatures/alien/blockout/closeup.jpg",          aspect: 1.631 },
-            { type: "image", src: "assets/creatures/alien/blockout/persp-vs-neutral.jpg", aspect: 1.631 },
-            { type: "image", src: "assets/creatures/alien/blockout/teeth.jpg",            aspect: 1.631 },
-            { type: "image", src: "assets/creatures/alien/blockout/uvs.jpg",              aspect: 1.631 }
-          ]
-        },
         {
           label: "High Poly",
           media: [
@@ -154,26 +80,8 @@ const portfolioData = {
             { type: "image", src: "assets/creatures/alien/highpoly/highpoly-02.png", aspect: 1.778 },
             { type: "image", src: "assets/creatures/alien/highpoly/highpoly-03.png", aspect: 1.778 },
             { type: "image", src: "assets/creatures/alien/highpoly/highpoly-04.png", aspect: 1.778 },
-            { type: "image", src: "assets/creatures/alien/highpoly/highpoly-05.png", aspect: 1.778 },
-            { type: "image", src: "assets/creatures/alien/highpoly/highpoly-06.png", aspect: 1.778 },
-            { type: "image", src: "assets/creatures/alien/highpoly/highpoly-07.png", aspect: 1.778 },
             { type: "image", src: "assets/creatures/alien/highpoly/apof.jpg",        aspect: 1.626 },
-            { type: "image", src: "assets/creatures/alien/highpoly/head.jpg",        aspect: 1.626 },
             { type: "image", src: "assets/creatures/alien/highpoly/veins.jpg",       aspect: 1.626 }
-          ]
-        },
-        {
-          label: "UDIMs",
-          media: [
-            { type: "image", src: "assets/creatures/alien/udims/udim-01.png", aspect: 3.306 },
-            { type: "image", src: "assets/creatures/alien/udims/udim-02.png", aspect: 0.956 }
-          ]
-        },
-        {
-          label: "Textures",
-          media: [
-            { type: "image", src: "assets/creatures/alien/textures/texture-01.png",                                                                             aspect: 0.623 },
-            { type: "video", src: "assets/creatures/alien/textures/process-01.mp4", poster: "assets/creatures/alien/textures/process-01-poster.jpg", aspect: 0.936 }
           ]
         },
         {
@@ -184,10 +92,7 @@ const portfolioData = {
             { type: "image", src: "assets/creatures/alien/render/render-03.png", aspect: 1.778 },
             { type: "image", src: "assets/creatures/alien/render/render-04.png", aspect: 1.778 },
             { type: "image", src: "assets/creatures/alien/render/render-05.png", aspect: 1.778 },
-            { type: "image", src: "assets/creatures/alien/render/render-06.png", aspect: 1.778 },
-            { type: "image", src: "assets/creatures/alien/render/render-07.png", aspect: 1.778 },
-            { type: "image", src: "assets/creatures/alien/render/render-08.png", aspect: 1.778 },
-            { type: "video", src: "assets/creatures/alien/360.mp4",              poster: "assets/creatures/alien/360-poster.jpg",              aspect: 1.778 }
+            { type: "image", src: "assets/creatures/alien/render/render-06.png", aspect: 1.778 }
           ]
         }
       ]
@@ -218,15 +123,8 @@ const portfolioData = {
           ]
         },
         {
-          label: "Retopology",
-          media: [
-            { type: "video", src: "assets/props/crime-shoes/retopology/process-01.mp4", poster: "assets/props/crime-shoes/retopology/process-01-poster.jpg", aspect: 1.11 }
-          ]
-        },
-        {
           label: "Textures",
           media: [
-            { type: "video", src: "assets/props/crime-shoes/textures/process-01.mp4", poster: "assets/props/crime-shoes/textures/process-01-poster.jpg", aspect: 1.614 },
             { type: "video", src: "assets/props/crime-shoes/textures/process-02.mp4", poster: "assets/props/crime-shoes/textures/process-02-poster.jpg", aspect: 1.728 }
           ]
         },
@@ -238,10 +136,7 @@ const portfolioData = {
             { type: "image", src: "assets/props/crime-shoes/render/render-03.png", aspect: 1.778 },
             { type: "image", src: "assets/props/crime-shoes/render/render-04.png", aspect: 1.778 },
             { type: "image", src: "assets/props/crime-shoes/render/render-05.png", aspect: 1.778 },
-            { type: "image", src: "assets/props/crime-shoes/render/render-06.png", aspect: 1.778 },
-            { type: "image", src: "assets/props/crime-shoes/render/render-07.png", aspect: 1.778 },
-            { type: "image", src: "assets/props/crime-shoes/render/render-08.png", aspect: 1.778 },
-            { type: "image", src: "assets/props/crime-shoes/render/render-09.png", aspect: 1.778 }
+            { type: "image", src: "assets/props/crime-shoes/render/render-06.png", aspect: 1.778 }
           ]
         }
       ]
@@ -254,8 +149,13 @@ const portfolioData = {
       tools: ["zbrush", "maya", "substance", "marmoset"],
       hero: { type: "image", src: "assets/props/bone-dagger/render.jpg", aspect: 1.778 },
       media: [
-        { type: "image", src: "assets/props/bone-dagger/render.jpg",    aspect: 1.778 },
-        { type: "image", src: "assets/props/bone-dagger/wireframe.jpg", aspect: 1.778 }
+        { type: "image", src: "assets/props/bone-dagger/render.jpg",                        aspect: 1.778 },
+        { type: "image", src: "assets/props/bone-dagger/wireframe.jpg",                     aspect: 1.778 },
+        { type: "image", src: "assets/props/bone-dagger/itzi-art-anotherrenderneutra.webp", aspect: 1.778 },
+        { type: "image", src: "assets/props/bone-dagger/itzi-art-renderneutrob0t.webp",     aspect: 1.778 },
+        { type: "image", src: "assets/props/bone-dagger/itzi-art-renderneutroleft.webp",    aspect: 1.778 },
+        { type: "image", src: "assets/props/bone-dagger/itzi-art-renderneutroside.webp",    aspect: 1.778 },
+        { type: "image", src: "assets/props/bone-dagger/itzi-art-renderneutrotop.webp",     aspect: 1.778 }
       ]
     },
 
@@ -264,53 +164,47 @@ const portfolioData = {
       id: "kelsier",
       category: "sfx",
       type: "gallery",
-      name: "Kelsier",
+      name: "Kelsier (Misfits)",
       tools: [],
       hero: { type: "image", src: "assets/sfx/kelsier/kelsier-01.jpg", aspect: 0.753 },
       media: [
         { type: "image", src: "assets/sfx/kelsier/kelsier-01.jpg", aspect: 0.753 },
         { type: "image", src: "assets/sfx/kelsier/kelsier-02.png", aspect: 0.753 },
         { type: "image", src: "assets/sfx/kelsier/kelsier-03.png", aspect: 0.753 },
-        { type: "image", src: "assets/sfx/kelsier/kelsier-04.jpg", aspect: 0.799 },
-        { type: "image", src: "assets/sfx/kelsier/kelsier-05.png", aspect: 0.726 }
+        { type: "image", src: "assets/sfx/kelsier/kelsier-04.jpg", aspect: 0.799 }
       ]
     },
     {
       id: "the-doll-clay-face",
       category: "sfx",
       type: "staged",
-      name: "The Doll + Clay Face",
+      name: "Scary stories to tell in the dark (Miniature Doll + Clay Face)",
       tools: [],
       rendersStageLabel: null,
-      hero: { type: "image", src: "assets/sfx/the-doll/doll-01.png", aspect: 1.001 },
+      hero: { type: "image", src: "assets/sfx/highlights/doll-01.png", aspect: 1.001 },
+      highlights: [
+        { type: "image", src: "assets/sfx/highlights/doll-01.png",      aspect: 1.001 },
+        { type: "image", src: "assets/sfx/highlights/doll-07.png",      aspect: 1.001 },
+        { type: "image", src: "assets/sfx/highlights/details-face.jpg", aspect: 0.75  },
+        { type: "image", src: "assets/sfx/highlights/side-face.jpg",    aspect: 0.75  }
+      ],
       stages: [
         {
           label: "Doll Miniature Visualization",
           media: [
-            { type: "image", src: "assets/sfx/the-doll/doll-01.png", aspect: 1.001 },
             { type: "image", src: "assets/sfx/the-doll/doll-02.png", aspect: 1.001 },
             { type: "image", src: "assets/sfx/the-doll/doll-03.png", aspect: 1.001 },
             { type: "image", src: "assets/sfx/the-doll/doll-04.png", aspect: 1.001 },
             { type: "image", src: "assets/sfx/the-doll/doll-05.png", aspect: 1.001 },
-            { type: "image", src: "assets/sfx/the-doll/doll-06.png", aspect: 1.001 },
-            { type: "image", src: "assets/sfx/the-doll/doll-07.png", aspect: 1.001 }
+            { type: "image", src: "assets/sfx/the-doll/doll-06.png", aspect: 1.001 }
           ]
         },
         {
           label: "The Clay Face",
           media: [
             { type: "image", src: "assets/sfx/clay-face/clay-face-01.jpg",     aspect: 0.75  },
-            { type: "image", src: "assets/sfx/clay-face/clay-face-02.png",     aspect: 1.778 },
-            { type: "image", src: "assets/sfx/clay-face/clay-face-square.png", aspect: 1     },
-            { type: "image", src: "assets/sfx/clay-face/details-face.jpg",     aspect: 0.75  },
             { type: "image", src: "assets/sfx/clay-face/face-01.jpg",          aspect: 0.75  },
-            { type: "image", src: "assets/sfx/clay-face/face-02.png",          aspect: 0.75  },
-            { type: "image", src: "assets/sfx/clay-face/prosthetic.jpg",       aspect: 0.75  },
-            { type: "image", src: "assets/sfx/clay-face/prosthetic.png",       aspect: 1     },
-            { type: "image", src: "assets/sfx/clay-face/painted-face.png",     aspect: 1     },
-            { type: "image", src: "assets/sfx/clay-face/side-face.jpg",        aspect: 0.75  },
-            { type: "image", src: "assets/sfx/clay-face/wip-01.png",           aspect: 1.778 },
-            { type: "image", src: "assets/sfx/clay-face/wip-02.png",           aspect: 1.778 }
+            { type: "image", src: "assets/sfx/clay-face/prosthetic.jpg",       aspect: 0.75  }
           ]
         }
       ]
@@ -319,7 +213,7 @@ const portfolioData = {
       id: "old-skin",
       category: "sfx",
       type: "gallery",
-      name: "Old Skin",
+      name: "Aging",
       tools: [],
       hero: { type: "image", src: "assets/sfx/old-skin/old-skin-01.jpg", aspect: 0.75 },
       media: [
@@ -333,7 +227,7 @@ const portfolioData = {
       id: "beast-book",
       category: "sfx",
       type: "gallery",
-      name: "Beast Book",
+      name: "The Beast Book",
       tools: [],
       hero: { type: "image", src: "assets/sfx/beast-book/beast-book-01.jpg", aspect: 1.333 },
       media: [
@@ -342,22 +236,6 @@ const portfolioData = {
         { type: "image", src: "assets/sfx/beast-book/beast-book-03.jpg", aspect: 1.333 }
       ]
     },
-    {
-      id: "social-makeup",
-      category: "sfx",
-      type: "gallery",
-      name: "Social Makeup",
-      tools: [],
-      hero: { type: "image", src: "assets/sfx/social-makeup/social-makeup-01.jpg", aspect: 1.39 },
-      media: [
-        { type: "image", src: "assets/sfx/social-makeup/social-makeup-01.jpg", aspect: 1.39  },
-        { type: "image", src: "assets/sfx/social-makeup/social-makeup-02.png", aspect: 0.767 },
-        { type: "image", src: "assets/sfx/social-makeup/social-makeup-03.png", aspect: 0.736 },
-        { type: "image", src: "assets/sfx/social-makeup/social-makeup-04.png", aspect: 2.307 },
-        { type: "image", src: "assets/sfx/social-makeup/social-makeup-05.png", aspect: 1.483 }
-      ]
-    },
-
     // ── GENERALIST ──────────────────────────────────────────────────────────
     {
       id: "showreel",
@@ -365,7 +243,7 @@ const portfolioData = {
       type: "gallery",
       pinned: true,
       openFullscreenOnly: true,
-      name: "Showreel",
+      name: "Generalist Showreel",
       tools: [],
       hero: { type: "video", src: "assets/generalist/showreel/showreel.mp4", poster: "assets/generalist/showreel/showreel-poster.jpg", aspect: 1.778, hasAudio: true },
       media: [
@@ -378,7 +256,7 @@ const portfolioData = {
       type: "gallery",
       pinned: true,
       openFullscreenOnly: true,
-      name: "10s Animation",
+      name: "10s Frame to Frame Animation",
       tools: [],
       hero: { type: "video", src: "assets/generalist/showreel/animation-10s.mp4", poster: "assets/generalist/showreel/animation-10s-poster.jpg", aspect: 1.778, hasAudio: true },
       media: [
@@ -412,25 +290,9 @@ const portfolioData = {
       hero: { type: "video", src: "assets/generalist/xali/xalihello.mp4", poster: "assets/generalist/xali/xalihello-poster.jpg", aspect: 1.741 },
       media: [
         { type: "image", src: "assets/generalist/xali/hero.png",       aspect: 1.741 },
-        { type: "image", src: "assets/generalist/xali/maps.png",       aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/model-side.png", aspect: 1.669 },
-        { type: "image", src: "assets/generalist/xali/model.png",      aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/modell.png",     aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/reference.png",  aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/retopo-02.png",  aspect: 1.012 },
-        { type: "image", src: "assets/generalist/xali/retopo-03.png",  aspect: 1.066 },
-        { type: "image", src: "assets/generalist/xali/retopo-04.png",  aspect: 1.032 },
         { type: "image", src: "assets/generalist/xali/uvs-map.png",    aspect: 1     },
-        { type: "image", src: "assets/generalist/xali/versions.png",   aspect: 1.74  },
         { type: "image", src: "assets/generalist/xali/xali.png",       aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/xalirig.webp",   aspect: 1.778 },
-        { type: "video", src: "assets/generalist/xali/process-01.mp4", poster: "assets/generalist/xali/process-01-poster.jpg", aspect: 1.898 },
-        { type: "video", src: "assets/generalist/xali/process-02.mp4", poster: "assets/generalist/xali/process-02-poster.jpg", aspect: 3.097 },
-        { type: "video", src: "assets/generalist/xali/process-03.mp4", poster: "assets/generalist/xali/process-03-poster.jpg", aspect: 1.874 },
-        { type: "video", src: "assets/generalist/xali/process-04.mp4", poster: "assets/generalist/xali/process-04-poster.jpg", aspect: 1.77  },
         { type: "video", src: "assets/generalist/xali/process-05.mp4", poster: "assets/generalist/xali/process-05-poster.jpg", aspect: 1.403 },
-        { type: "video", src: "assets/generalist/xali/process-06.mp4", poster: "assets/generalist/xali/process-06-poster.jpg", aspect: 1.339 },
-        { type: "video", src: "assets/generalist/xali/process-07.mp4", poster: "assets/generalist/xali/process-07-poster.jpg", aspect: 1.238 },
         { type: "video", src: "assets/generalist/xali/process-08.mp4", poster: "assets/generalist/xali/process-08-poster.jpg", aspect: 2.252 },
         { type: "video", src: "assets/generalist/xali/xalihello.mp4",  poster: "assets/generalist/xali/xalihello-poster.jpg",  aspect: 1.741 }
       ]
@@ -441,15 +303,13 @@ const portfolioData = {
       type: "gallery",
       name: "Black Lodge - Twin Peaks Meets Magritte",
       tools: ["blender"],
-      hero: { type: "video", src: "assets/generalist/black-lodge/turnaorundscene.mp4", poster: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrenderdia-copia-2.jpg", aspect: 1.778 },
+      hero: { type: "video", src: "assets/generalist/black-lodge/turnaorundscene.mp4", poster: "assets/generalist/black-lodge/hero.jpg", aspect: 1.778 },
       media: [
         { type: "image", src: "assets/generalist/black-lodge/hero.jpg", aspect: 1.778 },
-        { type: "video", src: "assets/generalist/black-lodge/turnaorundscene.mp4", poster: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrenderdia-copia-2.jpg", aspect: 1.778 },
+        { type: "video", src: "assets/generalist/black-lodge/turnaorundscene.mp4", poster: "assets/generalist/black-lodge/hero.jpg", aspect: 1.778 },
         { type: "image", src: "assets/generalist/black-lodge/render-night-01.jpg", aspect: 1.778 },
         { type: "image", src: "assets/generalist/black-lodge/wireframe-01.jpg", aspect: 1.778 },
         { type: "image", src: "assets/generalist/black-lodge/wireframe-02.jpg", aspect: 1.778 },
-        { type: "image", src: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrenderdia-copia-2.jpg", aspect: 1.778 },
-        { type: "image", src: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrendernoche-1-copia.jpg", aspect: 1.778 },
         { type: "image", src: "assets/generalist/black-lodge/itzi-art-blacklodgeofficial.jpg", aspect: 1.778 },
         { type: "image", src: "assets/generalist/black-lodge/itzi-art-light.jpg", aspect: 1.778 },
         { type: "image", src: "assets/generalist/black-lodge/itzi-art-noche-background.jpg", aspect: 1.778 }
@@ -467,6 +327,7 @@ const portfolioData = {
         {
           label: "Stop Motion",
           media: [
+            { type: "video", src: "assets/generalist/dolfo/dolfo.mp4", poster: "assets/generalist/dolfo/dolfo-poster.jpg", aspect: 1.778, hasAudio: true },
             { type: "image", src: "assets/generalist/dolfo/dolfo-01.jpg", aspect: 1.333 }
           ]
         },
@@ -976,6 +837,15 @@ function renderRendersBlock(stage, projectName) {
   return `<div class="stage-block stage-block--renders">${renderStageMedia(n.media, altText)}</div>`;
 }
 
+function renderHighlightsBlock(mediaArray, projectName) {
+  if (!mediaArray || mediaArray.length === 0) return '';
+  return `
+    <div class="stage-block stage-block--highlights">
+      <div class="stage-block__label"><span>HIGHLIGHTS</span></div>
+      ${renderStageMedia(mediaArray, `${projectName} — Highlights`)}
+    </div>`;
+}
+
 function renderStageAccordion(stage, projectName) {
   const n = normalizeStage(stage);
   const altText = `${projectName} — ${n.label}`;
@@ -995,7 +865,8 @@ function renderProjectStages(project) {
   if (!project.stages || project.stages.length === 0) return '';
   const { rendersStage, otherStages } = pickRendersStage(project.stages, project.rendersStageLabel);
   const rendersHtml = rendersStage ? renderRendersBlock(rendersStage, project.name) : '';
-  return rendersHtml + otherStages.map(s => renderStageAccordion(s, project.name)).join('');
+  const highlightsHtml = renderHighlightsBlock(project.highlights, project.name);
+  return rendersHtml + highlightsHtml + otherStages.map(s => renderStageAccordion(s, project.name)).join('');
 }
 
 function renderProjectGallery(project) {

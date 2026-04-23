@@ -69,7 +69,7 @@ const portfolioData = {
       id: "alien",
       category: "creatures",
       type: "staged",
-      name: "Xenomorph Alien",
+      name: "Neoomorph Alien",
       tools: ["zbrush", "maya", "substance", "marmoset"],
       hero: { type: "video", src: "assets/creatures/alien/hero.mp4", poster: "assets/creatures/alien/hero-poster.jpg", aspect: 1.778 },
       stages: [
@@ -166,7 +166,7 @@ const portfolioData = {
       type: "gallery",
       name: "Kelsier (Misfits)",
       tools: [],
-      hero: { type: "image", src: "assets/sfx/kelsier/kelsier-01.jpg", aspect: 0.753 },
+      hero: { type: "image", src: "assets/sfx/kelsier/kelsier-04.jpg", aspect: 0.753 },
       media: [
         { type: "image", src: "assets/sfx/kelsier/kelsier-01.jpg", aspect: 0.753 },
         { type: "image", src: "assets/sfx/kelsier/kelsier-02.png", aspect: 0.753 },
@@ -181,7 +181,7 @@ const portfolioData = {
       name: "Scary stories to tell in the dark (Miniature Doll + Clay Face)",
       tools: [],
       rendersStageLabel: null,
-      hero: { type: "image", src: "assets/sfx/highlights/doll-01.png", aspect: 1.001 },
+      hero: { type: "image", src: "assets/sfx/highlights/doll-07.png", aspect: 1.001 },
       highlights: [
         { type: "image", src: "assets/sfx/highlights/doll-01.png",      aspect: 1.001 },
         { type: "image", src: "assets/sfx/highlights/doll-07.png",      aspect: 1.001 },
@@ -289,7 +289,7 @@ const portfolioData = {
       tools: ["maya", "blender"],
       hero: { type: "video", src: "assets/generalist/xali/xalihello.mp4", poster: "assets/generalist/xali/xalihello-poster.jpg", aspect: 1.741 },
       media: [
-        { type: "image", src: "assets/generalist/xali/hero.png",       aspect: 1.741 },
+        { type: "image", src: "assets/generalist/xali/hero.png",       aspect: 0 },
         { type: "image", src: "assets/generalist/xali/uvs-map.png",    aspect: 1     },
         { type: "image", src: "assets/generalist/xali/xali.png",       aspect: 1.778 },
         { type: "video", src: "assets/generalist/xali/process-05.mp4", poster: "assets/generalist/xali/process-05-poster.jpg", aspect: 1.403 },
@@ -322,7 +322,7 @@ const portfolioData = {
       name: "Dolfo (Stop Motion + Character Cards)",
       tools: [],
       rendersStageLabel: "Stop Motion",
-      hero: { type: "image", src: "assets/generalist/dolfo/dolfo-01.jpg", aspect: 1.333 },
+      hero: { type: "video", src: "assets/generalist/dolfo/dolfo.mp4", poster: "assets/generalist/dolfo/dolfo-01.jpg", aspect: 1.333 },
       stages: [
         {
           label: "Stop Motion",

@@ -366,10 +366,10 @@ const portfolioData = {
       pinned: true,
       name: "Showreel",
       tools: [],
-      hero: { type: "video", src: "assets/generalist/showreel/showreel.mp4", poster: "assets/generalist/showreel/showreel-poster.jpg", aspect: 1.778 },
+      hero: { type: "video", src: "assets/generalist/showreel/showreel.mp4", poster: "assets/generalist/showreel/showreel-poster.jpg", aspect: 1.778, hasAudio: true },
       media: [
-        { type: "video", src: "assets/generalist/showreel/showreel.mp4",      poster: "assets/generalist/showreel/showreel-poster.jpg",      aspect: 1.778 },
-        { type: "video", src: "assets/generalist/showreel/animation-10s.mp4", poster: "assets/generalist/showreel/animation-10s-poster.jpg", aspect: 1.778 }
+        { type: "video", src: "assets/generalist/showreel/showreel.mp4",      poster: "assets/generalist/showreel/showreel-poster.jpg",      aspect: 1.778, hasAudio: true },
+        { type: "video", src: "assets/generalist/showreel/animation-10s.mp4", poster: "assets/generalist/showreel/animation-10s-poster.jpg", aspect: 1.778, hasAudio: true }
       ]
     },
     {
@@ -378,7 +378,7 @@ const portfolioData = {
       type: "gallery",
       name: "The Foot - Group Animation",
       tools: ["maya"],
-      hero: { type: "video", src: "assets/generalist/the-foot/hero.mp4", poster: "assets/generalist/the-foot/hero-poster.jpg", aspect: 1.778 },
+      hero: { type: "video", src: "assets/generalist/the-foot/hero.mp4", poster: "assets/generalist/the-foot/hero-poster.jpg", aspect: 1.778, hasAudio: true },
       media: [
         { type: "image", src: "assets/generalist/the-foot/ants-concept.png",  aspect: 1.778 },
         { type: "image", src: "assets/generalist/the-foot/storyboard-01.jpg", aspect: 1.294 },
@@ -396,26 +396,12 @@ const portfolioData = {
       type: "gallery",
       name: "Xali - XR HUB Bavaria VR Mascott",
       tools: ["maya", "blender"],
-      hero: { type: "image", src: "assets/generalist/xali/hero.png", aspect: 1.741 },
+      hero: { type: "video", src: "assets/generalist/xali/xalihello.mp4", poster: "assets/generalist/xali/xalihello-poster.jpg", aspect: 1.741 },
       media: [
-        { type: "image", src: "assets/generalist/xali/xali.png",       aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/model.png",      aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/model-side.png", aspect: 1.669 },
-        { type: "image", src: "assets/generalist/xali/maps.png",       aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/reference.png",  aspect: 1.778 },
-        { type: "image", src: "assets/generalist/xali/versions.png",   aspect: 1.74  },
-        { type: "image", src: "assets/generalist/xali/retopo-02.png",  aspect: 1.012 },
-        { type: "image", src: "assets/generalist/xali/retopo-03.png",  aspect: 1.066 },
-        { type: "image", src: "assets/generalist/xali/retopo-04.png",  aspect: 1.032 },
-        { type: "image", src: "assets/generalist/xali/uvs-map.png",    aspect: 1     },
-        { type: "video", src: "assets/generalist/xali/process-01.mp4", poster: "assets/generalist/xali/process-01-poster.jpg", aspect: 1.898 },
-        { type: "video", src: "assets/generalist/xali/process-02.mp4", poster: "assets/generalist/xali/process-02-poster.jpg", aspect: 3.097 },
-        { type: "video", src: "assets/generalist/xali/process-03.mp4", poster: "assets/generalist/xali/process-03-poster.jpg", aspect: 1.874 },
-        { type: "video", src: "assets/generalist/xali/process-04.mp4", poster: "assets/generalist/xali/process-04-poster.jpg", aspect: 1.77  },
-        { type: "video", src: "assets/generalist/xali/process-05.mp4", poster: "assets/generalist/xali/process-05-poster.jpg", aspect: 1.403 },
-        { type: "video", src: "assets/generalist/xali/process-06.mp4", poster: "assets/generalist/xali/process-06-poster.jpg", aspect: 1.339 },
-        { type: "video", src: "assets/generalist/xali/process-07.mp4", poster: "assets/generalist/xali/process-07-poster.jpg", aspect: 1.238 },
-        { type: "video", src: "assets/generalist/xali/process-08.mp4", poster: "assets/generalist/xali/process-08-poster.jpg", aspect: 2.252 }
+        { type: "image", src: "assets/generalist/xali/hero.png",      aspect: 1.741 },
+        { type: "image", src: "assets/generalist/xali/modell.png",    aspect: 1.778 },
+        { type: "image", src: "assets/generalist/xali/xalirig.webp",  aspect: 1.778 },
+        { type: "video", src: "assets/generalist/xali/xalihello.mp4", poster: "assets/generalist/xali/xalihello-poster.jpg", aspect: 1.741 }
       ]
     },
     {
@@ -424,11 +410,14 @@ const portfolioData = {
       type: "gallery",
       name: "Black Lodge - Twin Peaks Meets Magritte",
       tools: ["blender"],
-      hero: { type: "image", src: "assets/generalist/black-lodge/hero.jpg", aspect: 1.778 },
+      hero: { type: "video", src: "assets/generalist/black-lodge/turnaorundscene.mp4", poster: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrenderdia-copia-2.jpg", aspect: 1.778 },
       media: [
-        { type: "image", src: "assets/generalist/black-lodge/render-night-01.jpg", aspect: 1.778 },
-        { type: "image", src: "assets/generalist/black-lodge/wireframe-01.jpg",    aspect: 1.778 },
-        { type: "image", src: "assets/generalist/black-lodge/wireframe-02.jpg",    aspect: 1.778 }
+        { type: "video", src: "assets/generalist/black-lodge/turnaorundscene.mp4", poster: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrenderdia-copia-2.jpg", aspect: 1.778 },
+        { type: "image", src: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrenderdia-copia-2.jpg", aspect: 1.778 },
+        { type: "image", src: "assets/generalist/black-lodge/itzi-art-blacklodgeofficialrendernoche-1-copia.jpg", aspect: 1.778 },
+        { type: "image", src: "assets/generalist/black-lodge/itzi-art-blacklodgeofficial.jpg", aspect: 1.778 },
+        { type: "image", src: "assets/generalist/black-lodge/itzi-art-light.jpg", aspect: 1.778 },
+        { type: "image", src: "assets/generalist/black-lodge/itzi-art-noche-background.jpg", aspect: 1.778 }
       ]
     },
     {
@@ -505,9 +494,10 @@ function renderMediaTile(mediaItem, altText) {
   const aspectStyle = mediaItem.aspect ? ` style="aspect-ratio: ${mediaItem.aspect}"` : '';
 
   if (mediaItem.type === 'video') {
+    const hasAudioAttr = mediaItem.hasAudio ? ' data-has-audio="true"' : '';
     return `
       <figure class="media-tile media-tile--video" tabindex="0"
-        data-type="video" data-src="${mediaItem.src}" data-poster="${mediaItem.poster || ''}"${aspectStyle}>
+        data-type="video" data-src="${mediaItem.src}" data-poster="${mediaItem.poster || ''}"${hasAudioAttr}${aspectStyle}>
         <video muted loop playsinline preload="metadata" poster="${mediaItem.poster || ''}">
           <source src="${mediaItem.src}" type="video/mp4">
         </video>
@@ -541,6 +531,20 @@ function attachHoverPlay(container) {
         video.currentTime = 0;
       });
     }
+  });
+}
+
+function attachCardVideoPlay(container) {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) return;
+  const noHover = window.matchMedia('(hover: none)').matches;
+  if (noHover) return;
+
+  container.querySelectorAll('.project-card').forEach(card => {
+    const video = card.querySelector('.project-card__video');
+    if (!video) return;
+    card.addEventListener('mouseenter', () => video.play().catch(() => {}));
+    card.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
   });
 }
 
@@ -585,14 +589,15 @@ function mountLightbox() {
 
   function showItem(index) {
     const tile = items[index];
-    const { type, src, poster = '' } = tile.dataset;
+    const { type, src, poster = '', hasAudio = '' } = tile.dataset;
     const content = lb.querySelector('.lightbox__content');
     const prevVideo = content.querySelector('video');
     if (prevVideo) prevVideo.pause();
 
     if (type === 'video') {
+      const mutedAttr = hasAudio === 'true' ? 'muted data-has-audio="true"' : 'muted';
       content.innerHTML = `
-        <video controls autoplay muted loop playsinline poster="${poster}">
+        <video controls autoplay ${mutedAttr} loop playsinline poster="${poster}">
           <source src="${src}" type="video/mp4">
         </video>
       `;
@@ -798,7 +803,8 @@ function renderInfoSection(data) {
 }
 
 function renderProjectCard(project) {
-  const heroSrc = project.hero?.type === "video"
+  const isVideoHero = project.hero?.type === "video";
+  const heroSrc = isVideoHero
     ? (project.hero.poster || '')
     : (project.hero?.src || '');
   const focalPoint = project.hero?.focalPoint || 'center';
@@ -810,6 +816,11 @@ function renderProjectCard(project) {
         </span>`).join('')}</div>`
     : '';
 
+  const cardVideoHtml = isVideoHero ? `
+    <video class="project-card__video" muted loop playsinline preload="metadata" poster="${project.hero.poster || ''}">
+      <source src="${project.hero.src}" type="video/mp4">
+    </video>` : '';
+
   return `
     <div class="project-card" id="${project.id}">
       <button class="project-card__trigger" type="button"
@@ -817,6 +828,7 @@ function renderProjectCard(project) {
         aria-expanded="false"
         aria-controls="body-${project.id}">
         <div class="project-card__bg" style="background-image: url('${heroSrc}'); background-position: ${focalPoint};"></div>
+        ${cardVideoHtml}
         <div class="project-card__overlay"></div>
         <div class="project-card__content">
           <h3 class="project-card__title">${project.name}</h3>
@@ -834,9 +846,18 @@ function renderCategoryMosaic(category, projects) {
     const inner = normalized.type === "gallery"
       ? renderProjectGallery(normalized)
       : renderProjectStages(normalized);
+
+    const hero = normalized.hero;
+    const alreadyInMedia = normalized.type === "gallery" &&
+      (normalized.media || []).some(m => m.src === hero?.src);
+    const heroVideoHtml = hero?.type === "video" && !alreadyInMedia
+      ? renderMediaSolo(hero, normalized.name)
+      : '';
+
     return `
       <div class="category-mosaic__body project-body" id="body-${p.id}">
         <div class="section-banner section-banner--project"><span>${p.name}</span></div>
+        ${heroVideoHtml}
         ${inner}
       </div>`;
   }).join('');
@@ -855,6 +876,9 @@ function renderCategorySection(category, projects) {
 
   let projectsHtml = '';
   projects.forEach(project => {
+    if (category.id === 'props' && project.id === 'bone-dagger') {
+      projectsHtml += '<div class="project-banner-gap" aria-hidden="true"></div>';
+    }
     projectsHtml += renderProjectHero(project);
     projectsHtml += renderProjectBody(project);
   });
@@ -958,10 +982,10 @@ function getToolDisplayName(tool) {
   return TOOL_DISPLAY_NAMES[tool] || tool;
 }
 
-function updateVideoHeroInsets() {
-  const videoHeroes = document.querySelectorAll('.project-hero--video');
+function updateContainedHeroInsets() {
+  const containedHeroes = document.querySelectorAll('.project-hero--video, .project-hero--image');
 
-  videoHeroes.forEach(hero => {
+  containedHeroes.forEach(hero => {
     const rect = hero.getBoundingClientRect();
     const heroWidth = rect.width;
     const heroHeight = rect.height;
@@ -980,6 +1004,28 @@ function updateVideoHeroInsets() {
   });
 }
 
+function setFullscreenVideoControls(video) {
+  if (!video) return;
+  video.setAttribute('controls', '');
+  video.defaultMuted = false;
+  const hasAudio = video.dataset.hasAudio === 'true';
+  if (hasAudio) {
+    video.muted = false;
+    video.removeAttribute('muted');
+    video.volume = 1;
+  } else {
+    video.muted = true;
+    video.setAttribute('muted', '');
+  }
+}
+
+function clearFullscreenVideoControls(video) {
+  if (!video) return;
+  video.removeAttribute('controls');
+  video.muted = true;
+  video.setAttribute('muted', '');
+}
+
 function renderProjectHero(project) {
   const toolsHtml = project.tools.map(tool => {
     const toolName = getToolDisplayName(tool);
@@ -992,19 +1038,31 @@ function renderProjectHero(project) {
 
   const isVideo = project.hero?.type === "video";
   const heroClass = isVideo ? 'project-hero project-hero--video' : 'project-hero project-hero--image';
+  const heroAspect = project.hero?.aspect ?? 1.778;
+  const heroHasAudioAttr = project.hero?.hasAudio ? ' data-has-audio="true"' : '';
   const heroStyle = isVideo
-    ? `style="--project-hero-aspect: ${project.hero?.aspect ?? 1.778};"`
-    : `style="background-image: url('${project.hero?.src ?? ''}');"`;
+    ? `style="--project-hero-aspect: ${heroAspect};"`
+    : `style="--project-hero-aspect: ${heroAspect}; background-image: url('${project.hero?.src ?? ''}');"`;
   const videoHtml = isVideo ? `
-    <video class="project-hero__video" autoplay muted loop playsinline preload="metadata" poster="${project.hero.poster}">
+    <video class="project-hero__video" autoplay muted loop playsinline preload="metadata" poster="${project.hero.poster}"${heroHasAudioAttr}>
       <source src="${project.hero.src}" type="video/mp4">
     </video>` : '';
+
+  const fullscreenBtn = isVideo ? `
+    <button class="project-hero__fullscreen-btn" type="button" aria-label="Watch ${project.name} fullscreen">
+      <svg width="13" height="13" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M0 4V0h4M8 0h4v4M12 8v4H8M4 12H0V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>` : '';
 
   return `
     <div id="${project.id}" class="${heroClass}" ${heroStyle}>
       ${videoHtml}
       <div class="project-hero__overlay"></div>
-      <button class="project-hero__anchor" aria-label="Copy link to ${project.name}">#</button>
+      <div class="project-hero__actions">
+        <button class="project-hero__anchor" type="button" aria-label="Copy link to ${project.name}">#</button>
+        ${fullscreenBtn}
+      </div>
       <h3 class="project-hero__title">${project.name}</h3>
       <div class="project-hero__tools">${toolsHtml}</div>
       <button class="project-hero__expand-btn" type="button"
@@ -1067,8 +1125,9 @@ function init() {
 
   mountLightbox();
   attachHoverPlay(document.body);
-  updateVideoHeroInsets();
-  window.addEventListener('resize', updateVideoHeroInsets);
+  attachCardVideoPlay(document.body);
+  updateContainedHeroInsets();
+  window.addEventListener('resize', updateContainedHeroInsets);
 
   document.body.addEventListener('click', e => {
     const btn = e.target.closest('.project-hero__expand-btn');
@@ -1123,13 +1182,50 @@ function init() {
     }
   });
 
-  document.querySelectorAll('.project-hero__anchor').forEach(anchor => {
-    anchor.addEventListener('click', e => {
-      e.stopPropagation();
-      const projectId = anchor.closest('.project-hero').id;
-      history.replaceState(null, '', '#' + projectId);
-    });
+  document.body.addEventListener('click', e => {
+    const anchor = e.target.closest('.project-hero__anchor');
+    if (!anchor) return;
+    e.stopPropagation();
+    const projectId = anchor.closest('.project-hero').id;
+    history.replaceState(null, '', '#' + projectId);
   });
+
+  let activeFullscreenHeroVideo = null;
+
+  document.body.addEventListener('click', e => {
+    const btn = e.target.closest('.project-hero__fullscreen-btn');
+    if (!btn) return;
+    e.stopPropagation();
+    const video = btn.closest('.project-hero')?.querySelector('.project-hero__video');
+    if (!video) return;
+    activeFullscreenHeroVideo = video;
+    setFullscreenVideoControls(video);
+    if (video.requestFullscreen) video.requestFullscreen();
+    else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+    else if (video.mozRequestFullScreen) video.mozRequestFullScreen();
+  });
+
+  const syncFullscreenHeroVideoState = () => {
+    const activeFullscreenEl = document.fullscreenElement || document.webkitFullscreenElement || null;
+    const activeVideoFromState = activeFullscreenHeroVideo &&
+      (activeFullscreenEl === activeFullscreenHeroVideo || activeFullscreenHeroVideo.webkitDisplayingFullscreen)
+      ? activeFullscreenHeroVideo
+      : null;
+
+    document.querySelectorAll('.project-hero__video[controls]').forEach(video => {
+      const isActive = video === activeFullscreenEl || video === activeVideoFromState;
+      if (!isActive) {
+        clearFullscreenVideoControls(video);
+      }
+    });
+
+    if (!activeVideoFromState && activeFullscreenEl !== activeFullscreenHeroVideo) {
+      activeFullscreenHeroVideo = null;
+    }
+  };
+
+  document.addEventListener('fullscreenchange', syncFullscreenHeroVideoState);
+  document.addEventListener('webkitfullscreenchange', syncFullscreenHeroVideoState);
 
   if (location.hash) {
     const target = document.getElementById(location.hash.slice(1));

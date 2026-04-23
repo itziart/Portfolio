@@ -136,7 +136,7 @@ h1, h2, h3, h4, h5, h6, .display-text {
 }
 
 .info-tile__bg{
-  filter: brightness(0.7) contrast(1.05) saturate(1.05);
+  filter: contrast(1.05) saturate(1.05);
 }
 
 
@@ -835,6 +835,8 @@ section {
 .project-hero--image {
   background-size: contain;
   background-color: var(--color-bg);
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .project-hero__video {
@@ -853,35 +855,18 @@ section {
   background:
     linear-gradient(
       90deg,
+      var(--color-bg) 0,
       var(--color-bg) var(--project-hero-video-side-inset),
-      transparent var(--project-hero-video-side-inset),
-      transparent calc(100% - var(--project-hero-video-side-inset)),
-      var(--color-bg) calc(100% - var(--project-hero-video-side-inset))
+      rgba(200, 169, 110, 0.3) var(--project-hero-video-side-inset),
+      rgba(200, 169, 110, 0.3) calc(var(--project-hero-video-side-inset) + 1px),
+      transparent calc(var(--project-hero-video-side-inset) + 1px),
+      transparent calc(100% - var(--project-hero-video-side-inset) - 1px),
+      rgba(200, 169, 110, 0.3) calc(100% - var(--project-hero-video-side-inset) - 1px),
+      rgba(200, 169, 110, 0.3) calc(100% - var(--project-hero-video-side-inset)),
+      var(--color-bg) calc(100% - var(--project-hero-video-side-inset)),
+      var(--color-bg) 100%
     ),
     var(--color-bg);
-}
-
-.project-hero--video::before,
-.project-hero--video::after {
-  content: '';
-  position: absolute;
-  top: 10%;
-  height: 80%;
-  width: var(--project-hero-video-side-inset);
-  z-index: 2;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='32'><line x1='12' y1='0' x2='12' y2='6' stroke='%23c8a96e' stroke-width='1' opacity='.28'/><polygon points='12,6 19,15 12,24 5,15' fill='%23c8a96e' fill-opacity='.07' stroke='%23c8a96e' stroke-width='1' stroke-opacity='.5'/><line x1='12' y1='24' x2='12' y2='32' stroke='%23c8a96e' stroke-width='1' opacity='.28'/></svg>");
-  background-size: 24px 32px;
-  background-position: center top;
-  background-repeat: repeat-y;
-}
-
-.project-hero--video::before {
-  left: 0;
-}
-
-.project-hero--video::after {
-  right: 0;
 }
 
 .project-hero--video .project-hero__video {
@@ -896,7 +881,33 @@ section {
 }
 
 .project-hero--video .project-hero__overlay {
-  display: none;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent var(--project-hero-video-side-inset),
+      var(--color-overlay) var(--project-hero-video-side-inset),
+      var(--color-overlay) calc(100% - var(--project-hero-video-side-inset)),
+      transparent calc(100% - var(--project-hero-video-side-inset)),
+      transparent 100%
+    );
+}
+
+.project-hero--image .project-hero__overlay {
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent var(--project-hero-video-side-inset),
+      rgba(200, 169, 110, 0.3) var(--project-hero-video-side-inset),
+      rgba(200, 169, 110, 0.3) calc(var(--project-hero-video-side-inset) + 1px),
+      var(--color-overlay) var(--project-hero-video-side-inset),
+      var(--color-overlay) calc(100% - var(--project-hero-video-side-inset)),
+      rgba(200, 169, 110, 0.3) calc(100% - var(--project-hero-video-side-inset) - 1px),
+      rgba(200, 169, 110, 0.3) calc(100% - var(--project-hero-video-side-inset)),
+      transparent calc(100% - var(--project-hero-video-side-inset)),
+      transparent 100%
+    );
 }
 
 .project-hero__title {
@@ -909,7 +920,8 @@ section {
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
 
-.project-hero--video .project-hero__title {
+.project-hero--video .project-hero__title,
+.project-hero--image .project-hero__title {
   position: absolute;
   bottom: calc(var(--spacing-md) + 2.8rem);
   left: calc(var(--project-hero-video-side-inset) + var(--spacing-md));
@@ -928,7 +940,8 @@ section {
   gap: var(--spacing-sm);
 }
 
-.project-hero--video .project-hero__tools {
+.project-hero--video .project-hero__tools,
+.project-hero--image .project-hero__tools {
   position: absolute;
   right: calc(var(--project-hero-video-side-inset) + var(--spacing-md));
   bottom: calc(var(--spacing-md) + 2.6rem);
@@ -964,11 +977,32 @@ section {
   line-height: 1;
 }
 
-.project-hero__anchor {
+.project-hero__actions {
   position: absolute;
   top: var(--spacing-sm);
   right: var(--spacing-sm);
   z-index: 2;
+  display: flex;
+  gap: var(--spacing-xs);
+  opacity: 0;
+  transition: opacity var(--transition-default);
+}
+
+.project-hero--video .project-hero__actions,
+.project-hero--image .project-hero__actions {
+  right: calc(var(--project-hero-video-side-inset) + var(--spacing-sm));
+}
+
+.project-hero:hover .project-hero__actions,
+.project-hero__actions:focus-within {
+  opacity: 1;
+}
+
+.project-hero__anchor,
+.project-hero__fullscreen-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: rgba(0, 0, 0, 0.5);
   color: var(--color-accent);
   border: none;
@@ -979,18 +1013,18 @@ section {
   padding: 0.35em 0.6em;
   border-radius: 2px;
   cursor: pointer;
-  opacity: 0;
-  transition: opacity var(--transition-default);
+  transition: background var(--transition-default);
 }
 
-.project-hero:hover .project-hero__anchor {
-  opacity: 1;
+.project-hero__anchor:hover,
+.project-hero__fullscreen-btn:hover {
+  background: rgba(0, 0, 0, 0.78);
 }
 
-.project-hero__anchor:focus-visible {
+.project-hero__anchor:focus-visible,
+.project-hero__fullscreen-btn:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-  opacity: 1;
 }
 
 @media (max-width: 767px) {
@@ -1008,12 +1042,8 @@ section {
     max-height: none;
   }
 
-  .project-hero--video::before,
-  .project-hero--video::after {
-    display: none;
-  }
-
-  .project-hero--video .project-hero__title {
+  .project-hero--video .project-hero__title,
+  .project-hero--image .project-hero__title {
     top: auto;
     bottom: calc(var(--spacing-md) + 2.6rem);
     left: 0;
@@ -1035,7 +1065,8 @@ section {
     font-size: clamp(2rem, 5vw, 3rem);
   }
 
-  .project-hero--video .project-hero__title {
+  .project-hero--video .project-hero__title,
+  .project-hero--image .project-hero__title {
     left: calc(var(--project-hero-video-side-inset) + var(--spacing-sm));
   }
 
@@ -1043,7 +1074,8 @@ section {
     gap: var(--spacing-xs);
   }
 
-  .project-hero--video .project-hero__tools {
+  .project-hero--video .project-hero__tools,
+  .project-hero--image .project-hero__tools {
     right: calc(var(--project-hero-video-side-inset) + var(--spacing-sm));
     bottom: calc(var(--spacing-sm) + 2.5rem);
     max-width: min(48%, 340px);
@@ -1124,6 +1156,24 @@ section {
 .project-body__collapse .project-hero__expand-btn {
   position: static;
   transform: none;
+}
+
+.project-banner-gap {
+  height: clamp(4.25rem, 8vh, 6.5rem);
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent var(--spacing-md),
+      rgba(200, 169, 110, 0.18) var(--spacing-md),
+      rgba(200, 169, 110, 0.18) calc(var(--spacing-md) + 1px),
+      transparent calc(var(--spacing-md) + 1px),
+      transparent calc(100% - var(--spacing-md) - 1px),
+      rgba(200, 169, 110, 0.18) calc(100% - var(--spacing-md) - 1px),
+      rgba(200, 169, 110, 0.18) calc(100% - var(--spacing-md)),
+      transparent calc(100% - var(--spacing-md)),
+      transparent 100%
+    );
 }
 
 /* 2. Stage Images */
@@ -1526,6 +1576,23 @@ details[open] > .stage-accordion__summary .stage-accordion__chevron {
 .project-card:hover .project-card__bg,
 .project-card--active .project-card__bg {
   transform: scale(1.04);
+}
+
+.project-card__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+@media (hover: hover) {
+  .project-card:hover .project-card__video {
+    opacity: 1;
+  }
 }
 
 .project-card__overlay {

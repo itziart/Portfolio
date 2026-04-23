@@ -20,8 +20,8 @@ const portfolioData = {
     { id: "characters", label: "Characters",             thumbnail: "assets/characters/assassin-elf/hero-poster.jpg", hoverText: "View Characters", focalPoint: "15% 50%" },
     { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures", focalPoint: "15% 100%" },
     { id: "props",      label: "Props",                  thumbnail: "assets/props/crime-shoes/hero-poster.jpg",       hoverText: "View Props", focalPoint: "40% 50%" },
-    { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/the-foot/hero-poster.jpg", hoverText: "View Generalist", focalPoint: "50% 50%" },
-    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/makeup/clay-face/details-face.jpg",           hoverText: "View SFX", focalPoint: "50% 30%" }
+    { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/the-foot/hero-poster.jpg", hoverText: "View Generalist", focalPoint: "50% 50%", layout: "mosaic" },
+    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/makeup/clay-face/details-face.jpg",           hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }
   ],
 
   projects: [
@@ -797,14 +797,73 @@ function renderInfoSection(data) {
   `;
 }
 
+function renderProjectCard(project) {
+  const heroSrc = project.hero?.type === "video"
+    ? (project.hero.poster || '')
+    : (project.hero?.src || '');
+  const focalPoint = project.hero?.focalPoint || 'center';
+
+  const toolsHtml = project.tools.length
+    ? `<div class="project-card__tools">${project.tools.map(tool => `
+        <span class="project-card__tool" data-tool="${tool}">
+          <span class="project-card__tool-label">${getToolDisplayName(tool)}</span>
+        </span>`).join('')}</div>`
+    : '';
+
+  return `
+    <div class="project-card" id="${project.id}">
+      <button class="project-card__trigger" type="button"
+        data-target="body-${project.id}"
+        aria-expanded="false"
+        aria-controls="body-${project.id}">
+        <div class="project-card__bg" style="background-image: url('${heroSrc}'); background-position: ${focalPoint};"></div>
+        <div class="project-card__overlay"></div>
+        <div class="project-card__content">
+          <h3 class="project-card__title">${project.name}</h3>
+          ${toolsHtml}
+        </div>
+      </button>
+    </div>
+  `;
+}
+
+function renderCategoryMosaic(category, projects) {
+  const cardsHtml = projects.map(p => renderProjectCard(p)).join('');
+  const bodiesHtml = projects.map(p => {
+    const normalized = normalizeProject(p);
+    const inner = normalized.type === "gallery"
+      ? renderProjectGallery(normalized)
+      : renderProjectStages(normalized);
+    return `
+      <div class="category-mosaic__body project-body" id="body-${p.id}">
+        <div class="section-banner section-banner--project"><span>${p.name}</span></div>
+        ${inner}
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="category-mosaic">
+      <div class="section-banner"><span>${category.label}</span></div>
+      <div class="category-mosaic__grid" id="${category.id}-scroll">${cardsHtml}</div>
+      ${bodiesHtml}
+    </div>
+  `;
+}
+
 function renderCategorySection(category, projects) {
+  if (category.layout === "mosaic") return renderCategoryMosaic(category, projects);
+
   let projectsHtml = '';
   projects.forEach(project => {
     projectsHtml += renderProjectHero(project);
     projectsHtml += renderProjectBody(project);
   });
 
-  return projectsHtml;
+  return `
+    <div class="section-banner"><span>${category.label}</span></div>
+    <div id="${category.id}-scroll"></div>
+    ${projectsHtml}
+  `;
 }
 
 function renderProjectBody(project) {
@@ -962,10 +1021,8 @@ function init() {
     tiles.forEach(tile => {
       tile.addEventListener('click', () => {
         const targetId = tile.getAttribute('data-target');
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
+        const scrollEl = document.getElementById(targetId + '-scroll') || document.getElementById(targetId);
+        if (scrollEl) scrollEl.scrollIntoView({ behavior: 'smooth' });
       });
     });
   }
@@ -1013,6 +1070,36 @@ function init() {
     }
   });
 
+  document.body.addEventListener('click', e => {
+    const trigger = e.target.closest('.project-card__trigger');
+    if (!trigger) return;
+
+    const targetId = trigger.dataset.target;
+    const body = document.getElementById(targetId);
+    if (!body) return;
+
+    const card = trigger.closest('.project-card');
+    const mosaic = trigger.closest('.category-mosaic');
+    const isOpen = body.classList.contains('project-body--visible');
+
+    // Collapse all bodies and deactivate all cards in this mosaic section
+    mosaic.querySelectorAll('.category-mosaic__body').forEach(b => {
+      b.classList.remove('project-body--visible');
+    });
+    mosaic.querySelectorAll('.project-card').forEach(c => {
+      c.classList.remove('project-card--active');
+      c.querySelector('.project-card__trigger')?.setAttribute('aria-expanded', 'false');
+    });
+
+    if (!isOpen) {
+      body.classList.add('project-body--visible');
+      card.classList.add('project-card--active');
+      trigger.setAttribute('aria-expanded', 'true');
+      attachHoverPlay(body);
+      requestAnimationFrame(() => body.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
+  });
+
   document.querySelectorAll('.project-hero__anchor').forEach(anchor => {
     anchor.addEventListener('click', e => {
       e.stopPropagation();
@@ -1043,7 +1130,9 @@ function init() {
       const link = e.target.closest('.site-nav__link');
       if (!link) return;
       e.preventDefault();
-      document.getElementById(link.dataset.target)?.scrollIntoView({ behavior: 'smooth' });
+      const navTarget = link.dataset.target;
+      const navScrollEl = document.getElementById(navTarget + '-scroll') || document.getElementById(navTarget);
+      navScrollEl?.scrollIntoView({ behavior: 'smooth' });
     });
 
     const navLinks = siteNav.querySelectorAll('.site-nav__link');

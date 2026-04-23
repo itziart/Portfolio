@@ -698,11 +698,42 @@ section {
   gap: var(--spacing-sm);
 }
 
+.project-hero__tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+}
+
 .project-hero__tool-icon {
   width: 32px;
   height: 32px;
   filter: brightness(0) invert(1);
   opacity: 0.85;
+}
+
+.project-hero__tool-fallback {
+  display: none;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+}
+
+.project-hero__tool--fallback {
+  padding: 0.2rem 0.4rem;
+  border: 1px solid var(--color-accent-soft);
+  background-color: var(--color-surface-translucent);
+}
+
+.project-hero__tool--fallback .project-hero__tool-icon {
+  display: none;
+}
+
+.project-hero__tool--fallback .project-hero__tool-fallback {
+  display: inline;
 }
 
 .project-hero__anchor {

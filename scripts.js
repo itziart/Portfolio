@@ -13,11 +13,11 @@ const portfolioData = {
   },
 
   categories: [
-    { id: "characters", label: "Characters",             thumbnail: "assets/characters/assassin-elf/hero-poster.jpg", hoverText: "View Characters" },
-    { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures"  },
-    { id: "props",      label: "Props",                  thumbnail: "assets/props/crime-shoes/hero-poster.jpg",       hoverText: "View Props"      },
-    { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/showreel/showreel-poster.jpg", hoverText: "View Generalist" },
-    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/makeup/kelsier/kelsier-01.jpg",           hoverText: "View SFX"        }
+    { id: "characters", label: "Characters",             thumbnail: "assets/characters/assassin-elf/hero-poster.jpg", hoverText: "View Characters", focalPoint: "15% 50%" },
+    { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures", focalPoint: "15% 100%" },
+    { id: "props",      label: "Props",                  thumbnail: "assets/props/crime-shoes/hero-poster.jpg",       hoverText: "View Props", focalPoint: "40% 50%" },
+    { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/the-foot/hero-poster.jpg", hoverText: "View Generalist", focalPoint: "50% 50%" },
+    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/makeup/clay-face/details-face.jpg",           hoverText: "View SFX", focalPoint: "50% 30%" }
   ],
 
   projects: [
@@ -267,7 +267,8 @@ const portfolioData = {
         { type: "image", src: "assets/makeup/kelsier/kelsier-01.jpg", aspect: 0.753 },
         { type: "image", src: "assets/makeup/kelsier/kelsier-02.png", aspect: 0.753 },
         { type: "image", src: "assets/makeup/kelsier/kelsier-03.png", aspect: 0.753 },
-        { type: "image", src: "assets/makeup/kelsier/kelsier-04.jpg", aspect: 0.799 }
+        { type: "image", src: "assets/makeup/kelsier/kelsier-04.jpg", aspect: 0.799 },
+        { type: "image", src: "assets/makeup/kelsier/kelsier-05.png", aspect: 0.726 }
       ]
     },
     {
@@ -298,9 +299,7 @@ const portfolioData = {
         { type: "image", src: "assets/makeup/old-skin/old-skin-01.jpg", aspect: 0.75 },
         { type: "image", src: "assets/makeup/old-skin/old-skin-02.jpg", aspect: 0.75 },
         { type: "image", src: "assets/makeup/old-skin/old-skin-03.jpg", aspect: 0.75 },
-        { type: "image", src: "assets/makeup/old-skin/old-skin-04.jpg", aspect: 0.75 },
-        { type: "image", src: "assets/makeup/old-skin/prosthetic.jpg",  aspect: 0.75 },
-        { type: "image", src: "assets/makeup/old-skin/prosthetic.png",  aspect: 1    }
+        { type: "image", src: "assets/makeup/old-skin/old-skin-04.jpg", aspect: 0.75 }
       ]
     },
     {
@@ -330,7 +329,8 @@ const portfolioData = {
         { type: "image", src: "assets/makeup/clay-face/details-face.jpg",     aspect: 0.75  },
         { type: "image", src: "assets/makeup/clay-face/face-01.jpg",          aspect: 0.75  },
         { type: "image", src: "assets/makeup/clay-face/face-02.png",          aspect: 0.75  },
-        { type: "image", src: "assets/makeup/clay-face/left-side.png",        aspect: 0.753 },
+        { type: "image", src: "assets/makeup/clay-face/prosthetic.jpg",       aspect: 0.75  },
+        { type: "image", src: "assets/makeup/clay-face/prosthetic.png",       aspect: 1     },
         { type: "image", src: "assets/makeup/clay-face/painted-face.png",     aspect: 1     },
         { type: "image", src: "assets/makeup/clay-face/side-face.jpg",        aspect: 0.75  },
         { type: "image", src: "assets/makeup/clay-face/wip-01.png",           aspect: 1.778 },
@@ -346,11 +346,11 @@ const portfolioData = {
       hero: { type: "image", src: "assets/makeup/dolfo/dolfo-01.jpg", aspect: 1.333 },
       media: [
         { type: "image", src: "assets/makeup/dolfo/dolfo-01.jpg", aspect: 1.333 },
-        { type: "image", src: "assets/makeup/dolfo/dolfo-02.jpg", aspect: 1.39  },
-        { type: "image", src: "assets/makeup/dolfo/dolfo-03.png", aspect: 0.767 },
-        { type: "image", src: "assets/makeup/dolfo/dolfo-04.png", aspect: 0.736 },
-        { type: "image", src: "assets/makeup/dolfo/dolfo-05.png", aspect: 2.307 },
-        { type: "image", src: "assets/makeup/dolfo/dolfo-06.png", aspect: 1.483 }
+        { type: "image", src: "assets/makeup/social-makeup/dolfo-02.jpg", aspect: 1.39  },
+        { type: "image", src: "assets/makeup/social-makeup/dolfo-03.png", aspect: 0.767 },
+        { type: "image", src: "assets/makeup/social-makeup/dolfo-04.png", aspect: 0.736 },
+        { type: "image", src: "assets/makeup/social-makeup/dolfo-05.png", aspect: 2.307 },
+        { type: "image", src: "assets/makeup/social-makeup/dolfo-06.png", aspect: 1.483 }
       ]
     },
 
@@ -657,9 +657,13 @@ function renderInfoPersonal(artist) {
 }
 
 function renderInfoTile(cat, n, modifier) {
+  const hasFocalAxes = cat.focalX !== undefined || cat.focalY !== undefined;
+  const backgroundPosition = cat.focalPoint || (hasFocalAxes
+    ? `${cat.focalX ?? 50}% ${cat.focalY ?? 50}%`
+    : 'center');
   return `
     <button class="info-tile ${modifier}" data-target="${cat.id}">
-      <div class="info-tile__bg" style="background-image: url('${cat.thumbnail}');"></div>
+      <div class="info-tile__bg" style="background-image: url('${cat.thumbnail}'); background-position: ${backgroundPosition};"></div>
       <div class="overlay"><span class="info-tile__hover-text">${cat.hoverText}</span></div>
       <div class="info-tile__header">
         <span class="info-tile__index">${n}</span>
@@ -768,9 +772,12 @@ function renderProjectGallery(project) {
 }
 
 function renderProjectHero(project) {
-  const toolsHtml = project.tools.map(tool =>
-    `<img src="assets/icons/${tool}.png" alt="${tool} icon" class="project-hero__tool-icon" loading="lazy" decoding="async" width="32" height="32">`
-  ).join('');
+  const toolsHtml = project.tools.map(tool => `
+    <span class="project-hero__tool" data-tool="${tool}">
+      <img src="assets/icons/${tool}.png" alt="${tool} icon" class="project-hero__tool-icon" loading="lazy" decoding="async" width="32" height="32">
+      <span class="project-hero__tool-fallback">${tool}</span>
+    </span>
+  `).join('');
 
   const isVideo = project.hero?.type === "video";
   const bgStyle = isVideo ? '' : `style="background-image: url('${project.hero?.src ?? ''}');"`;
@@ -793,6 +800,22 @@ function renderProjectHero(project) {
       </button>
     </div>
   `;
+}
+
+function attachToolIconFallbacks(container) {
+  const activateFallback = icon => {
+    const wrapper = icon.closest('.project-hero__tool');
+    if (!wrapper) return;
+    wrapper.classList.add('project-hero__tool--fallback');
+  };
+
+  container.querySelectorAll('.project-hero__tool-icon').forEach(icon => {
+    icon.addEventListener('error', () => activateFallback(icon), { once: true });
+
+    if (icon.complete && icon.naturalWidth === 0) {
+      activateFallback(icon);
+    }
+  });
 }
 
 function renderProjectStage(stage) {
@@ -843,6 +866,7 @@ function init() {
 
   mountLightbox();
   attachHoverPlay(document.body);
+  attachToolIconFallbacks(document.body);
 
   document.body.addEventListener('click', e => {
     const btn = e.target.closest('.project-hero__expand-btn');

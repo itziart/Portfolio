@@ -13,11 +13,11 @@ const portfolioData = {
   },
 
   categories: [
-    { id: "characters", label: "Characters",        thumbnail: "assets/characters/assassin-elf/hero-poster.jpg",  hoverText: "View Characters" },
-    { id: "creatures",  label: "Creatures",          thumbnail: "assets/creatures/alien/hero-poster.jpg",          hoverText: "View Creatures"  },
-    { id: "props",      label: "Props",              thumbnail: "assets/props/crime-shoes/hero-poster.jpg",        hoverText: "View Props"      },
-    { id: "makeup",     label: "Makeup & Sculpture", thumbnail: "assets/makeup/kelsier/kelsier-01.jpg",            hoverText: "View Makeup"     },
-    { id: "generalist", label: "Generalist",         thumbnail: "assets/generalist/showreel/showreel-poster.jpg",  hoverText: "View Generalist" }
+    { id: "characters", label: "Characters",             thumbnail: "assets/characters/assassin-elf/hero-poster.jpg", hoverText: "View Characters" },
+    { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures"  },
+    { id: "props",      label: "Props",                  thumbnail: "assets/props/crime-shoes/hero-poster.jpg",       hoverText: "View Props"      },
+    { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/showreel/showreel-poster.jpg", hoverText: "View Generalist" },
+    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/makeup/kelsier/kelsier-01.jpg",           hoverText: "View SFX"        }
   ],
 
   projects: [
@@ -255,10 +255,10 @@ const portfolioData = {
       ]
     },
 
-    // ── MAKEUP ──────────────────────────────────────────────────────────────
+    // ── SFX ─────────────────────────────────────────────────────────────────
     {
       id: "kelsier",
-      category: "makeup",
+      category: "sfx",
       type: "gallery",
       name: "Kelsier",
       tools: [],
@@ -272,7 +272,7 @@ const portfolioData = {
     },
     {
       id: "the-doll",
-      category: "makeup",
+      category: "sfx",
       type: "gallery",
       name: "The Doll",
       tools: [],
@@ -289,7 +289,7 @@ const portfolioData = {
     },
     {
       id: "old-skin",
-      category: "makeup",
+      category: "sfx",
       type: "gallery",
       name: "Old Skin",
       tools: [],
@@ -305,7 +305,7 @@ const portfolioData = {
     },
     {
       id: "beast-book",
-      category: "makeup",
+      category: "sfx",
       type: "gallery",
       name: "Beast Book",
       tools: [],
@@ -318,7 +318,7 @@ const portfolioData = {
     },
     {
       id: "clay-face",
-      category: "makeup",
+      category: "sfx",
       type: "gallery",
       name: "Clay Face",
       tools: [],
@@ -339,7 +339,7 @@ const portfolioData = {
     },
     {
       id: "dolfo-makeup",
-      category: "makeup",
+      category: "sfx",
       type: "gallery",
       name: "Dolfo",
       tools: [],
@@ -359,6 +359,7 @@ const portfolioData = {
       id: "showreel",
       category: "generalist",
       type: "gallery",
+      pinned: true,
       name: "Showreel",
       tools: [],
       hero: { type: "video", src: "assets/generalist/showreel/showreel.mp4", poster: "assets/generalist/showreel/showreel-poster.jpg", aspect: 1.778 },
@@ -631,10 +632,7 @@ function mountLightbox() {
   });
 }
 
-function renderInfoSection(data) {
-  const { artist, categories } = data;
-  
-  // Social links HTML
+function renderInfoPersonal(artist) {
   let socialsHtml = '';
   if (artist.contact) {
     const { email, artstation, linkedin } = artist.contact;
@@ -642,38 +640,79 @@ function renderInfoSection(data) {
     if (artstation) socialsHtml += `<a href="${artstation}" target="_blank" rel="noopener noreferrer" class="info-personal__social-link">ArtStation</a>`;
     if (linkedin) socialsHtml += `<a href="${linkedin}" target="_blank" rel="noopener noreferrer" class="info-personal__social-link">LinkedIn</a>`;
   }
-
-  // Build the personal block
-  const personalBlockHtml = `
-    <div class="info-personal" style="background-image: url('${artist.avatar}');">
+  return `
+    <aside class="info-personal">
+      <div class="info-personal__bg" style="background-image: url('${artist.avatar}');"></div>
       <div class="overlay">
         <p class="info-personal__bio">${artist.bio}</p>
         <div class="info-personal__socials">${socialsHtml}</div>
       </div>
       <div class="info-personal__content">
+        <span class="info-personal__eyebrow">Portfolio</span>
         <h1 class="info-personal__name">${artist.name}</h1>
         <h2 class="info-personal__title">${artist.title}</h2>
       </div>
-    </div>
+    </aside>
   `;
+}
 
-  // Build category tiles
-  const tilesHtml = categories.map(cat => `
-    <div class="info-tile" data-target="${cat.id}" style="background-image: url('${cat.thumbnail}');">
-      <div class="overlay">
-        <span class="info-tile__hover-text">${cat.hoverText}</span>
+function renderInfoTile(cat, n, modifier) {
+  return `
+    <button class="info-tile ${modifier}" data-target="${cat.id}">
+      <div class="info-tile__bg" style="background-image: url('${cat.thumbnail}');"></div>
+      <div class="overlay"><span class="info-tile__hover-text">${cat.hoverText}</span></div>
+      <div class="info-tile__header">
+        <span class="info-tile__index">${n}</span>
       </div>
-      <h3 class="info-tile__label">${cat.label}</h3>
-    </div>
-  `).join('');
+      <div class="info-tile__footer">
+        <h3 class="info-tile__label">${cat.label}</h3>
+        <span class="info-tile__arrow" aria-hidden="true">&rarr;</span>
+      </div>
+    </button>`;
+}
 
-  const tilesContainerHtml = `
-    <div class="info-tiles-container">
-      ${tilesHtml}
+function renderInfoFlagship(categories) {
+  const ids = ["characters", "creatures", "props"];
+  return `
+    <div class="info-flagship">
+      ${ids.map((id, i) => {
+        const cat = categories.find(c => c.id === id);
+        if (!cat) return '';
+        const n = String(i + 1).padStart(2, '0');
+        return renderInfoTile(cat, n, 'info-tile--flagship');
+      }).join('')}
     </div>
   `;
+}
 
-  return personalBlockHtml + tilesContainerHtml;
+function renderInfoBottom(categories) {
+  const ids = ["generalist", "sfx"];
+  return `
+    <div class="info-bottom">
+      ${ids.map((id, i) => {
+        const cat = categories.find(c => c.id === id);
+        if (!cat) return '';
+        const n = String(i + 4).padStart(2, '0');
+        return renderInfoTile(cat, n, 'info-tile--bottom');
+      }).join('')}
+    </div>
+  `;
+}
+
+function renderInfoSection(data) {
+  const { artist, categories } = data;
+  const personal = renderInfoPersonal(artist);
+  const flagship = renderInfoFlagship(categories);
+  const bottom = renderInfoBottom(categories);
+  return `
+    <div class="info-layout">
+      ${personal}
+      <div class="info-right">
+        ${flagship}
+        ${bottom}
+      </div>
+    </div>
+  `;
 }
 
 function renderCategorySection(category, projects) {
@@ -767,6 +806,11 @@ function renderProjectStage(stage) {
 // 4. INIT
 
 function init() {
+  const legacyHashes = { '#makeup': '#sfx', '#sculpture': '#sfx' };
+  if (legacyHashes[location.hash]) {
+    history.replaceState(null, '', legacyHashes[location.hash]);
+  }
+
   // 1. Render Info Section
   const infoSection = document.getElementById('info-section');
   if (infoSection) {
@@ -789,7 +833,10 @@ function init() {
   portfolioData.categories.forEach(cat => {
     const categoryElement = document.getElementById(cat.id);
     if (categoryElement) {
-      const projectsInCategory = portfolioData.projects.filter(p => p.category === cat.id);
+      const projectsInCategory = portfolioData.projects
+        .filter(p => p.category === cat.id)
+        .slice()
+        .sort((a, b) => (b.pinned === true) - (a.pinned === true));
       categoryElement.innerHTML = renderCategorySection(cat, projectsInCategory);
     }
   });

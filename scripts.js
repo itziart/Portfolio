@@ -877,6 +877,11 @@ function init() {
       b.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
       b.querySelector('.project-hero__expand-label').textContent = willOpen ? 'Hide' : 'Show More';
     });
+    if (willOpen) {
+      requestAnimationFrame(() => {
+        body.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
     if (!willOpen) {
       const hero = document.getElementById(btn.dataset.target.replace('body-', ''));
       if (hero) hero.scrollIntoView({ behavior: 'smooth' });

@@ -32,6 +32,7 @@ const portfolioData = {
       category: "characters",
       type: "staged",
       name: "Assassin Elf",
+      description: "This project marks a big step for me. It's my first time pushing toward realism in a character, and I've learned a lot throughout the process. This character is based on a <a href=\"https://www.artstation.com/artwork/r9911E\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"project-about__link\">concept</a> by BangkuART, which served as the visual foundation for the project.",
       tools: ["zbrush", "maya", "substance", "xgen", "marmoset"],
       hero: { type: "video", src: "assets/characters/assassin-elf/hero.mp4", poster: "assets/characters/assassin-elf/hero-poster.jpg", aspect: 1.778 },
       stages: [
@@ -69,8 +70,9 @@ const portfolioData = {
       id: "alien",
       category: "creatures",
       type: "staged",
-      name: "Neoomorph Alien",
-      tools: ["zbrush", "maya", "substance", "marmoset"],
+      name: "Neomorph Alien",
+      description: "Created from a sphere, based on a <a href=\"https://www.artstation.com/artwork/owGnz\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"project-about__link\">concept</a> by Russell Dongjun Lu. This project helped me push my understanding of creature anatomy, proportions, and silhouette.",
+      tools: ["zbrush", "maya", "substance", "marmoset", "rizom UV"],
       hero: { type: "video", src: "assets/creatures/alien/hero.mp4", poster: "assets/creatures/alien/hero-poster.jpg", aspect: 1.778 },
       stages: [
         {
@@ -104,6 +106,7 @@ const portfolioData = {
       category: "props",
       type: "staged",
       name: "Crime Shoes",
+      description: "Based on a <a href=\"https://www.artstation.com/artwork/owGnz\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"project-about__link\">concept</a> by notperera, in this project I wanted to challenge myself modelling something less organic while also trying to give storytelling to a mere prop and with my first handpainted project.",
       tools: ["zbrush", "maya", "substance", "marmoset"],
       hero: { type: "video", src: "assets/props/crime-shoes/hero.mp4", poster: "assets/props/crime-shoes/hero-poster.jpg", aspect: 1.778 },
       stages: [
@@ -146,7 +149,7 @@ const portfolioData = {
       category: "props",
       type: "gallery",
       name: "Bone Dagger",
-      tools: ["zbrush", "maya", "substance", "marmoset"],
+      tools: ["zbrush", "maya", "substance"],
       hero: { type: "image", src: "assets/props/bone-dagger/render.jpg", aspect: 1.778 },
       media: [
         { type: "image", src: "assets/props/bone-dagger/render.jpg",                        aspect: 1.778 },
@@ -179,6 +182,7 @@ const portfolioData = {
       category: "sfx",
       type: "staged",
       name: "Scary stories to tell in the dark (Miniature Doll + Clay Face)",
+      description: "Project based on the movie that was inspired by a book with different stories. I merged 2 of them and designed the character based on it. It helped me understand better what happens to your body while decomposing.",
       tools: [],
       rendersStageLabel: null,
       hero: { type: "image", src: "assets/sfx/highlights/doll-07.png", aspect: 1.001 },
@@ -228,6 +232,7 @@ const portfolioData = {
       category: "sfx",
       type: "gallery",
       name: "The Beast Book",
+      description: "First time I laser cut a piece of porex which served as the base of this project that I later on sculpted the details with epoxy resin which gave me 20 minutes to work on the different items that assemble the book. It's my own twist to the Beast Book of Harry Potter with some Jujutsu Kaisen reference.",
       tools: [],
       hero: { type: "image", src: "assets/sfx/beast-book/beast-book-01.jpg", aspect: 1.333 },
       media: [
@@ -268,13 +273,12 @@ const portfolioData = {
       category: "generalist",
       type: "gallery",
       name: "The Foot - Group Animation",
-      tools: ["maya"],
+      description: "3D Animation Project made from scratch which made us work under pressure and as a real team. We learned the animation pipeline and delivered a comic animation. I designed the ants, built the storyboard, sculpted both of them, animated them and also did the close up scene with textures included.",
+      tools: ["zbrush", "blender", "adobe premiere"],
       hero: { type: "video", src: "assets/generalist/the-foot/hero.mp4", poster: "assets/generalist/the-foot/hero-poster.jpg", aspect: 1.778, hasAudio: true },
       media: [
         { type: "image", src: "assets/generalist/the-foot/ants-concept.png",  aspect: 1.778 },
-        { type: "image", src: "assets/generalist/the-foot/storyboard-01.jpg", aspect: 1.294 },
-        { type: "image", src: "assets/generalist/the-foot/storyboard-02.jpg", aspect: 1.294 },
-        { type: "image", src: "assets/generalist/the-foot/storyboard-03.jpg", aspect: 1.294 },
+        { type: "image", src: "assets/generalist/the-foot/storyboard.jpg", aspect: 0.431 },
         { type: "video", src: "assets/generalist/the-foot/process-01.mp4", poster: "assets/generalist/the-foot/process-01-poster.jpg", aspect: 1.984 },
         { type: "video", src: "assets/generalist/the-foot/process-02.mp4", poster: "assets/generalist/the-foot/process-02-poster.jpg", aspect: 2.007 },
         { type: "video", src: "assets/generalist/the-foot/process-03.mp4", poster: "assets/generalist/the-foot/process-03-poster.jpg", aspect: 1.606 },
@@ -286,7 +290,7 @@ const portfolioData = {
       category: "generalist",
       type: "gallery",
       name: "Xali - XR HUB Bavaria VR Mascott",
-      tools: ["maya", "blender"],
+      tools: ["maya", "zbrush", "Unity (Spatial)", "MetaQuest", "Blender"],
       hero: { type: "video", src: "assets/generalist/xali/xalihello.mp4", poster: "assets/generalist/xali/xalihello-poster.jpg", aspect: 1.741 },
       media: [
         { type: "image", src: "assets/generalist/xali/hero.png",       aspect: 0 },
@@ -302,7 +306,8 @@ const portfolioData = {
       category: "generalist",
       type: "gallery",
       name: "Black Lodge - Twin Peaks Meets Magritte",
-      tools: ["blender"],
+      description: "My first scene and big modeling project which made me learn the bases of 3D modelling and texturing in Maya. I wanted to create a dreamy environment, out of this world.",
+      tools: ["maya", "photoshop"],
       hero: { type: "video", src: "assets/generalist/black-lodge/turnaorundscene.mp4", poster: "assets/generalist/black-lodge/hero.jpg", aspect: 1.778 },
       media: [
         { type: "image", src: "assets/generalist/black-lodge/hero.jpg", aspect: 1.778 },
@@ -320,6 +325,7 @@ const portfolioData = {
       category: "generalist",
       type: "staged",
       name: "Dolfo (Stop Motion + Character Cards)",
+      description: "Stop Motion project executed by my classmates and I, the challenge was to create 9 cm figures with Jovi Clay and being able to animate them. I designed, sculpted and animated every character on this project.",
       tools: [],
       rendersStageLabel: "Stop Motion",
       hero: { type: "video", src: "assets/generalist/dolfo/dolfo.mp4", poster: "assets/generalist/dolfo/dolfo-01.jpg", aspect: 1.333 },
@@ -350,7 +356,7 @@ const portfolioData = {
       category: "generalist",
       type: "gallery",
       name: "Player",
-      tools: ["unity"],
+      tools: [],
       hero: { type: "image", src: "assets/generalist/player/game-player-04.png", aspect: 1 },
       media: [
         { type: "image", src: "assets/generalist/player/game-player-04.png", aspect: 1 },
@@ -753,6 +759,7 @@ function renderCategoryMosaic(category, projects) {
     return `
       <div class="category-mosaic__body project-body" id="body-${p.id}">
         <div class="section-banner section-banner--project"><span>${p.name}</span></div>
+        ${renderProjectAbout(normalized)}
         ${heroVideoHtml}
         ${inner}
       </div>`;
@@ -787,6 +794,7 @@ function renderCategorySection(category, projects) {
 
 function renderProjectBody(project) {
   const normalized = normalizeProject(project);
+  const aboutHtml = renderProjectAbout(normalized);
   const inner = normalized.type === "gallery"
     ? renderProjectGallery(normalized)
     : renderProjectStages(normalized);
@@ -798,7 +806,7 @@ function renderProjectBody(project) {
         <span class="project-hero__expand-chevron" aria-hidden="true">▾</span>
       </button>
     </div>`;
-  return `<div class="project-body" id="body-${project.id}">${inner}${collapseBtn}</div>`;
+  return `<div class="project-body" id="body-${project.id}">${aboutHtml}${inner}${collapseBtn}</div>`;
 }
 
 function renderStageBlock(stage, projectName) {
@@ -989,6 +997,15 @@ function openFullscreenPlaybackVideo(src, poster, hasAudio) {
 
   enterFullscreen();
   video.play().catch(() => {});
+}
+
+function renderProjectAbout(project) {
+  if (!project.description) return '';
+  return `
+    <div class="project-about">
+      <div class="project-about__label"><span>ABOUT</span></div>
+      <p class="project-about__text">${project.description}</p>
+    </div>`;
 }
 
 function renderProjectHero(project) {

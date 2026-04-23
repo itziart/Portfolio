@@ -276,20 +276,42 @@ const portfolioData = {
       ]
     },
     {
-      id: "the-doll",
+      id: "the-doll-clay-face",
       category: "sfx",
-      type: "gallery",
-      name: "The Doll",
+      type: "staged",
+      name: "The Doll + Clay Face",
       tools: [],
       hero: { type: "image", src: "assets/makeup/the-doll/doll-01.png", aspect: 1.001 },
-      media: [
-        { type: "image", src: "assets/makeup/the-doll/doll-01.png", aspect: 1.001 },
-        { type: "image", src: "assets/makeup/the-doll/doll-02.png", aspect: 1.001 },
-        { type: "image", src: "assets/makeup/the-doll/doll-03.png", aspect: 1.001 },
-        { type: "image", src: "assets/makeup/the-doll/doll-04.png", aspect: 1.001 },
-        { type: "image", src: "assets/makeup/the-doll/doll-05.png", aspect: 1.001 },
-        { type: "image", src: "assets/makeup/the-doll/doll-06.png", aspect: 1.001 },
-        { type: "image", src: "assets/makeup/the-doll/doll-07.png", aspect: 1.001 }
+      stages: [
+        {
+          label: "Doll Miniature Visualization",
+          media: [
+            { type: "image", src: "assets/makeup/the-doll/doll-01.png", aspect: 1.001 },
+            { type: "image", src: "assets/makeup/the-doll/doll-02.png", aspect: 1.001 },
+            { type: "image", src: "assets/makeup/the-doll/doll-03.png", aspect: 1.001 },
+            { type: "image", src: "assets/makeup/the-doll/doll-04.png", aspect: 1.001 },
+            { type: "image", src: "assets/makeup/the-doll/doll-05.png", aspect: 1.001 },
+            { type: "image", src: "assets/makeup/the-doll/doll-06.png", aspect: 1.001 },
+            { type: "image", src: "assets/makeup/the-doll/doll-07.png", aspect: 1.001 }
+          ]
+        },
+        {
+          label: "The Clay Face",
+          media: [
+            { type: "image", src: "assets/makeup/clay-face/clay-face-01.jpg",     aspect: 0.75  },
+            { type: "image", src: "assets/makeup/clay-face/clay-face-02.png",     aspect: 1.778 },
+            { type: "image", src: "assets/makeup/clay-face/clay-face-square.png", aspect: 1     },
+            { type: "image", src: "assets/makeup/clay-face/details-face.jpg",     aspect: 0.75  },
+            { type: "image", src: "assets/makeup/clay-face/face-01.jpg",          aspect: 0.75  },
+            { type: "image", src: "assets/makeup/clay-face/face-02.png",          aspect: 0.75  },
+            { type: "image", src: "assets/makeup/clay-face/prosthetic.jpg",       aspect: 0.75  },
+            { type: "image", src: "assets/makeup/clay-face/prosthetic.png",       aspect: 1     },
+            { type: "image", src: "assets/makeup/clay-face/painted-face.png",     aspect: 1     },
+            { type: "image", src: "assets/makeup/clay-face/side-face.jpg",        aspect: 0.75  },
+            { type: "image", src: "assets/makeup/clay-face/wip-01.png",           aspect: 1.778 },
+            { type: "image", src: "assets/makeup/clay-face/wip-02.png",           aspect: 1.778 }
+          ]
+        }
       ]
     },
     {
@@ -320,41 +342,18 @@ const portfolioData = {
       ]
     },
     {
-      id: "clay-face",
+      id: "social-makeup",
       category: "sfx",
       type: "gallery",
-      name: "Clay Face",
+      name: "Social Makeup",
       tools: [],
-      hero: { type: "image", src: "assets/makeup/clay-face/clay-face-01.jpg", aspect: 0.75 },
+      hero: { type: "image", src: "assets/makeup/social-makeup/social-makeup-01.jpg", aspect: 1.39 },
       media: [
-        { type: "image", src: "assets/makeup/clay-face/clay-face-01.jpg",     aspect: 0.75  },
-        { type: "image", src: "assets/makeup/clay-face/clay-face-02.png",     aspect: 1.778 },
-        { type: "image", src: "assets/makeup/clay-face/clay-face-square.png", aspect: 1     },
-        { type: "image", src: "assets/makeup/clay-face/details-face.jpg",     aspect: 0.75  },
-        { type: "image", src: "assets/makeup/clay-face/face-01.jpg",          aspect: 0.75  },
-        { type: "image", src: "assets/makeup/clay-face/face-02.png",          aspect: 0.75  },
-        { type: "image", src: "assets/makeup/clay-face/prosthetic.jpg",       aspect: 0.75  },
-        { type: "image", src: "assets/makeup/clay-face/prosthetic.png",       aspect: 1     },
-        { type: "image", src: "assets/makeup/clay-face/painted-face.png",     aspect: 1     },
-        { type: "image", src: "assets/makeup/clay-face/side-face.jpg",        aspect: 0.75  },
-        { type: "image", src: "assets/makeup/clay-face/wip-01.png",           aspect: 1.778 },
-        { type: "image", src: "assets/makeup/clay-face/wip-02.png",           aspect: 1.778 }
-      ]
-    },
-    {
-      id: "dolfo-makeup",
-      category: "sfx",
-      type: "gallery",
-      name: "Dolfo",
-      tools: [],
-      hero: { type: "image", src: "assets/makeup/dolfo/dolfo-01.jpg", aspect: 1.333 },
-      media: [
-        { type: "image", src: "assets/makeup/dolfo/dolfo-01.jpg", aspect: 1.333 },
-        { type: "image", src: "assets/makeup/social-makeup/dolfo-02.jpg", aspect: 1.39  },
-        { type: "image", src: "assets/makeup/social-makeup/dolfo-03.png", aspect: 0.767 },
-        { type: "image", src: "assets/makeup/social-makeup/dolfo-04.png", aspect: 0.736 },
-        { type: "image", src: "assets/makeup/social-makeup/dolfo-05.png", aspect: 2.307 },
-        { type: "image", src: "assets/makeup/social-makeup/dolfo-06.png", aspect: 1.483 }
+        { type: "image", src: "assets/makeup/social-makeup/social-makeup-01.jpg", aspect: 1.39  },
+        { type: "image", src: "assets/makeup/social-makeup/social-makeup-02.png", aspect: 0.767 },
+        { type: "image", src: "assets/makeup/social-makeup/social-makeup-03.png", aspect: 0.736 },
+        { type: "image", src: "assets/makeup/social-makeup/social-makeup-04.png", aspect: 2.307 },
+        { type: "image", src: "assets/makeup/social-makeup/social-makeup-05.png", aspect: 1.483 }
       ]
     },
 
@@ -432,30 +431,36 @@ const portfolioData = {
       ]
     },
     {
-      id: "dolfo-snake",
+      id: "dolfo",
       category: "generalist",
-      type: "gallery",
-      name: "Dolfo & Snake",
+      type: "staged",
+      name: "Dolfo (Stop Motion + Character Cards)",
       tools: [],
-      hero: { type: "image", src: "assets/generalist/dolfo-snake/concept-dolfo.jpg", aspect: 0.726 },
-      media: [
-        { type: "image", src: "assets/generalist/dolfo-snake/concept-dolfo.jpg",    aspect: 0.726 },
-        { type: "image", src: "assets/generalist/dolfo-snake/concept-misc.jpg",     aspect: 0.726 },
-        { type: "image", src: "assets/generalist/dolfo-snake/concept-snake.jpg",    aspect: 0.726 },
-        { type: "image", src: "assets/generalist/dolfo-snake/dolfo-poses.jpg",      aspect: 0.726 },
-        { type: "image", src: "assets/generalist/dolfo-snake/expression-snake.jpg", aspect: 0.726 }
-      ]
-    },
-    {
-      id: "tiger",
-      category: "generalist",
-      type: "gallery",
-      name: "Tiger",
-      tools: [],
-      hero: { type: "image", src: "assets/generalist/tiger/concept-tiger.jpg", aspect: 0.726 },
-      media: [
-        { type: "image", src: "assets/generalist/tiger/concept-tiger.jpg",    aspect: 0.726 },
-        { type: "image", src: "assets/generalist/tiger/expression-tiger.jpg", aspect: 0.726 }
+      hero: { type: "image", src: "assets/makeup/dolfo/dolfo-01.jpg", aspect: 1.333 },
+      stages: [
+        {
+          label: "Stop Motion",
+          media: [
+            { type: "image", src: "assets/makeup/dolfo/dolfo-01.jpg", aspect: 1.333 }
+          ]
+        },
+        {
+          label: "Dolfo & Snake Sketches",
+          media: [
+            { type: "image", src: "assets/generalist/dolfo-snake/concept-dolfo.jpg",    aspect: 0.726 },
+            { type: "image", src: "assets/generalist/dolfo-snake/concept-misc.jpg",     aspect: 0.726 },
+            { type: "image", src: "assets/generalist/dolfo-snake/concept-snake.jpg",    aspect: 0.726 },
+            { type: "image", src: "assets/generalist/dolfo-snake/dolfo-poses.jpg",      aspect: 0.726 },
+            { type: "image", src: "assets/generalist/dolfo-snake/expression-snake.jpg", aspect: 0.726 }
+          ]
+        },
+        {
+          label: "Tiger Sketches",
+          media: [
+            { type: "image", src: "assets/generalist/tiger/concept-tiger.jpg",    aspect: 0.726 },
+            { type: "image", src: "assets/generalist/tiger/expression-tiger.jpg", aspect: 0.726 }
+          ]
+        }
       ]
     },
     {

@@ -136,7 +136,7 @@ h1, h2, h3, h4, h5, h6, .display-text {
 }
 
 .info-tile__bg{
-  filter: contrast(1.05) saturate(1.05);
+  filter: brightness(0.7) contrast(1.05) saturate(1.05);
 }
 
 
@@ -893,6 +893,10 @@ section {
   inset: 0;
   background-color: var(--color-overlay);
   z-index: 1;
+}
+
+.project-hero--video .project-hero__overlay {
+  display: none;
 }
 
 .project-hero__title {

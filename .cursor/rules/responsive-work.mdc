@@ -1,0 +1,52 @@
+---
+description: Active guidance for the responsive redesign pass
+alwaysApply: true
+---
+
+# Responsive redesign — active task context
+
+## Scope constraint (CRITICAL)
+
+Desktop (>1024px) layout is FINISHED and APPROVED.
+Do not modify desktop styles unless explicitly requested.
+All work happens inside `@media (max-width: 1024px)` and `@media (max-width: 768px)` blocks.
+
+Before modifying any CSS rule, check whether it's inside a media query.
+If it's a base/desktop rule, do not touch it — override it inside a responsive block instead.
+
+## Breakpoints (from DESIGN.md)
+
+- Desktop: > 1024px — locked, do not change
+- Tablet: 768px – 1024px — needs rebuild
+- Mobile: < 768px — needs rebuild
+
+Test viewports:
+- 1440×900 (desktop baseline — must not regress)
+- 1024×768 (tablet landscape — iPad)
+- 820×1180 (tablet portrait — iPad Air)
+- 414×896 (large phone — iPhone 11 Pro Max)
+- 390×844 (mid phone — iPhone 12/13/14)
+- 360×800 (small phone — common Android)
+
+## Known responsive problems (from the user)
+
+- Landing page diagonal layout breaks on tablet
+- Navigation unusable on mobile
+- Project heroes / galleries layout issues on narrow viewports
+- Mosaic column count needs verification across sizes
+
+## Source-of-truth docs
+
+- `CLAUDE.md` — workflow guardrails
+- `DESIGN.md` — design system + breakpoint table
+- `EXTENSION_PLAN.md` — feature history and schema v2
+
+Read these before suggesting architectural changes.
+
+## What not to do
+
+- Do not refactor working desktop CSS "while you're in there"
+- Do not introduce new CSS variables for responsive values unless a magic number repeats 3+ times
+- Do not add JS-driven responsive behavior if CSS can handle it
+- Do not use `display: none` to hide things on mobile without checking the element isn't needed for accessibility/context
+- Do not change HTML structure; responsive should be CSS-only unless structure is genuinely broken

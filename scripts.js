@@ -543,6 +543,28 @@ function mountLightbox() {
     if (e.key === 'ArrowLeft') navigate(-1);
     if (e.key === 'ArrowRight') navigate(1);
   });
+
+  // Touch/pointer swipe — skip if originating on video controls to avoid
+  // hijacking the seek bar gesture
+  let swipeStartX = null;
+  let swipeStartTime = null;
+
+  lb.addEventListener('pointerdown', e => {
+    if (e.target.closest('video')) return;
+    swipeStartX = e.clientX;
+    swipeStartTime = Date.now();
+  });
+
+  lb.addEventListener('pointerup', e => {
+    if (swipeStartX === null) return;
+    const dx = e.clientX - swipeStartX;
+    const dt = Date.now() - swipeStartTime;
+    swipeStartX = null;
+    swipeStartTime = null;
+    if (Math.abs(dx) > 50 && dt < 500) {
+      navigate(dx < 0 ? 1 : -1);
+    }
+  });
 }
 
 function renderInfoPersonal(artist) {

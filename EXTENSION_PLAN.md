@@ -1,66 +1,48 @@
 # Portfolio Extension Plan — Itziar Martín Molina
 
-> **Purpose:** Source-of-truth planning document for extending the existing portfolio with new categories, multi-image stages, and video support. Pairs with `DESIGN.md` (existing) and feeds Claude Code via `CLAUDE.md` (new, see Section 9).
+> **Purpose:** Historical roadmap and answered product questions for the portfolio extension. **`DESIGN.md` + `CLAUDE.md`** describe the **current shipped behavior**; when this plan disagrees with the code, **update the docs** (do not treat outdated plan text as authoritative).
 
 ---
 
-## 0. TL;DR — what changes
+## 0. TL;DR — shipped vs original plan
 
-1. **Two new top-level categories**: `makeup` (Makeup & Sculpture) and `generalist` (Animations, Scene, Sketches, Games).
-2. **Stages become media groups**: each stage holds an array of media items (images or videos), not a single image. Rendered as a **masonry mosaic**, with a single-item fallback that doesn't look broken.
-3. **Project thumbnails support video**: if a project has a final `.mp4`, it becomes the thumbnail. Static poster frame when idle, autoplay muted + loop on hover.
-4. **Generalist & Makeup keep the project model but skip stages**: each project is just a hero + a single mosaic of media. No `Blockout / HighPoly / etc.` labels.
-5. **Lightbox added**: clicking any mosaic item opens a fullscreen overlay with prev/next.
-6. **One small data migration**: existing projects' `stages[].image` becomes `stages[].media: [{type, src}]`. Backward-compatible loader keeps old data working during the transition.
+**Implemented (current codebase):**
 
-Nothing about the visual identity changes — the dark, gold-accent, Bebas Neue / DM Sans palette stays. The new sections inherit the same tone.
+1. **Categories:** `characters`, `creatures`, `props`, **`generalist`**, **`sfx`** (SFX Makeup & Sculpting). The original `makeup` **category id** is replaced by **`sfx`**; `init()` remaps legacy hashes `#makeup` / `#sculpture` → `#sfx`.
+2. **Stages are media groups** with `normalizeStage` / `normalizeProject` for v1 `{ label, image }` compat.
+3. **Mosaic media** uses a **CSS grid** (not column-count masonry). Single-item stages use `renderMediaSolo`.
+4. **`generalist` and `sfx`** use **`layout: "mosaic"`** — project **card grid** + expandable bodies instead of stacked full-width heroes only.
+5. **Lightbox** via **`mountLightbox()`** (DOM mount + delegated clicks), prev/next, Esc, video controls in viewer.
+6. **Extras vs original outline:** sticky **`.site-nav`**, **`#contact`** section, optional **`highlights`** strip + **`rendersStageLabel`** on staged projects, **hero fullscreen** + optional **`hasAudio`**, **`pinned`** sort, **About** blocks with HTML descriptions, **text tool badges** (not PNG icons in hero).
+
+**Original plan items partially deferred / changed:** optional `.webm` sources; some early folder-level naming examples differ from the final `assets/` tree — follow `portfolioData` paths as truth.
 
 ---
 
 ## 1. New Information Architecture
 
-### 1.1 Categories (final list)
+### 1.1 Categories (shipped list)
 
-| ID | Label | Type | Notes |
+| ID | Label | Default section layout | Notes |
 |---|---|---|---|
-| `characters` | Characters | staged | existing, e.g. Assassin Elf |
-| `props` | Props | staged | existing, e.g. Bone Dagger, Crime Shoes |
-| `creatures` | Creatures | staged | existing, e.g. Alien |
-| `makeup` | Makeup & Sculpture | gallery | NEW — physical work, photos only |
-| `generalist` | Generalist | gallery | NEW — Animations, Scene, Sketches, Games |
+| `characters` | Characters | Stacked heroes | Staged projects |
+| `creatures` | Creatures | Stacked heroes | Staged projects |
+| `props` | Props | Stacked heroes | Staged + gallery (e.g. Bone Dagger) |
+| `generalist` | Generalist | **`layout: "mosaic"`** — card grid | Mostly gallery projects; showreel etc. |
+| `sfx` | SFX Makeup & Sculpting | **`layout: "mosaic"`** — card grid | Replaces legacy **`makeup`** id |
 
-Two **project types** — declared per project, not per category, so the system stays flexible:
+Two **project types** — declared per project, not per category:
 
-- `"type": "staged"` — has named stages (Blockout, HighPoly, Textures, …). Used by Characters / Props / Creatures.
-- `"type": "gallery"` — single mosaic of mixed media, no stage labels. Used by Makeup and Generalist.
+- `"type": "staged"` — named stages + optional `highlights` + `rendersStageLabel` behavior (see `DESIGN.md` §4.4).
+- `"type": "gallery"` — single `media` mosaic (no stage labels).
 
-### 1.2 Generalist sub-projects (proposed mapping from your folder dump)
+### 1.2 Generalist — implemented project ids (reference)
 
-The Generalist folder has internal structure (`Animations/`, `Scene/`, `Sketches/`, `Games/`). Map each into one or more gallery projects:
+See `portfolioData` in `scripts.js` for the canonical list (e.g. **The Foot**, **Xali**, **Showreel**, **Black Lodge**, **Dolfo + Snake**, **Tiger**, **Player**, etc.). Sketches were split per Section 10 answer (separate projects, not one mega-mosaic).
 
-| Folder | Proposed projects |
-|---|---|
-| `Animations/The Foot/` | one project: **The Foot** (animation) — `THE_FOOT_.mp4` as hero, plus screen recordings + storyboard PDF as a stretch item |
-| `Animations/Xali/` | one project: **Xali** — model PNGs + screen recordings, the cleanest render as hero |
-| `Animations/GeneralistShowReel.mp4` + `ItziarMartinMolina_Animacion10s.mp4` | one project: **Showreel** — both videos in the mosaic |
-| `Scene/` | one project: **Black Lodge** (the Twin Peaks scene — clearly themed); pick one `BLACKLODGEOFFICIALrenderdia.jpg` as hero, wireframes + night renders in mosaic |
-| `Sketches/` | one project: **Concept Sketches** — flat mosaic of all sketches, no hero distinction needed |
-| `Games/` | empty for now — **omit until populated** |
+### 1.3 SFX — implemented direction
 
-### 1.3 Makeup & Sculpture sub-projects (proposed mapping)
-
-The folder is currently flat with mixed subjects. Inferring groupings from filenames:
-
-| Proposed project | Likely files |
-|---|---|
-| **Kelsier** (clay sculpture) | `modeladokelsier*`, `modelokelsier3.png`, `modeladoskelsier.jpg` |
-| **The Doll** | `DOLL.png`, `DOLL2…6.png`, `DOLL1 - copia.png` |
-| **Old Skin** (FX makeup) | `OldSkin1…4.jpeg`, `prosthethic.jpg`, `prosthethic.png` |
-| **Beast Book** | `BeastBook.jpeg`, `BeastBook2.jpeg`, `BeastBook3.jpeg` |
-| **Clay Face** | `clayface.*`, `clayfacesquare.png`, `face.jpg`, `face.png`, `PAINTEDFCE.png`, `detailsface.jpg`, `sideface.jpg`, `leftside.png` |
-| **Dolfo Makeup** | `dolfomakinfof.jpg`, `MEWORKIGFINALSLIDE.jpg`, the 2024-02-24 screenshots |
-
-> **Action item for Itziar:** confirm or correct these groupings before the asset rename pass. This is the only step that genuinely needs her input — everything else is mechanical.
+Physical SFX / sculpt / makeup work lives under **`assets/sfx/`** with category id **`sfx`**. Projects include gallery items (e.g. **Kelsier**) and staged work (e.g. combined doll + clay face) using `highlights` and custom `rendersStageLabel` where needed. Original “makeup” naming in this document maps to this category.
 
 ---
 
@@ -110,12 +92,11 @@ assets/
 │       ├── hero-poster.jpg
 │       ├── blockout/ (empty, omit stage)
 │       ├── highpoly/, retopology/, textures/, render/
-├── makeup/
-│   ├── thumb.jpg
-│   ├── kelsier/, the-doll/, old-skin/, beast-book/, clay-face/, dolfo/
+├── sfx/
+│   └── (project folders — see portfolioData)
 └── generalist/
     ├── thumb.jpg
-    ├── the-foot/, xali/, showreel/, black-lodge/, sketches/
+    ├── the-foot/, xali/, showreel/, black-lodge/, dolfo-snake/, tiger/, player/, …
 ```
 
 **Naming rules (enforce in the rename script):**
@@ -161,6 +142,8 @@ Anything over ~20 MB per clip will hurt mobile load. The Assassin Elf folder alo
 
 ### 3.1 Schema (v2)
 
+The snippet below is **illustrative** (`year`, nested `thumbnail`, etc. may be absent in the live `portfolioData`). Trust **`scripts.js`** for exact fields in use.
+
 ```js
 const portfolioData = {
   artist: { /* unchanged */ },
@@ -168,8 +151,8 @@ const portfolioData = {
     { id: "characters",  label: "Characters",          thumbnail: "assets/characters/thumb.jpg",  hoverText: "View Characters" },
     { id: "creatures",   label: "Creatures",           thumbnail: "assets/creatures/thumb.jpg",   hoverText: "View Creatures" },
     { id: "props",       label: "Props",               thumbnail: "assets/props/thumb.jpg",       hoverText: "View Props" },
-    { id: "makeup",      label: "Makeup & Sculpture",  thumbnail: "assets/makeup/thumb.jpg",      hoverText: "View Makeup" },
-    { id: "generalist",  label: "Generalist",          thumbnail: "assets/generalist/thumb.jpg",  hoverText: "View Generalist" },
+    { id: "sfx",         label: "SFX Makeup & Sculpting", thumbnail: "assets/...", hoverText: "View SFX", layout: "mosaic" },
+    { id: "generalist",  label: "Generalist",          thumbnail: "assets/...",  hoverText: "View Generalist", layout: "mosaic" },
   ],
 
   projects: [
@@ -225,10 +208,10 @@ const portfolioData = {
       ]
     },
 
-    // GALLERY PROJECT — Makeup / Generalist
+    // GALLERY PROJECT — e.g. sfx / props / generalist
     {
       id: "kelsier",
-      category: "makeup",
+      category: "sfx",
       type: "gallery",
       name: "Kelsier",
       year: 2025,
@@ -236,16 +219,15 @@ const portfolioData = {
       tools: [],                                  // gallery projects often have no tool icons
       hero: {
         type: "image",
-        src: "assets/makeup/kelsier/hero.jpg"
+        src: "assets/sfx/kelsier/kelsier-04.jpg"
       },
-      thumbnail: { type: "image", src: "assets/makeup/kelsier/hero.jpg" },
 
       // gallery projects use `media` directly — no stages
       media: [
-        { type: "image", src: "assets/makeup/kelsier/01.png" },
-        { type: "image", src: "assets/makeup/kelsier/02.png" },
-        { type: "image", src: "assets/makeup/kelsier/03.jpg" },
-        { type: "image", src: "assets/makeup/kelsier/04.png" }
+        { type: "image", src: "assets/sfx/kelsier/01.png" },
+        { type: "image", src: "assets/sfx/kelsier/02.png" },
+        { type: "image", src: "assets/sfx/kelsier/03.jpg" },
+        { type: "image", src: "assets/sfx/kelsier/04.png" }
       ]
     }
   ]
@@ -256,15 +238,15 @@ const portfolioData = {
 
 ```ts
 type Media =
-  | { type: "image"; src: string; alt?: string; aspect?: number }   // aspect = width/height, optional, helps masonry
-  | { type: "video"; src: string; poster: string; alt?: string; aspect?: number };
+  | { type: "image"; src: string; alt?: string; aspect?: number }
+  | { type: "video"; src: string; poster: string; alt?: string; aspect?: number; hasAudio?: boolean };
 ```
 
-`aspect` is optional but nice-to-have: if you populate it, the masonry can reserve correct space *before* the image loads, eliminating layout shift. A small build-time script (Section 8.3) can fill it automatically.
+`aspect` is optional but nice-to-have: if you populate it, the grid can reserve correct space *before* the image loads, eliminating layout shift. A small build-time script (Section 8.3) can fill it automatically.
 
 ### 3.3 Backward compatibility (transitional)
 
-Keep a tiny normalizer in `script.js` so old-style stages (`{ label, image }`) still work during the migration:
+Keep normalizers in `scripts.js` so old-style stages (`{ label, image }`) still work during the migration:
 
 ```js
 function normalizeStage(stage) {
@@ -282,32 +264,16 @@ Run every stage through this on render. Once all data is migrated, you can delet
 
 This is the part that most needs to feel intentional. The portfolio is a 3D artist's storefront — recruiters scroll fast, so the visuals carry the weight.
 
-### 4.1 Mosaic (masonry)
+### 4.1 Mosaic (CSS grid)
 
-**Library decision: don't use one.** Pure CSS masonry is good enough for this scale and avoids a JS dependency:
-
-```css
-.media-mosaic {
-  column-count: 3;
-  column-gap: var(--spacing-sm);
-}
-.media-mosaic > * {
-  break-inside: avoid;
-  margin-bottom: var(--spacing-sm);
-  width: 100%;
-}
-@media (max-width: 1024px) { .media-mosaic { column-count: 2; } }
-@media (max-width: 640px)  { .media-mosaic { column-count: 1; } }
-```
-
-This gives a Pinterest-style layout that handles any number of images and any aspect ratios. Tradeoff: items fill top-to-bottom by column (not strict left-to-right reading order). For a portfolio, this is fine and arguably better.
+**Library decision: don't use one.** The shipped site uses a **CSS grid** mosaic (`repeat(3, 1fr)` → 2 → 1 columns). See `DESIGN.md` §4.6 for the exact rules.
 
 **Single-item fallback:** if a stage has 1 media item, render it full-width centered (max-width ~70vw) instead of a 1-column mosaic — avoids the "lonely tile" look.
 
 ```js
-function renderStageMedia(stage) {
-  if (stage.media.length === 1) return renderMediaSolo(stage.media[0]);
-  return renderMediaMosaic(stage.media);
+function renderStageMedia(mediaArray, altText) {
+  if (mediaArray.length === 1) return renderMediaSolo(mediaArray[0], altText);
+  return renderMediaMosaic(mediaArray, altText);
 }
 ```
 
@@ -355,87 +321,50 @@ Clicking any mosaic item opens a fullscreen overlay:
 - Index indicator: `3 / 7` bottom-center
 - Videos in the lightbox get real `controls`
 
-Build this from scratch — ~80 lines of vanilla JS, no dependency. Spec it as a separate render function `renderLightbox()` and event-wire it once globally.
+Implemented as **`mountLightbox()`** — creates the overlay DOM once and wires delegated clicks / keyboard handlers (not an HTML string `renderLightbox()`).
 
 ### 4.5 Hero with video
 
 When `project.hero.type === "video"`, replace the hero's `background-image` div with a stacked `<video>` element + dark overlay + name + tools. The video autoplays muted, looped, on the project hero (this is the "look at me" moment, autoplay is fine here even on mobile because the user has scrolled to the project).
 
-### 4.6 Tool icons — extend the set
+### 4.6 Tool labels
 
-From the folder evidence you'll need at minimum: `zbrush`, `maya`, `substance`, `marmoset`, `blender`, `unreal`, `xgen`, `photoshop`, `unity`. Source pngs from each tool's brand kit or use generic glyphs. Keep the white-filter convention from the existing spec.
+**Shipped:** uppercase **text badges** on the hero and mosaic cards, mapped through `TOOL_DISPLAY_NAMES`. Extend that map (and optionally add PNGs under `assets/icons/` for future use).
 
-### 4.7 Category landing tiles — 5 categories now
+### 4.7 Category landing tiles — five categories
 
-The current info section does "2 top + 1 bottom". With 5 categories that breaks. Options:
-
-1. **3 top + 2 bottom** asymmetric grid (recommended — visually interesting)
-2. **2 + 2 + 1** three rows
-3. **2-column scrolling tile column on the right** (mobile-friendly)
-
-Recommended is option 1, with custom column spans:
-
-```css
-.info-tiles {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: 1fr;
-  gap: var(--spacing-xs);
-  height: 100%;
-}
-.info-tile:nth-child(1) { grid-column: span 2; }   /* Characters */
-.info-tile:nth-child(2) { grid-column: span 2; }   /* Creatures */
-.info-tile:nth-child(3) { grid-column: span 2; }   /* Props */
-.info-tile:nth-child(4) { grid-column: span 3; }   /* Makeup */
-.info-tile:nth-child(5) { grid-column: span 3; }   /* Generalist */
-```
-
-Result: top row has three equal tiles (her 3D specialty), bottom row has two wider tiles (her broader work). Reads as a hierarchy.
+**Shipped:** `renderInfoFlagship` (Characters, Creatures, Props) + `renderInfoBottom` (Generalist, SFX) inside `.info-right`, with a **65% / 35%** vertical split on desktop — see `DESIGN.md` §4.1 and `styles.css` (`.info-flagship`, `.info-bottom`). This replaces the older single `.info-tiles` six-column `nth-child` sketch.
 
 ---
 
 ## 5. Updated render functions
 
 ```js
-// existing-ish
-renderInfoSection(data)
-renderCategorySection(category, projects)
-renderProjectHero(project)            // updated: handles video hero
-renderProjectFinal(project)           // can be removed — final render is just the last stage / gallery item now
-
-// new
-renderProjectStages(project)          // staged projects only — loops through stages
-renderProjectGallery(project)         // gallery projects only — single mosaic
-renderStageBlock(stage)               // label + media renderer
-renderMediaMosaic(mediaArray)         // grid of <picture> / <video> tiles
-renderMediaSolo(mediaItem)            // single centered tile
-renderMediaTile(mediaItem)            // one tile, image or video, with hover-play wiring
-renderLightbox()                      // mounted once, opened on tile click
+renderInfoSection / renderInfoPersonal / renderInfoFlagship / renderInfoBottom
+renderContactSection
+renderCategorySection / renderCategoryMosaic / renderProjectCard
+renderProjectHero / renderProjectAbout / renderProjectBody
+renderProjectStages / renderProjectGallery
+pickRendersStage / renderRendersBlock / renderHighlightsBlock / renderStageAccordion / renderStageBlock
+renderMediaTile / renderMediaSolo / renderMediaMosaic / renderStageMedia
+attachHoverPlay / attachCardVideoPlay
+mountLightbox
 ```
 
 Dispatcher in `renderProjectBody`:
 
 ```js
 function renderProjectBody(project) {
-  if (project.type === "gallery") return renderProjectGallery(project);
-  return renderProjectStages(project);   // default = staged
+  const normalized = normalizeProject(project);
+  const aboutHtml = renderProjectAbout(normalized);
+  const inner = normalized.type === "gallery"
+    ? renderProjectGallery(normalized)
+    : renderProjectStages(normalized);
+  return `<div class="project-body" id="body-${project.id}">${aboutHtml}${inner}<!-- + collapse button --></div>`;
 }
 ```
 
-`init()` becomes:
-
-```js
-function init() {
-  renderInfoSection(portfolioData);
-  portfolioData.categories.forEach(cat => {
-    const projects = portfolioData.projects.filter(p => p.category === cat.id);
-    if (projects.length === 0) return;            // hide empty categories
-    renderCategorySection(cat, projects);
-  });
-  mountLightbox();
-  wireScrollBehavior();
-}
-```
+`init()` (simplified — see `scripts.js` for the full sequence): render info + categories + contact, `mountLightbox()`, `attachHoverPlay` / `attachCardVideoPlay`, hero and mosaic interaction handlers, hash scroll, `.site-nav` + observers, back-to-top.
 
 ---
 
@@ -451,12 +380,9 @@ function init() {
 
 ---
 
-## 7. Routing / deep-linking (optional but recommended)
+## 7. Routing / deep-linking
 
-Right now everything is one long scroll. For a portfolio, that's fine — but consider:
-
-- **Hash-based deep links per project**: `index.html#assassin-elf` scrolls to and highlights that project on load. Trivial to add (`location.hash` on click, `scrollIntoView` on load), and lets her share specific work in Instagram bio / DMs.
-- **Project IDs become URLs.** That's another reason the rename in Section 2 matters.
+**Shipped:** hero `#` button writes `history.replaceState` to `#projectId`; on load, `location.hash` triggers `scrollIntoView`. Legacy `#makeup` / `#sculpture` remap to `#sfx`. Section nav uses smooth scrolling (not raw anchor jumps).
 
 ---
 
@@ -466,7 +392,7 @@ This is the order I'd recommend running through. Each step is small enough to be
 
 ### Phase 1 — Asset reorganization (mostly bash, no JS)
 
-1. **Confirm Makeup project groupings with Itziar** (see Section 1.3).
+1. **Confirm SFX project groupings with Itziar** — answered historically (Section 10); adjust `portfolioData` if scope changes.
 2. **Write `scripts/reorganize-assets.sh`**: a shell script that reads a manifest (CSV or JSON of "old path → new path") and `git mv`s files into the new structure. Reviewable, reversible.
 3. **Write `scripts/generate-posters.sh`**: walks `assets/`, finds every `.mp4`, generates a `*-poster.jpg` via ffmpeg if missing.
 4. **Write `scripts/optimize-videos.sh`**: re-encodes all `.mp4` to web-friendly H.264, strips audio, caps at 5 MB-ish.
@@ -474,7 +400,7 @@ This is the order I'd recommend running through. Each step is small enough to be
 
 ### Phase 2 — Schema migration (JS only)
 
-6. **Update `portfolioData` to v2 schema** (Section 3.1). Add the 5 categories. Add at least one staged project (Assassin Elf) and one gallery project (Kelsier) end-to-end as the proof points.
+6. **Update `portfolioData` to v2 schema** (Section 3.1). **Done** — five categories (`sfx` not `makeup`), staged + gallery projects, mosaic layouts where needed.
 7. **Add `normalizeStage` and `normalizeProject`** so the renderer never sees raw old data.
 
 ### Phase 3 — Render layer
@@ -483,11 +409,11 @@ This is the order I'd recommend running through. Each step is small enough to be
 9. **`renderStageBlock` + `renderProjectStages`** — staged projects.
 10. **`renderProjectGallery`** — gallery projects.
 11. **Update `renderProjectHero`** to handle video heroes.
-12. **Update `renderInfoSection`** for the 5-tile grid (Section 4.7).
+12. **Update `renderInfoSection`** for flagship + bottom tile layout (Section 4.7).
 
 ### Phase 4 — Polish
 
-13. **Lightbox** — `renderLightbox` + event wiring.
+13. **Lightbox** — `mountLightbox()` + event wiring.
 14. **Hash-based deep links** (Section 7).
 15. **Reduced-motion + lazy-load + alt text audit.**
 16. **Cross-browser test pass** with Playwright (Chromium + WebKit at minimum — Safari handles autoplay video differently).
@@ -500,15 +426,9 @@ A few pieces will make the Claude Code experience much better:
 
 ### 9.1 `CLAUDE.md` at the repo root
 
-Claude Code reads this automatically on every session. Replace the existing `copilot-instructions.md` with a `CLAUDE.md` that combines:
+**Status:** `CLAUDE.md` exists and is the primary agent instructions file. **`.github/copilot-instructions.md`** should stay aligned for GitHub Copilot (shorter mirror).
 
-- **Project context** (lifted from `copilot-instructions.md` — it's already excellent)
-- **Pointer to `DESIGN.md` and `EXTENSION_PLAN.md` as sources of truth**
-- **The "What Claude Should Never Do" list** (rename from "Copilot")
-- **Commands Claude should know**: how to run the local server, lint, screenshot, run the asset scripts
-- **Schema v2 reference** (or just point to Section 3 of this doc)
-
-A skeleton is in `CLAUDE.md.template` (Section 9.5 below).
+Contents should include: project context, guardrails, `DESIGN.md` pointer, lint/screenshot commands, asset scripts, and schema notes (or pointers to `DESIGN.md` §2).
 
 ### 9.2 Use Plan Mode for the big steps
 
@@ -535,7 +455,7 @@ The literal contents I'd put at the repo root — see the second file in this ou
 
 ---
 
-## 10. Open questions before coding starts
+## 10. Answered product questions (historical)
 
 1. **Makeup groupings** — do the 6 proposed projects in Section 1.3 match how Itziar thinks about them, or should it be fewer/more?
 **ANSWER** = YES THEY MATCH.
@@ -565,6 +485,22 @@ if she wants to label them.
 - The BEM CSS naming convention.
 - The "all content lives in `portfolioData`" rule.
 - Hosting on GitHub Pages.
-- The render-functions-return-strings architecture.
+- The render-functions-return-strings architecture (exception: **`mountLightbox()`** builds DOM imperatively once at startup).
 
-The extension is additive. If at any point a change here conflicts with `DESIGN.md`, `DESIGN.md` should be updated first to match — keep one source of truth, don't let the two drift.
+The extension was additive. **If this plan conflicts with `DESIGN.md` or with the code, update `DESIGN.md` / `CLAUDE.md` / this file to match reality** — the running site and `portfolioData` are the behavioral source of truth.
+
+---
+
+## 12. Responsive rebuild (Apr 2026)
+
+Full CSS-only responsive pass targeting all viewports from 360px up. Desktop (≥1024px) styles were locked throughout.
+
+**What changed:**
+
+- **Info section (≤1023px):** Desktop's 320px avatar column + 65/35 flagship/bottom split replaced with a vertical stack — full-width personal tile on top, then a 2-column `aspect-ratio: 4/3` category grid below. At ≤767px drops to single column with `aspect-ratio: 16/9` tiles.
+- **Site nav (≤1023px):** Compact spacing + right-edge `mask-image` fade affordance. Each link enforces `min-width: 44px` + 48px height (HIG 44×44). No hamburger.
+- **Project heroes:** Image heroes switch to `background-size: cover; background-position: center top` at ≤1023px. Video heroes gain a cinematic top-vignette overlay. At ≤767px, hero is `height: auto; min-height: 62vh`; title un-absoluted and font-scaled to `clamp(2rem, 9vw, 2.75rem)`; tools un-absoluted to a full-width flex row below the title.
+- **Tool pills:** `min-height: 44px` at ≤767px.
+- **Lightbox:** Pointer swipe added in `mountLightbox()` (pointerdown/pointerup, deltaX > 50px in < 500ms). Buttons resized to 48×48 on mobile and repositioned to bottom-20%.
+- **Hero actions:** `@media (hover: none) and (pointer: coarse)` keeps `.project-hero__actions` always visible on touch.
+- **Verification script:** `scripts/verify-responsive.mjs` — asserts no horizontal scroll + 44×44 tap-target audit at all 6 viewports.

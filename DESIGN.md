@@ -1,6 +1,6 @@
 # Portfolio Design Document — Itziar Martín Molina · 3D Artist
 
-> **This file is the source of truth for visual identity, CSS conventions, and render-function contracts.** Keep it open while developing. For schema details and the extension roadmap, see `EXTENSION_PLAN.md` (takes precedence over this file if they conflict).
+> **This file is the source of truth for visual identity, CSS conventions, and render-function contracts.** Keep it open while developing. For roadmap and answered product questions, see `EXTENSION_PLAN.md`. If the two disagree with **the shipped code**, update the docs to match the code.
 
 ---
 
@@ -10,7 +10,7 @@ A **static Single Page Application** portfolio for a 3D artist.
 Hosted on **GitHub Pages**. No framework — plain HTML + CSS + JS.  
 One HTML file (`index.html`), one CSS file (`styles.css`), one JS file (`scripts.js`). All content is data-driven from a JS object.
 
-**File structure:**
+**File structure (representative):**
 ```
 portfolio/
 ├── index.html
@@ -19,65 +19,16 @@ portfolio/
 ├── DESIGN.md
 ├── EXTENSION_PLAN.md
 ├── CLAUDE.md
+├── .github/copilot-instructions.md
+├── test.js                    # optional Playwright smoke / screenshot
 └── assets/
     ├── avatar.png
-    ├── icons/
-    │   ├── zbrush.png
-    │   ├── maya.png
-    │   ├── substance.png
-    │   ├── marmoset.png
-    │   ├── xgen.png
-    │   ├── blender.png
-    │   ├── unity.png
-    │   └── photoshop.png
-    ├── characters/
-    │   └── assassin-elf/
-    │       ├── hero.mp4
-    │       ├── hero-poster.jpg
-    │       ├── blockout/
-    │       ├── highpoly/
-    │       ├── retopology/
-    │       ├── bakes/
-    │       ├── textures/
-    │       ├── xgen/
-    │       └── render/
-    ├── creatures/
-    │   └── alien/
-    │       ├── hero.mp4
-    │       ├── hero-poster.jpg
-    │       ├── 360.mp4
-    │       ├── 360-poster.jpg
-    │       ├── blockout/
-    │       ├── highpoly/
-    │       ├── textures/
-    │       ├── udims/
-    │       └── render/
-    ├── props/
-    │   ├── crime-shoes/
-    │   │   ├── hero.mp4
-    │   │   ├── hero-poster.jpg
-    │   │   ├── highpoly/
-    │   │   ├── retopology/
-    │   │   ├── textures/
-    │   │   └── render/
-    │   └── bone-dagger/
-    │       ├── render.jpg
-    │       └── wireframe.jpg
-    ├── makeup/
-    │   ├── kelsier/
-    │   ├── the-doll/
-    │   ├── old-skin/
-    │   ├── beast-book/
-    │   ├── clay-face/
-    │   └── dolfo/
-    └── generalist/
-        ├── showreel/
-        ├── the-foot/
-        ├── xali/
-        ├── black-lodge/
-        ├── dolfo-snake/
-        ├── tiger/
-        └── player/
+    ├── icons/                   # optional PNG tool icons (not required by current hero UI)
+    ├── characters/…
+    ├── creatures/…
+    ├── props/…
+    ├── sfx/                     # SFX makeup & sculpting (replaces legacy “makeup” category id)
+    └── generalist/…
 ```
 
 ---
@@ -98,17 +49,21 @@ const portfolioData = {
     bio: "...",
     contact: {
       email: "...",
+      phone: "...",
+      instagram: "https://...",
       artstation: "https://...",
-      linkedin: "https://..."
+      linkedin: "https://...",
+      languages: "...",
+      location: "..."
     }
   },
 
   categories: [
-    { id: "characters",  label: "Characters",          thumbnail: "assets/...", hoverText: "View Characters" },
-    { id: "creatures",   label: "Creatures",            thumbnail: "assets/...", hoverText: "View Creatures"  },
-    { id: "props",       label: "Props",                thumbnail: "assets/...", hoverText: "View Props"      },
-    { id: "makeup",      label: "Makeup & Sculpture",   thumbnail: "assets/...", hoverText: "View Makeup"     },
-    { id: "generalist",  label: "Generalist",           thumbnail: "assets/...", hoverText: "View Generalist" }
+    { id: "characters",  label: "Characters", thumbnail: "assets/...", hoverText: "View Characters", focalPoint: "15% 50%" },
+    { id: "creatures",   label: "Creatures",  thumbnail: "assets/...", hoverText: "View Creatures", focalPoint: "15% 100%" },
+    { id: "props",       label: "Props",      thumbnail: "assets/...", hoverText: "View Props", focalPoint: "40% 50%" },
+    { id: "generalist",  label: "Generalist", thumbnail: "assets/...", hoverText: "View Generalist", focalPoint: "50% 50%", layout: "mosaic" },
+    { id: "sfx",         label: "SFX Makeup & Sculpting", thumbnail: "assets/...", hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }
   ],
 
   projects: [
@@ -146,21 +101,20 @@ const portfolioData = {
       ]
     },
 
-    // GALLERY project (Makeup / Generalist)
+    // GALLERY project (e.g. props / sfx / any category)
     {
       id: "kelsier",
-      category: "makeup",
+      category: "sfx",
       type: "gallery",
-      name: "Kelsier",
+      name: "Kelsier (Misfits)",
       tools: [],
       hero: {
         type: "image",
-        src: "assets/makeup/kelsier/kelsier-01.jpg",
+        src: "assets/sfx/kelsier/kelsier-04.jpg",
         aspect: 0.753
       },
       media: [
-        { type: "image", src: "assets/makeup/kelsier/kelsier-01.jpg", aspect: 0.753 },
-        { type: "image", src: "assets/makeup/kelsier/kelsier-02.png", aspect: 0.753 }
+        { type: "image", src: "assets/sfx/kelsier/kelsier-01.jpg", aspect: 0.753 }
         // ...
       ]
     }
@@ -168,19 +122,21 @@ const portfolioData = {
 };
 ```
 
+**Optional project / hero fields (production):** `pinned`, `description` (HTML fragments allowed), `highlights` (staged — media strip after renders), `rendersStageLabel` (`null` = no promoted renders block), `openFullscreenOnly` (mosaic cards), `hero.hasAudio` / `media[].hasAudio` for fullscreen playback with sound where applicable.
+
 ### 2.2 Project types
 
 | `type` | Description | Used by |
 |--------|-------------|---------|
-| `"staged"` | Has named stages (Blockout, High Poly, …). Each stage has a `media` array. | Characters, Creatures, Props |
-| `"gallery"` | Single mosaic of mixed media, no stage labels. Has a top-level `media` array. | Makeup, Generalist |
+| `"staged"` | Has named stages. Each stage has a `media` array. Optional `highlights` media strip and `rendersStageLabel` control how the “renders” stage is promoted. | Characters, Creatures, Props, some SFX |
+| `"gallery"` | Single mosaic of mixed media, no stage labels. Has a top-level `media` array. | e.g. Bone Dagger (props), Kelsier (sfx) |
 
 ### 2.3 Media item shape
 
 ```ts
 type Media =
   | { type: "image"; src: string; alt?: string; aspect?: number }
-  | { type: "video"; src: string; poster: string; alt?: string; aspect?: number };
+  | { type: "video"; src: string; poster: string; alt?: string; aspect?: number; hasAudio?: boolean };
 ```
 
 `aspect` = width ÷ height. Optional but strongly recommended — reserves correct space before load and eliminates CLS. Populated via `scripts/fill-aspect-ratios.mjs`.
@@ -195,18 +151,20 @@ type Media =
 
 ```
 <body>
-  <header id="info-section">         ← full-viewport info / landing section
+  <header id="info-section">       ← landing / artist block (filled by JS)
+  <nav class="site-nav" id="site-nav"></nav>   ← sticky section nav (filled by JS)
   <main>
-    <section id="characters">        ← staged category
-    <section id="creatures">         ← staged category
-    <section id="props">             ← staged category (also has a gallery project: bone-dagger)
-    <section id="makeup">            ← gallery category
-    <section id="generalist">        ← gallery category
+    <section id="characters"></section>
+    <section id="creatures"></section>
+    <section id="props"></section>
+    <section id="generalist"></section>   ← mosaic layout (card grid) in data
+    <section id="sfx"></section>          ← mosaic layout (card grid) in data
+    <section id="contact" class="contact-section"></section>
   </main>
 </body>
 ```
 
-Each `<section id="[category-id]">` is generated by JS from `portfolioData`. Section IDs must match `category.id` exactly.
+Category `<section>` shells are declared in `index.html`; inner HTML is replaced by `renderCategorySection`. IDs must match `category.id` exactly. Legacy URLs `#makeup` / `#sculpture` redirect to `#sfx` in `init()`.
 
 ---
 
@@ -214,26 +172,21 @@ Each `<section id="[category-id]">` is generated by JS from `portfolioData`. Sec
 
 ### 4.1 Info Section (`#info-section`)
 
-**Layout:** Two columns, full viewport height.
+**Layout:** Desktop (`≥1024px`) is a **locked editorial grid**: fixed-width personal column + a **right stack** (≈65% / 35% height split) with **three flagship tiles** (Characters, Creatures, Props) on top and **two wider tiles** (Generalist, SFX) on the bottom row. Tablet and mobile use stacked / banded variants — see `styles.css` (`.info-layout`, `.info-flagship`, `.info-bottom`).
 
-| Column | Width | Content |
-|--------|-------|---------|
-| Left — Personal | 30% | Avatar image + name + title |
-| Right — Tiles | 70% | Grid of 5 category tiles |
+| Region | Desktop behavior | Content |
+|--------|------------------|---------|
+| Left — Personal | Fixed width `var(--info-left-width)` | Avatar via `background-image: cover`, name + title + hint; hover overlay shows bio + contact meta + social pills |
+| Right — Flagship | 3-column grid | Three `.info-tile--flagship` buttons |
+| Right — Bottom | 2-column grid | Two `.info-tile--bottom` buttons |
 
-**Left column — Personal block:**
-- Avatar fills the column height via `background-image: cover`
-- Name and title text positioned at bottom-left, always visible in white
-- On hover: dark semi-transparent overlay appears, showing bio + social links
-- CSS class: `.info-personal`
+**Personal block (`.info-personal`):**
+- On hover: overlay shows “Contact” header, bio, mail/phone/languages/location list, Instagram / ArtStation / LinkedIn pills.
 
-**Right column — Category tiles:**
-- 5 tiles in a **3 + 2 asymmetric grid** on desktop (see Section 6)
-- Each tile has a background image (`background-size: cover`)
-- Category label always visible at bottom of tile, white text
-- On hover: dark overlay, label becomes `hoverText`, cursor pointer
-- On click: smooth-scroll to `<section id="[category-id]">` via `scrollIntoView({ behavior: 'smooth' })`
-- CSS class: `.info-tile`
+**Category tiles (`.info-tile`):**
+- Background from `category.thumbnail` with `background-position` from `focalPoint` (or `focalX` / `focalY`).
+- Indexed label + arrow; hover shows centered `hoverText` and scales background slightly.
+- Click scrolls to `#${id}-scroll` when present (section banners), else `#${id}` — `scrollIntoView({ behavior: 'smooth', block: 'start' })`.
 
 **Hover behavior (both columns):**
 ```css
@@ -259,33 +212,32 @@ Never use `display: none / block` for overlay show/hide — always `opacity`.
 
 ### 4.2 Category Section
 
-**Layout:** Vertical stack.
+**Default (`layout` omitted):** vertical stack per project:
 
 ```
+[Section banner — category label, id="${category.id}-scroll"]
 [Project 1 Hero]
-[Project 1 Body]         ← stages or gallery, depending on project.type
+[Project 1 Body]         ← About (if description) + stages or gallery; collapsed until “Show More”
 [Project 2 Hero]
 [Project 2 Body]
 ...
 ```
 
-**Section label source:**
-- No category banner is rendered above project heroes.
-- The pinned navbar active state communicates the current section.
+**Mosaic mode (`category.layout === "mosaic"`):** `renderCategoryMosaic` — a **section banner**, a **grid of `.project-card`** tiles (poster or video hover-play on cards), and **hidden project bodies** expanded one-at-a-time under the grid. Bodies include an inner project banner, optional About, optional solo hero video when not already in gallery `media`, then gallery/staged content.
+
+**Section label source:** `.section-banner` at the top of each category (and inner project banner in mosaic bodies). The sticky **`.site-nav`** reflects the active section via `IntersectionObserver`.
 
 ---
 
 ### 4.3 Project Hero
 
-- Full-viewport-width
-- Image heroes (`.project-hero--image`) use `80vh` container height and `background-image: project.hero.src` with `background-size: contain` (no clipping).
-- Video heroes (`.project-hero--video`) render a `<video>` element with `autoplay muted loop playsinline preload="metadata"` and `poster`, inside an aspect-ratio-driven container (`--project-hero-aspect`).
-- Video heroes use `object-fit: contain` so the full frame remains visible.
-- Dark overlay: `var(--color-overlay)` — CSS class `.project-hero__overlay`
-- Project name: bottom-left, `font-family: var(--font-display)`, `font-size: 4rem`, white
-- Tool icons: bottom-right, PNG from `assets/icons/[tool].png`, white via `filter: brightness(0) invert(1)`
-- Deep-link anchor button `#` appears on hover (top-right), writes `location.hash` on click
-- CSS class: `.project-hero`
+- Full-width hero block with id `project.id` for deep links.
+- Image heroes (`.project-hero--image`) use aspect from `hero.aspect` and `background-image` + `contain` fitting.
+- Video heroes (`.project-hero--video`) render `<video autoplay muted loop playsinline preload="metadata" poster>` inside an aspect-ratio container (`--project-hero-aspect`); `object-fit: contain`. Optional **fullscreen** control (`.project-hero__fullscreen-btn`) uses the Fullscreen API; with `hero.hasAudio`, exiting fullscreen restores muted autoplay loop.
+- Dark overlay: `.project-hero__overlay`
+- Title and **tool badges** (`.project-hero__tool` — uppercase labels via `TOOL_DISPLAY_NAMES`, not PNG icons) positioned per `styles.css`.
+- Actions (top): `#` deep-link button (`history.replaceState` to `#projectId`) and optional fullscreen for video heroes.
+- **Show More** (`.project-hero__expand-btn`) toggles `.project-body--visible` on `#body-${id}` and syncs label “Show More” / “Hide”.
 
 ---
 
@@ -293,13 +245,21 @@ Never use `display: none / block` for overlay show/hide — always `opacity`.
 
 The project body is hidden by default behind a "Show More" button on the hero. When expanded, the body renders in two parts:
 
-**1. Renders block (`.stage-block--renders`) — always visible once body opens**
+**1. Renders block (`.stage-block--renders`) — when present, visible once body opens**
 
-The stage whose label matches `/^render/i` is promoted to a top-level renders block with no section label (position below the hero makes the context self-evident). If no stage matches, the last stage is promoted instead and its label is kept. Media renders via `renderStageMedia` as usual.
+`pickRendersStage(stages, project.rendersStageLabel)` decides promotion:
+
+- `rendersStageLabel === null` → **no** renders block; every stage becomes an accordion.
+- `rendersStageLabel` string → promote the stage whose `label` matches exactly.
+- Otherwise → prefer a stage whose label matches `/^render/i`, else promote the **last** stage (legacy behavior).
+
+Promoted stage renders **without** a visible heading (context comes from placement under the hero). Media via `renderStageMedia`.
+
+**1b. Highlights (`.stage-block--highlights`)** — optional `project.highlights` media array rendered after the renders block with a “HIGHLIGHTS” label.
 
 **2. Per-stage accordions — closed by default**
 
-Every remaining stage is wrapped in a native `<details class="stage-accordion">` element:
+Every **non-promoted** stage is wrapped in a native `<details class="stage-accordion">` element:
 
 ```
 ─────────────  H I G H   P O L Y  ▾  ─────────────   ← <summary class="stage-accordion__summary stage-block__label">
@@ -330,23 +290,24 @@ Every remaining stage is wrapped in a native `<details class="stage-accordion">`
 
 ### 4.6 Media Mosaic
 
-**Implementation: pure CSS columns — no JS masonry library.**
+**Implementation: pure CSS grid — no JS masonry library.**
 
 ```css
 .media-mosaic {
-  column-count: 3;
-  column-gap: var(--spacing-sm);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
   padding: var(--spacing-md);
 }
-.media-mosaic .media-tile {
-  break-inside: avoid;
-  margin-bottom: var(--spacing-sm);
+@media (max-width: 1024px) {
+  .media-mosaic { grid-template-columns: repeat(2, 1fr); }
 }
-@media (max-width: 1024px) { .media-mosaic { column-count: 2; } }
-@media (max-width: 640px)  { .media-mosaic { column-count: 1; } }
+@media (max-width: 640px) {
+  .media-mosaic { grid-template-columns: 1fr; }
+}
 ```
 
-Items fill top-to-bottom by column (Pinterest-style). Acceptable trade-off for a portfolio — no JS dependency.
+A lone last tile spanning an odd row may be centered via `:last-child:nth-child(3n+1)` on desktop; that rule resets on narrower breakpoints.
 
 ---
 
@@ -382,40 +343,37 @@ Clicking any `.media-tile` outside the lightbox itself opens a fullscreen overla
 - Prev / Next arrows (←/→ keys also work) cycle through the current group (stage mosaic or gallery mosaic)
 - Counter: `3 / 7` bottom-center
 - Videos in lightbox get `controls` and `autoplay`
-- Mounted once globally via `mountLightbox()` — wired with a delegated click listener on `document.body`
+- Mounted once globally via `mountLightbox()` (builds DOM + listeners; not a string template)
 - CSS class: `.lightbox` / `.lightbox--open` (toggled via class, not `display`)
 
 ---
 
 ## 5. Navigation & Scroll Behavior
 
-- Clicking a category tile scrolls to `#[category-id]` via `scrollIntoView({ behavior: 'smooth' })`.  
-  **Never use `<a href="#section">` anchor jumps.**
-- **Hash deep-links:** clicking the `#` anchor on a project hero writes `history.replaceState(null, '', '#' + projectId)`. On page load, `location.hash` is read and the target element is scrolled into view.
-- **Back-to-top button:** a fixed `.back-to-top` button appears (`.back-to-top--visible`) once `#info-section` leaves the viewport, detected via `IntersectionObserver`. It sits higher than the default bottom edge spacing to avoid overlapping section labels. Clicking it calls `window.scrollTo({ top: 0, behavior: 'smooth' })`.
+- **Site nav:** `.site-nav` links use `href="#..."` for native semantics but **`preventDefault`** + `scrollIntoView({ behavior: 'smooth', block: 'start' })` to avoid jarring instant jumps. Targets prefer `${id}-scroll` elements when section banners define them.
+- **Category tiles:** same smooth scroll behavior from the info section buttons.
+- **Hash deep-links:** hero `#` button writes `history.replaceState(null, '', '#' + projectId)`. On load, `location.hash` scrolls the matching element into view. Legacy `#makeup` / `#sculpture` map to `#sfx`.
+- **Back-to-top:** `.back-to-top` visibility toggled when `#info-section` leaves the viewport (`IntersectionObserver`). Click → `window.scrollTo({ top: 0, behavior: 'smooth' })`.
 
 ---
 
 ## 6. Responsive Breakpoints
 
-| Breakpoint | Info section layout | Tiles layout |
-|------------|---------------------|--------------|
-| Mobile (`< 768px`) | Single column: personal top, tiles below stacked | Single column |
-| Tablet (`768px – 1023px`) | Two columns | 2-column grid; 5th tile spans 2 |
-| Desktop (`≥ 1024px`) | Two columns, locked to `100vh` | 6-column grid, **3 + 2 asymmetric**: tiles 1–3 `span 2`, tiles 4–5 `span 3` |
+Test viewports: 1440, 1024, 820, 414, 390, 360px wide.
 
-Desktop tile CSS:
-```css
-.info-tiles-container {
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: 1fr 1fr;
-}
-.info-tile:nth-child(1) { grid-column: span 2; }  /* Characters */
-.info-tile:nth-child(2) { grid-column: span 2; }  /* Creatures  */
-.info-tile:nth-child(3) { grid-column: span 2; }  /* Props      */
-.info-tile:nth-child(4) { grid-column: span 3; }  /* Makeup     */
-.info-tile:nth-child(5) { grid-column: span 3; }  /* Generalist */
-```
+| Breakpoint | Info section | Project heroes | Nav |
+|------------|--------------|----------------|-----|
+| Mobile (`max-width: 767px`) | Single-column: personal tile (`aspect-ratio: 16/9`) then all category tiles stacked (`aspect-ratio: 16/9` each) | `height: auto; min-height: 62vh`; title `position: relative` at `clamp(2rem, 9vw, 2.75rem)`; tools re-flow as full-width row below title; pill `min-height: 44px` | Gap `0.75rem`; links `min-width: 44px` |
+| Tablet portrait (`768px – 1023px`) | Full-width personal tile (`38vh` min 240px, `background-position: center top`); flagship + bottom each **2-column** grid (`aspect-ratio: 4/3`); last bottom tile spans full row when odd | Image heroes: `background-size: cover; background-position: center top`; video heroes: cinematic top-vignette overlay (dark → transparent → standard scrim); title/tools retain desktop absolute layout | Gap `var(--spacing-sm)`; font-size `0.78rem`; right-edge fade mask affordance |
+| Desktop (`min-width: 1024px`) | `#info-section` locked to `100vh`; `.info-layout` row: fixed `320px` personal column + `.info-right` (65% flagship / 35% bottom); flagship three-up; bottom two-up | Full desktop layout — unchanged | Full desktop layout — unchanged |
+
+**Mosaic grid:** `.media-mosaic` uses **3 → 2 → 1** columns at `default` / `max-width: 1024px` / `max-width: 640px`. `.category-mosaic__grid` follows the same pattern.
+
+**Nav:** Horizontal scroll (`overflow-x: auto`, hidden scrollbar) at all widths ≤1023px. Right-edge `mask-image` fade signals scrollability. No hamburger. Every link has `min-width: 44px` and 48px nav height — satisfies HIG 44×44.
+
+**Lightbox:** Keyboard (Esc/Arrow) + pointer swipe (deltaX > 50px in < 500ms) navigation. Buttons are 48×48 on mobile, repositioned to bottom-20% for thumb reach. Swipe is skipped when originating on video controls.
+
+**Touch visibility:** `@media (hover: none) and (pointer: coarse)` keeps `.project-hero__actions` always visible (not gated on hover).
 
 ---
 
@@ -424,8 +382,10 @@ Desktop tile CSS:
 - **CSS custom properties** for all colors, fonts, and spacing — never hardcode literal values.
 - **BEM naming**: `.block__element--modifier`. Class selectors only — no `id` selectors in CSS.
 - No utility frameworks (no Tailwind, no Bootstrap).
-- **Mobile-first** media queries (`min-width`), except for legacy overrides.
+- **Mixed query style:** many layout-critical rules use **`max-width`** tablets/mobile overrides alongside `min-width` desktop locks for the info hero. Prefer variables over raw pixels when introducing new breakpoints.
 - Animations via CSS `transition` / `@keyframes`. No JS animation libraries.
+
+Core palette / typography / spacing (always use variables; extend `:root` rather than literals):
 
 ```css
 :root {
@@ -446,6 +406,15 @@ Desktop tile CSS:
   --spacing-xl: 8rem;
 
   --transition-default: 0.3s ease;
+
+  /* Layout / UI tokens — see full list in styles.css */
+  --info-left-width: 320px;
+  --nav-height: 48px;
+  --color-surface-translucent: rgba(26, 26, 26, 0.85);
+  --color-accent-soft: rgba(200, 169, 110, 0.3);
+  --color-tool-badge-bg: rgba(14, 14, 14, 0.7);
+  --color-tool-badge-border: rgba(240, 240, 240, 0.15);
+  /* …and more (hero max-height, nav scroll offset, etc.) */
 }
 ```
 
@@ -458,7 +427,7 @@ Desktop tile CSS:
 
 ## 8. JS Architecture
 
-`scripts.js` contains four sections:
+`scripts.js` is organized into data, normalizers, render helpers (mostly **HTML string** builders), and `init()`. **`mountLightbox()`** is the intentional exception: it creates and wires the lightbox DOM once.
 
 ```js
 // 1. DATA
@@ -472,71 +441,55 @@ function normalizeProject(project) {} // v1 → v2 schema compat
 function renderMediaTile(mediaItem, altText) {}      // one image or video figure
 function attachHoverPlay(container) {}               // wires hover/autoplay on video tiles
 function renderMediaSolo(mediaItem, altText) {}      // single centered tile
-function renderMediaMosaic(mediaArray, altText) {}   // CSS-columns mosaic
+function renderMediaMosaic(mediaArray, altText) {}   // CSS grid mosaic
 function renderStageMedia(mediaArray, altText) {}    // dispatches solo vs mosaic
 function mountLightbox() {}                          // mounts lightbox DOM + wires all events
 
-function renderInfoSection(data) {}                  // #info-section: personal + tiles
-function renderCategorySection(category, projects) {}// all projects in a section (no category banner)
-function renderProjectHero(project) {}               // project hero div (includes Show More expand-btn)
-function renderProjectBody(project) {}               // dispatches → staged or gallery; wraps in .project-body
-function pickRendersStage(stages) {}                 // finds the Render stage (or last stage as fallback)
-function renderRendersBlock(stage, projectName) {}   // top renders mosaic — no heading, .stage-block--renders
-function renderStageAccordion(stage, projectName) {} // <details> accordion for a single non-render stage
-function renderProjectStages(project) {}             // renders block + accordion rows for staged projects
-function renderStageBlock(stage, projectName) {}     // label + media (retained; used internally)
-function renderProjectGallery(project) {}            // single mosaic from project.media
+function renderInfoPersonal(artist) {}
+function renderInfoTile(cat, n, modifier) {}
+function renderInfoFlagship(categories) {}           // characters / creatures / props
+function renderInfoBottom(categories) {}             // generalist / sfx
+function renderInfoSection(data) {}                  // composes personal + flagship + bottom
+function renderContactSection(artist) {}             // #contact inner HTML
+function renderCategoryMosaic(category, projects) {} // card grid + expandable bodies
+function renderProjectCard(project) {}               // mosaic category card + trigger
+function renderCategorySection(category, projects) {}// banner + stack OR mosaic
+function renderProjectAbout(project) {}              // optional ABOUT block (HTML body)
+function renderProjectHero(project) {}               // hero + Show More expand-btn
+function renderProjectBody(project) {}               // about + staged|gallery + collapse control
+function pickRendersStage(stages, rendersStageLabel) {}
+function renderRendersBlock(stage, projectName) {}
+function renderHighlightsBlock(mediaArray, projectName) {}
+function renderStageAccordion(stage, projectName) {}
+function renderProjectStages(project) {}             // renders + highlights + accordions
+function renderStageBlock(stage, projectName) {}     // labeled block (non-accordion)
+function renderProjectGallery(project) {}            // mosaic from project.media
+function attachCardVideoPlay(container) {}            // mosaic card video hover play
 
 // 4. INIT
 function init() {}  // called on DOMContentLoaded
 ```
 
-**`renderProjectBody` dispatcher:**
-```js
-function renderProjectBody(project) {
-  const normalized = normalizeProject(project);
-  if (normalized.type === "gallery") return renderProjectGallery(normalized);
-  return renderProjectStages(normalized);
-}
-```
+**`renderProjectBody`:** normalizes the project, prepends `renderProjectAbout`, dispatches inner content to `renderProjectGallery` or `renderProjectStages`, and appends an always-visible **Hide** control for the expanded body state.
 
-**`init` flow:**
-1. Render `#info-section` → wire tile click listeners
-2. For each category: find matching projects, render `renderCategorySection`, set `innerHTML`
-3. `mountLightbox()` — once, globally
-4. `attachHoverPlay(document.body)` — once, globally
-5. Wire `.project-hero__anchor` click listeners (hash deep-links)
-6. Handle `location.hash` on load (scroll to project)
-7. Mount back-to-top button + `IntersectionObserver`
+**`init` flow (summary):**
+1. Legacy hash remap (`#makeup`, `#sculpture` → `#sfx`).
+2. Render `#info-section` + tile click listeners (smooth scroll to section or `-scroll` anchor).
+3. Each category section: sort by `pinned`, `innerHTML = renderCategorySection(...)`.
+4. Render `#contact` from `renderContactSection`.
+5. `mountLightbox()`, `attachHoverPlay(document.body)`, `attachCardVideoPlay(document.body)`, `updateContainedHeroInsets` + resize listener.
+6. Delegated listeners: hero expand/collapse, mosaic card expand, hash link button, hero fullscreen, fullscreen API sync.
+7. `location.hash` scroll-into-view on load.
+8. Build `.site-nav` from categories + Contact; link `preventDefault` + smooth `scrollIntoView`; `IntersectionObserver` for active link state.
+9. Back-to-top button + observer on `#info-section`.
 
 ---
 
-## 9. Tool Icons
+## 9. Tool labels
 
-Store PNG files in `assets/icons/[tool-slug].png`.  
-Render as `<img>` tags inside `.project-hero__tools`:
+Hero and mosaic card tools are **text badges** (`.project-hero__tool` / `.project-card__tool` with nested fallback/label spans), driven by the `tools: string[]` array and `TOOL_DISPLAY_NAMES` in `scripts.js`. Add a slug → display name entry there for nice typography; unknown slugs render as-is (e.g. `"rizom UV"`).
 
-```css
-.project-hero__tool-icon {
-  width: 32px;
-  height: 32px;
-  filter: brightness(0) invert(1);
-  opacity: 0.85;
-}
-```
-
-Supported tool slugs (extend as needed):
-- `zbrush`
-- `maya`
-- `substance`
-- `marmoset`
-- `xgen`
-- `blender`
-- `unity`
-- `photoshop`
-- `unreal`
-- `cinema4d`
-- `houdini`
+Optional PNG icons may live under `assets/icons/[tool-slug].png` for future use, but the current UI does not render `<img>` tool icons in the hero.
 
 ---
 

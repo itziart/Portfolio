@@ -43,7 +43,7 @@ This is a **static Single Page Application** portfolio for a 3D artist.
   - `.info-tile--active`
   - `.project-hero__title`
   - `.project-hero__tools`
-  - `.category-banner__label`
+  - `.project-hero--video`
 - No utility frameworks (no Tailwind, no Bootstrap).
 - All variables are defined in `:root` in `styles.css`. If you need a new variable, add it there.
 - Animations use `transition` or `@keyframes` — no JS-based animation libraries.
@@ -92,6 +92,10 @@ Always use these variables. Never hardcode equivalent values.
   ```
 - Never use `href="#section"` anchor jumps — always use `scrollIntoView`.
 
+### Category sections
+- Do not render a category banner above projects.
+- The pinned nav active state indicates which section the user is currently viewing.
+
 ### Tool icons (project hero)
 - Icons are `<img>` tags pointing to `assets/icons/[tool].png`.
 - Always apply this CSS class to make them white:
@@ -104,10 +108,10 @@ Always use these variables. Never hardcode equivalent values.
   }
   ```
 
-### Stage images
-- Stage images are full-viewport-width, `100vh` tall.
-- No text, no labels, no overlay on stage images — ever.
-- Use `background-image` with `background-size: cover; background-position: center`.
+### Hero and stage media fitting
+- For non-info-section images (project image heroes and image media tiles), avoid clipping by using contain-fitting.
+- Hero videos must show the full frame (contain-fitting in an aspect-ratio-driven container).
+- Video tiles inside mosaics may use cover-fitting for denser composition.
 
 ### Asset paths
 - Always relative. Pattern: `assets/[category]/[project-slug]/[image].jpg`

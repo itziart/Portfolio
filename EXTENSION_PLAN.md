@@ -189,7 +189,7 @@ const portfolioData = {
         src: "assets/characters/assassin-elf/hero.mp4",
         poster: "assets/characters/assassin-elf/hero-poster.jpg"
       },
-      // thumbnail used in category banner / index — falls back to hero if absent
+      // thumbnail used in category index tiles — falls back to hero if absent
       thumbnail: {
         type: "video",
         src: "assets/characters/assassin-elf/hero.mp4",
@@ -320,7 +320,7 @@ For staged projects, each stage gets a small label *above* its mosaic — minima
     [mosaic]
 ```
 
-Use `letter-spacing: 0.4em; font-family: var(--font-display); color: var(--color-accent);`. The thin rules on either side echo the category banner style so the rhythm stays consistent.
+Use `letter-spacing: 0.4em; font-family: var(--font-display); color: var(--color-accent);`. The thin rules on either side preserve visual rhythm between stage blocks and hero sections.
 
 Gallery projects don't render stage labels (no stages), they just show one mosaic under the hero.
 

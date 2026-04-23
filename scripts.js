@@ -720,19 +720,13 @@ function renderInfoSection(data) {
 }
 
 function renderCategorySection(category, projects) {
-  const bannerHtml = `
-    <div class="category-banner">
-      <h2 class="category-banner__label">${category.label}</h2>
-    </div>
-  `;
-
   let projectsHtml = '';
   projects.forEach(project => {
     projectsHtml += renderProjectHero(project);
     projectsHtml += renderProjectBody(project);
   });
 
-  return bannerHtml + projectsHtml;
+  return projectsHtml;
 }
 
 function renderProjectBody(project) {
@@ -797,14 +791,17 @@ function renderProjectHero(project) {
   }).join('');
 
   const isVideo = project.hero?.type === "video";
-  const bgStyle = isVideo ? '' : `style="background-image: url('${project.hero?.src ?? ''}');"`;
+  const heroClass = isVideo ? 'project-hero project-hero--video' : 'project-hero project-hero--image';
+  const heroStyle = isVideo
+    ? `style="--project-hero-aspect: ${project.hero?.aspect ?? 1.778};"`
+    : `style="background-image: url('${project.hero?.src ?? ''}');"`;
   const videoHtml = isVideo ? `
     <video class="project-hero__video" autoplay muted loop playsinline preload="metadata" poster="${project.hero.poster}">
       <source src="${project.hero.src}" type="video/mp4">
     </video>` : '';
 
   return `
-    <div id="${project.id}" class="project-hero" ${bgStyle}>
+    <div id="${project.id}" class="${heroClass}" ${heroStyle}>
       ${videoHtml}
       <div class="project-hero__overlay"></div>
       <button class="project-hero__anchor" aria-label="Copy link to ${project.name}">#</button>

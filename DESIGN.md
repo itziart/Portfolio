@@ -262,7 +262,6 @@ Never use `display: none / block` for overlay show/hide — always `opacity`.
 **Layout:** Vertical stack.
 
 ```
-[Category Banner]        ← full-width bar with category name
 [Project 1 Hero]
 [Project 1 Body]         ← stages or gallery, depending on project.type
 [Project 2 Hero]
@@ -270,17 +269,18 @@ Never use `display: none / block` for overlay show/hide — always `opacity`.
 ...
 ```
 
-**Category Banner:**
-- Full width, 80px height, `background-color: var(--color-surface)`
-- Category name uppercase, `font-family: var(--font-display)`, `letter-spacing: 0.1em`
-- CSS class: `.category-banner` / `.category-banner__label`
+**Section label source:**
+- No category banner is rendered above project heroes.
+- The pinned navbar active state communicates the current section.
 
 ---
 
 ### 4.3 Project Hero
 
-- Full-viewport-width, `80vh` height
-- `background-image` set to `project.hero.poster` (for video heroes) or `project.hero.src` (for image heroes)
+- Full-viewport-width
+- Image heroes (`.project-hero--image`) use `80vh` container height and `background-image: project.hero.src` with `background-size: contain` (no clipping).
+- Video heroes (`.project-hero--video`) render a `<video>` element with `autoplay muted loop playsinline preload="metadata"` and `poster`, inside an aspect-ratio-driven container (`--project-hero-aspect`).
+- Video heroes use `object-fit: contain` so the full frame remains visible.
 - Dark overlay: `var(--color-overlay)` — CSS class `.project-hero__overlay`
 - Project name: bottom-left, `font-family: var(--font-display)`, `font-size: 4rem`, white
 - Tool icons: bottom-right, PNG from `assets/icons/[tool].png`, white via `filter: brightness(0) invert(1)`
@@ -343,12 +343,14 @@ Items fill top-to-bottom by column (Pinterest-style). Acceptable trade-off for a
 Each mosaic item is a `<figure class="media-tile">` with `tabindex="0"` and `data-type` / `data-src` / `data-poster` attributes for the lightbox.
 
 **Image tiles:** `<img loading="lazy" decoding="async" width="800" height="...">` inside the figure.
+- Image tiles use `object-fit: contain` so thumbnails are not clipped.
 
 **Video tiles:**
 - Idle state: poster visible, no controls, `▶` badge (`.media-tile__play-badge`)
 - Hover (pointer devices): `mouseenter` → `video.play()`, `mouseleave` → `video.pause(); video.currentTime = 0`
 - No-hover devices (`@media (hover: none)`): `autoplay` attribute set by JS
 - `@media (prefers-reduced-motion: reduce)`: hover-play disabled entirely
+- Video tiles keep `object-fit: cover` for a denser mosaic layout.
 
 ```html
 <video muted loop playsinline preload="metadata" poster="...-poster.jpg">
@@ -378,7 +380,7 @@ Clicking any `.media-tile` outside the lightbox itself opens a fullscreen overla
 - Clicking a category tile scrolls to `#[category-id]` via `scrollIntoView({ behavior: 'smooth' })`.  
   **Never use `<a href="#section">` anchor jumps.**
 - **Hash deep-links:** clicking the `#` anchor on a project hero writes `history.replaceState(null, '', '#' + projectId)`. On page load, `location.hash` is read and the target element is scrolled into view.
-- **Back-to-top button:** a fixed `.back-to-top` button appears (`.back-to-top--visible`) once `#info-section` leaves the viewport, detected via `IntersectionObserver`. Clicking it calls `window.scrollTo({ top: 0, behavior: 'smooth' })`.
+- **Back-to-top button:** a fixed `.back-to-top` button appears (`.back-to-top--visible`) once `#info-section` leaves the viewport, detected via `IntersectionObserver`. It sits higher than the default bottom edge spacing to avoid overlapping section labels. Clicking it calls `window.scrollTo({ top: 0, behavior: 'smooth' })`.
 
 ---
 
@@ -463,7 +465,7 @@ function renderStageMedia(mediaArray, altText) {}    // dispatches solo vs mosai
 function mountLightbox() {}                          // mounts lightbox DOM + wires all events
 
 function renderInfoSection(data) {}                  // #info-section: personal + tiles
-function renderCategorySection(category, projects) {}// category banner + all projects
+function renderCategorySection(category, projects) {}// all projects in a section (no category banner)
 function renderProjectHero(project) {}               // project hero div
 function renderProjectBody(project) {}               // dispatches → staged or gallery
 function renderProjectStages(project) {}             // loops stages → renderStageBlock

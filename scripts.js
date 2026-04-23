@@ -163,17 +163,17 @@ const portfolioData = {
           ]
         },
         {
-          label: "Textures",
-          media: [
-            { type: "image", src: "assets/creatures/alien/textures/texture-01.png",                                                                             aspect: 0.623 },
-            { type: "video", src: "assets/creatures/alien/textures/process-01.mp4", poster: "assets/creatures/alien/textures/process-01-poster.jpg", aspect: 0.936 }
-          ]
-        },
-        {
           label: "UDIMs",
           media: [
             { type: "image", src: "assets/creatures/alien/udims/udim-01.png", aspect: 3.306 },
             { type: "image", src: "assets/creatures/alien/udims/udim-02.png", aspect: 0.956 }
+          ]
+        },
+        {
+          label: "Textures",
+          media: [
+            { type: "image", src: "assets/creatures/alien/textures/texture-01.png",                                                                             aspect: 0.623 },
+            { type: "video", src: "assets/creatures/alien/textures/process-01.mp4", poster: "assets/creatures/alien/textures/process-01-poster.jpg", aspect: 0.936 }
           ]
         },
         {
@@ -281,6 +281,7 @@ const portfolioData = {
       type: "staged",
       name: "The Doll + Clay Face",
       tools: [],
+      rendersStageLabel: null,
       hero: { type: "image", src: "assets/makeup/the-doll/doll-01.png", aspect: 1.001 },
       stages: [
         {
@@ -393,7 +394,7 @@ const portfolioData = {
       id: "xali",
       category: "generalist",
       type: "gallery",
-      name: "Xali",
+      name: "Xali - XR HUB Bavaria VR Mascott",
       tools: ["maya", "blender"],
       hero: { type: "image", src: "assets/generalist/xali/hero.png", aspect: 1.741 },
       media: [
@@ -436,6 +437,7 @@ const portfolioData = {
       type: "staged",
       name: "Dolfo (Stop Motion + Character Cards)",
       tools: [],
+      rendersStageLabel: "Stop Motion",
       hero: { type: "image", src: "assets/makeup/dolfo/dolfo-01.jpg", aspect: 1.333 },
       stages: [
         {
@@ -832,9 +834,51 @@ function renderStageBlock(stage, projectName) {
   `;
 }
 
+function pickRendersStage(stages, rendersStageLabel) {
+  // null means no renders block — all stages become accordions
+  if (rendersStageLabel === null) {
+    return { rendersStage: null, otherStages: stages };
+  }
+  // explicit label override
+  if (typeof rendersStageLabel === 'string') {
+    const idx = stages.findIndex(s => s.label === rendersStageLabel);
+    if (idx >= 0) {
+      return { rendersStage: stages[idx], otherStages: stages.filter((_, i) => i !== idx) };
+    }
+  }
+  // auto-detect: prefer /^render/i label, fall back to last stage
+  const idx = stages.findIndex(s => /^render/i.test(s.label || ''));
+  return idx >= 0
+    ? { rendersStage: stages[idx], otherStages: stages.filter((_, i) => i !== idx) }
+    : { rendersStage: stages[stages.length - 1], otherStages: stages.slice(0, -1) };
+}
+
+function renderRendersBlock(stage, projectName) {
+  const n = normalizeStage(stage);
+  const altText = `${projectName} — ${n.label}`;
+  return `<div class="stage-block stage-block--renders">${renderStageMedia(n.media, altText)}</div>`;
+}
+
+function renderStageAccordion(stage, projectName) {
+  const n = normalizeStage(stage);
+  const altText = `${projectName} — ${n.label}`;
+  return `
+    <details class="stage-accordion">
+      <summary class="stage-accordion__summary stage-block__label">
+        <span>${n.label.toUpperCase()}</span>
+        <span class="stage-accordion__chevron" aria-hidden="true">▾</span>
+      </summary>
+      <div class="stage-accordion__panel">
+        ${renderStageMedia(n.media, altText)}
+      </div>
+    </details>`;
+}
+
 function renderProjectStages(project) {
   if (!project.stages || project.stages.length === 0) return '';
-  return project.stages.map(stage => renderStageBlock(stage, project.name)).join('');
+  const { rendersStage, otherStages } = pickRendersStage(project.stages, project.rendersStageLabel);
+  const rendersHtml = rendersStage ? renderRendersBlock(rendersStage, project.name) : '';
+  return rendersHtml + otherStages.map(s => renderStageAccordion(s, project.name)).join('');
 }
 
 function renderProjectGallery(project) {

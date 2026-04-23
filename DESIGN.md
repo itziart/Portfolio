@@ -291,14 +291,26 @@ Never use `display: none / block` for overlay show/hide — always `opacity`.
 
 ### 4.4 Staged Projects (`type: "staged"`)
 
-Each stage renders as a `.stage-block`:
+The project body is hidden by default behind a "Show More" button on the hero. When expanded, the body renders in two parts:
+
+**1. Renders block (`.stage-block--renders`) — always visible once body opens**
+
+The stage whose label matches `/^render/i` is promoted to a top-level renders block with no section label (position below the hero makes the context self-evident). If no stage matches, the last stage is promoted instead and its label is kept. Media renders via `renderStageMedia` as usual.
+
+**2. Per-stage accordions — closed by default**
+
+Every remaining stage is wrapped in a native `<details class="stage-accordion">` element:
 
 ```
-─────────────  H I G H   P O L Y  ─────────────   ← .stage-block__label
-    [mosaic or solo tile]
+─────────────  H I G H   P O L Y  ▾  ─────────────   ← <summary class="stage-accordion__summary stage-block__label">
+    [mosaic or solo tile — hidden until opened]
 ```
 
-**Stage label style:**
+- Clicking the summary row expands/collapses the panel natively (no JS required).
+- The `▾` chevron rotates 180° when `[open]` via CSS: `details[open] > .stage-accordion__summary .stage-accordion__chevron`.
+- `@media (prefers-reduced-motion: reduce)` disables the chevron transition.
+
+**Stage label style (shared by both `.stage-block__label` and `.stage-accordion__summary`):**
 - `font-family: var(--font-display)`, `font-size: 0.9rem`, `color: var(--color-accent)`, `letter-spacing: 0.4em`
 - Thin horizontal rules on either side via `::before` / `::after` pseudo-elements (`height: 1px`, `background: var(--color-accent)`, `opacity: 0.3`)
 
@@ -466,10 +478,13 @@ function mountLightbox() {}                          // mounts lightbox DOM + wi
 
 function renderInfoSection(data) {}                  // #info-section: personal + tiles
 function renderCategorySection(category, projects) {}// all projects in a section (no category banner)
-function renderProjectHero(project) {}               // project hero div
-function renderProjectBody(project) {}               // dispatches → staged or gallery
-function renderProjectStages(project) {}             // loops stages → renderStageBlock
-function renderStageBlock(stage, projectName) {}     // label + media
+function renderProjectHero(project) {}               // project hero div (includes Show More expand-btn)
+function renderProjectBody(project) {}               // dispatches → staged or gallery; wraps in .project-body
+function pickRendersStage(stages) {}                 // finds the Render stage (or last stage as fallback)
+function renderRendersBlock(stage, projectName) {}   // top renders mosaic — no heading, .stage-block--renders
+function renderStageAccordion(stage, projectName) {} // <details> accordion for a single non-render stage
+function renderProjectStages(project) {}             // renders block + accordion rows for staged projects
+function renderStageBlock(stage, projectName) {}     // label + media (retained; used internally)
 function renderProjectGallery(project) {}            // single mosaic from project.media
 
 // 4. INIT

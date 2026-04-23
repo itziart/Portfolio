@@ -1135,6 +1135,47 @@ section {
   opacity: 0.3;
 }
 
+.stage-block--renders {
+  padding-top: var(--spacing-md);
+}
+
+/* Stage accordions */
+.stage-accordion {
+  border-top: 1px solid rgba(200, 169, 110, 0.15);
+}
+
+.stage-accordion__summary {
+  cursor: pointer;
+  list-style: none;
+  padding-top: var(--spacing-lg);
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.stage-accordion__summary::-webkit-details-marker {
+  display: none;
+}
+
+.stage-accordion__chevron {
+  display: inline-block;
+  transition: transform var(--transition-default);
+  flex-shrink: 0;
+}
+
+details[open] > .stage-accordion__summary .stage-accordion__chevron {
+  transform: rotate(180deg);
+}
+
+.stage-accordion__panel {
+  padding-bottom: var(--spacing-md);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-accordion__chevron {
+    transition: none;
+  }
+}
+
 /* ==========================================================================
    Lightbox
    ========================================================================== */

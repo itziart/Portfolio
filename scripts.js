@@ -364,11 +364,24 @@ const portfolioData = {
       category: "generalist",
       type: "gallery",
       pinned: true,
+      openFullscreenOnly: true,
       name: "Showreel",
       tools: [],
       hero: { type: "video", src: "assets/generalist/showreel/showreel.mp4", poster: "assets/generalist/showreel/showreel-poster.jpg", aspect: 1.778, hasAudio: true },
       media: [
-        { type: "video", src: "assets/generalist/showreel/showreel.mp4",      poster: "assets/generalist/showreel/showreel-poster.jpg",      aspect: 1.778, hasAudio: true },
+        { type: "video", src: "assets/generalist/showreel/showreel.mp4", poster: "assets/generalist/showreel/showreel-poster.jpg", aspect: 1.778, hasAudio: true }
+      ]
+    },
+    {
+      id: "animation-10s",
+      category: "generalist",
+      type: "gallery",
+      pinned: true,
+      openFullscreenOnly: true,
+      name: "10s Animation",
+      tools: [],
+      hero: { type: "video", src: "assets/generalist/showreel/animation-10s.mp4", poster: "assets/generalist/showreel/animation-10s-poster.jpg", aspect: 1.778, hasAudio: true },
+      media: [
         { type: "video", src: "assets/generalist/showreel/animation-10s.mp4", poster: "assets/generalist/showreel/animation-10s-poster.jpg", aspect: 1.778, hasAudio: true }
       ]
     },
@@ -821,6 +834,7 @@ function renderInfoSection(data) {
 
 function renderProjectCard(project) {
   const isVideoHero = project.hero?.type === "video";
+  const openFullscreenOnly = isVideoHero && project.openFullscreenOnly === true;
   const heroSrc = isVideoHero
     ? (project.hero.poster || '')
     : (project.hero?.src || '');
@@ -842,6 +856,10 @@ function renderProjectCard(project) {
     <div class="project-card" id="${project.id}">
       <button class="project-card__trigger" type="button"
         data-target="body-${project.id}"
+        data-open-fullscreen-only="${openFullscreenOnly ? 'true' : 'false'}"
+        data-video-src="${isVideoHero ? project.hero.src : ''}"
+        data-video-poster="${isVideoHero ? (project.hero.poster || '') : ''}"
+        data-video-has-audio="${isVideoHero && project.hero?.hasAudio ? 'true' : 'false'}"
         aria-expanded="false"
         aria-controls="body-${project.id}">
         <div class="project-card__bg" style="background-image: url('${heroSrc}'); background-position: ${focalPoint};"></div>
@@ -1043,6 +1061,65 @@ function clearFullscreenVideoControls(video) {
   video.setAttribute('muted', '');
 }
 
+function openFullscreenPlaybackVideo(src, poster, hasAudio) {
+  const video = document.createElement('video');
+  video.setAttribute('controls', '');
+  video.setAttribute('autoplay', '');
+  video.setAttribute('loop', '');
+  video.setAttribute('playsinline', '');
+  video.preload = 'metadata';
+  if (poster) video.poster = poster;
+  video.src = src;
+
+  if (hasAudio) {
+    video.defaultMuted = false;
+    video.muted = false;
+    video.volume = 1;
+  } else {
+    video.muted = true;
+    video.setAttribute('muted', '');
+  }
+
+  video.style.position = 'fixed';
+  video.style.inset = '0';
+  video.style.width = '100vw';
+  video.style.height = '100vh';
+  video.style.objectFit = 'contain';
+  video.style.background = '#000';
+  video.style.zIndex = '2000';
+  document.body.appendChild(video);
+
+  const cleanup = () => {
+    if (video.parentNode) {
+      video.pause();
+      video.parentNode.removeChild(video);
+    }
+    document.removeEventListener('fullscreenchange', onFullscreenChange);
+    document.removeEventListener('webkitfullscreenchange', onFullscreenChange);
+  };
+
+  const onFullscreenChange = () => {
+    const active = document.fullscreenElement || document.webkitFullscreenElement || null;
+    if (!active || (active !== video && !video.webkitDisplayingFullscreen)) {
+      cleanup();
+    }
+  };
+
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+
+  const enterFullscreen = () => {
+    if (video.requestFullscreen) return video.requestFullscreen();
+    if (video.webkitRequestFullscreen) return video.webkitRequestFullscreen();
+    if (video.mozRequestFullScreen) return video.mozRequestFullScreen();
+    cleanup();
+    return null;
+  };
+
+  enterFullscreen();
+  video.play().catch(() => {});
+}
+
 function renderProjectHero(project) {
   const toolsHtml = project.tools.map(tool => {
     const toolName = getToolDisplayName(tool);
@@ -1172,6 +1249,15 @@ function init() {
   document.body.addEventListener('click', e => {
     const trigger = e.target.closest('.project-card__trigger');
     if (!trigger) return;
+
+    if (trigger.dataset.openFullscreenOnly === 'true') {
+      openFullscreenPlaybackVideo(
+        trigger.dataset.videoSrc,
+        trigger.dataset.videoPoster || '',
+        trigger.dataset.videoHasAudio === 'true'
+      );
+      return;
+    }
 
     const targetId = trigger.dataset.target;
     const body = document.getElementById(targetId);

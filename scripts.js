@@ -376,7 +376,7 @@ const portfolioData = {
       id: "the-foot",
       category: "generalist",
       type: "gallery",
-      name: "The Foot",
+      name: "The Foot - Group Animation",
       tools: ["maya"],
       hero: { type: "video", src: "assets/generalist/the-foot/hero.mp4", poster: "assets/generalist/the-foot/hero-poster.jpg", aspect: 1.778 },
       media: [
@@ -422,7 +422,7 @@ const portfolioData = {
       id: "black-lodge",
       category: "generalist",
       type: "gallery",
-      name: "Black Lodge",
+      name: "Black Lodge - Twin Peaks Meets Magritte",
       tools: ["blender"],
       hero: { type: "image", src: "assets/generalist/black-lodge/hero.jpg", aspect: 1.778 },
       media: [
@@ -843,8 +843,8 @@ function renderCategoryMosaic(category, projects) {
 
   return `
     <div class="category-mosaic">
-      <div class="section-banner"><span>${category.label}</span></div>
-      <div class="category-mosaic__grid" id="${category.id}-scroll">${cardsHtml}</div>
+      <div class="section-banner" id="${category.id}-scroll"><span>${category.label}</span></div>
+      <div class="category-mosaic__grid">${cardsHtml}</div>
       ${bodiesHtml}
     </div>
   `;
@@ -860,8 +860,7 @@ function renderCategorySection(category, projects) {
   });
 
   return `
-    <div class="section-banner"><span>${category.label}</span></div>
-    <div id="${category.id}-scroll"></div>
+    <div class="section-banner" id="${category.id}-scroll"><span>${category.label}</span></div>
     ${projectsHtml}
   `;
 }
@@ -959,6 +958,28 @@ function getToolDisplayName(tool) {
   return TOOL_DISPLAY_NAMES[tool] || tool;
 }
 
+function updateVideoHeroInsets() {
+  const videoHeroes = document.querySelectorAll('.project-hero--video');
+
+  videoHeroes.forEach(hero => {
+    const rect = hero.getBoundingClientRect();
+    const heroWidth = rect.width;
+    const heroHeight = rect.height;
+    if (!heroWidth || !heroHeight) return;
+
+    const style = getComputedStyle(hero);
+    const aspectRaw = style.getPropertyValue('--project-hero-aspect').trim();
+    const mediaAspect = Number.parseFloat(aspectRaw) || 16 / 9;
+    const containerAspect = heroWidth / heroHeight;
+
+    const sideInset = containerAspect > mediaAspect
+      ? (heroWidth - heroHeight * mediaAspect) / 2
+      : 0;
+
+    hero.style.setProperty('--project-hero-video-side-inset', `${Math.max(0, sideInset)}px`);
+  });
+}
+
 function renderProjectHero(project) {
   const toolsHtml = project.tools.map(tool => {
     const toolName = getToolDisplayName(tool);
@@ -1022,7 +1043,7 @@ function init() {
       tile.addEventListener('click', () => {
         const targetId = tile.getAttribute('data-target');
         const scrollEl = document.getElementById(targetId + '-scroll') || document.getElementById(targetId);
-        if (scrollEl) scrollEl.scrollIntoView({ behavior: 'smooth' });
+        if (scrollEl) scrollEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
   }
@@ -1046,6 +1067,8 @@ function init() {
 
   mountLightbox();
   attachHoverPlay(document.body);
+  updateVideoHeroInsets();
+  window.addEventListener('resize', updateVideoHeroInsets);
 
   document.body.addEventListener('click', e => {
     const btn = e.target.closest('.project-hero__expand-btn');
@@ -1061,12 +1084,12 @@ function init() {
     });
     if (willOpen) {
       requestAnimationFrame(() => {
-        body.scrollIntoView({ behavior: 'smooth' });
+        body.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     }
     if (!willOpen) {
       const hero = document.getElementById(btn.dataset.target.replace('body-', ''));
-      if (hero) hero.scrollIntoView({ behavior: 'smooth' });
+      if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
 
@@ -1111,7 +1134,7 @@ function init() {
   if (location.hash) {
     const target = document.getElementById(location.hash.slice(1));
     if (target) {
-      requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth' }));
+      requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
     }
   }
 
@@ -1132,7 +1155,7 @@ function init() {
       e.preventDefault();
       const navTarget = link.dataset.target;
       const navScrollEl = document.getElementById(navTarget + '-scroll') || document.getElementById(navTarget);
-      navScrollEl?.scrollIntoView({ behavior: 'smooth' });
+      navScrollEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     const navLinks = siteNav.querySelectorAll('.site-nav__link');

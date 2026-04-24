@@ -54,6 +54,10 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent any overflowing child (scaled bg tiles, fixed nav list) from
+     creating horizontal scroll on mobile. clip preserves fixed/sticky
+     positioning unlike overflow: hidden. */
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6, .display-text {
@@ -325,6 +329,7 @@ h1, h2, h3, h4, h5, h6, .display-text {
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   opacity: 0;
+  pointer-events: none;
   transition: opacity var(--transition-default);
   display: flex;
   flex-direction: column;
@@ -347,6 +352,7 @@ h1, h2, h3, h4, h5, h6, .display-text {
 .info-personal:hover .overlay,
 .info-tile:hover .overlay {
   opacity: 1;
+  pointer-events: auto;
 }
 
 /* Overlay section header — mirrors .stage-block__label style */
@@ -607,6 +613,7 @@ h1, h2, h3, h4, h5, h6, .display-text {
     grid-column: 1 / -1;
     aspect-ratio: 16 / 7;
   }
+
 }
 
 /* Mobile: single-column stack */
@@ -635,6 +642,27 @@ h1, h2, h3, h4, h5, h6, .display-text {
   .contact-section__item {
     grid-template-columns: 1fr;
     gap: 0.35rem;
+  }
+
+  /* Reduce compounded horizontal padding on phones */
+  .contact-section {
+    padding: var(--spacing-md) var(--spacing-xs);
+  }
+
+  .contact-section__inner {
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
+
+  /* Scale title down so it doesn't crowd narrow screens */
+  .contact-section__title {
+    font-size: clamp(1.8rem, 9vw, 2.5rem);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  /* Ensure link buttons meet 44px touch target */
+  .contact-section__link {
+    min-height: 44px;
+    padding: 0.6em 1em;
   }
 }
 
@@ -696,6 +724,7 @@ h1, h2, h3, h4, h5, h6, .display-text {
   right: 0;
   z-index: 600;
   height: var(--nav-height);
+  overflow: hidden;
   background: var(--color-surface-translucent);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -1787,6 +1816,12 @@ details[open] > .stage-accordion__summary .stage-accordion__chevron {
   gap: 0.3em;
 }
 
+@media (max-width: 767px) {
+  .project-card__tools {
+    display: none;
+  }
+}
+
 .project-card__tool {
   font-family: var(--font-body);
   font-size: 0.65rem;
@@ -1849,6 +1884,15 @@ details[open] > .stage-accordion__summary .stage-accordion__chevron {
     min-height: 36px;
     padding: 0.3em 0.6em;
   }
+
+  /* Suppress sticky-hover side-effects on the About Me tile.
+     Crucially, keep pointer-events: none so a tap that briefly
+     triggers :hover cannot accidentally activate the ArtStation link. */
+  .info-personal .overlay { pointer-events: none; }
+  .info-personal:hover .overlay { opacity: 0; pointer-events: none; }
+  .info-personal:hover .info-personal__hint { opacity: 1; }
+  .info-personal:hover::before { opacity: 0; transform: none; }
+  .info-personal:hover .info-personal__bg { transform: scale(1.02); filter: none; }
 }
 
 /* ==========================================================================

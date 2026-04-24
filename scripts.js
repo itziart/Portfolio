@@ -1283,6 +1283,16 @@ function init() {
     if (infoSection) sectionObserver.observe(infoSection);
   }
 
+  // About Me tile: tap scrolls to contact section on touch devices
+  const personalEl = document.querySelector('.info-personal');
+  if (personalEl) {
+    personalEl.addEventListener('click', () => {
+      if (window.matchMedia('(hover: none)').matches) {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+
   const backToTop = document.createElement('button');
   backToTop.className = 'back-to-top';
   backToTop.setAttribute('aria-label', 'Back to top');

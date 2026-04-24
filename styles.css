@@ -54,6 +54,10 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent any overflowing child (scaled bg tiles, fixed nav list) from
+     creating horizontal scroll on mobile. clip preserves fixed/sticky
+     positioning unlike overflow: hidden. */
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6, .display-text {
@@ -325,6 +329,7 @@ h1, h2, h3, h4, h5, h6, .display-text {
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   opacity: 0;
+  pointer-events: none;
   transition: opacity var(--transition-default);
   display: flex;
   flex-direction: column;
@@ -347,6 +352,7 @@ h1, h2, h3, h4, h5, h6, .display-text {
 .info-personal:hover .overlay,
 .info-tile:hover .overlay {
   opacity: 1;
+  pointer-events: auto;
 }
 
 /* Overlay section header — mirrors .stage-block__label style */
@@ -552,66 +558,119 @@ h1, h2, h3, h4, h5, h6, .display-text {
   min-height: 150px;
 }
 
-/* Mobile: stacked tiles */
-@media (max-width: 767px) {
+/* Tablet + mobile: avatar on top, 2-col category grid below */
+@media (max-width: 1023px) {
+  .info-layout {
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .info-personal {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    height: 38vh;
+    min-height: 240px;
+    background-position: center top;
+  }
+
+  .info-right {
+    flex: none;
+    width: 100%;
+  }
+
   .info-flagship {
-    display: block;
-    background: transparent;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--flagship-divider);
     height: auto;
+    min-height: 0;
+    background: var(--color-divider);
   }
 
   .info-bottom {
-    display: block;
-    background: transparent;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--flagship-divider);
     height: auto;
+    min-height: 0;
+    background: var(--color-divider);
   }
 
   .info-tile--flagship,
   .info-tile--bottom {
-    position: static;
-    width: 100%;
-    height: 40vh;
-    min-height: 240px;
-    margin-bottom: var(--flagship-divider);
+    position: relative;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    margin-bottom: 0;
+  }
+
+  /* Last tile spanning full width when odd count leaves a lone item */
+  .info-bottom .info-tile--bottom:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 7;
+  }
+
+  /* Completely disable About Me hover at all sub-1024px widths,
+     regardless of input device. Overlay stays invisible and non-interactive. */
+  .info-personal .overlay { pointer-events: none; }
+  .info-personal:hover .overlay { opacity: 0; pointer-events: none; }
+  .info-personal:hover .info-personal__hint { opacity: 1; }
+  .info-personal:hover::before { opacity: 0; transform: none; }
+  .info-personal:hover .info-personal__bg { transform: scale(1.02); filter: none; }
+
+}
+
+/* Mobile: single-column stack */
+@media (max-width: 767px) {
+  .info-flagship {
+    grid-template-columns: 1fr;
+    background: transparent;
+  }
+
+  .info-bottom {
+    grid-template-columns: 1fr;
+    background: transparent;
+  }
+
+  .info-tile--flagship,
+  .info-tile--bottom {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* Last tile spanning single col — reset the tablet odd-item span */
+  .info-bottom .info-tile--bottom:last-child:nth-child(odd) {
+    grid-column: auto;
+    aspect-ratio: 16 / 9;
   }
 
   .contact-section__item {
     grid-template-columns: 1fr;
     gap: 0.35rem;
   }
-}
 
-/* Tablet: avatar banner on top, 3-up flagship, 2-up bottom */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .info-layout {
-    display: block;
+  /* Reduce compounded horizontal padding on phones */
+  .contact-section {
+    padding: var(--spacing-md) var(--spacing-xs);
   }
 
-  .info-personal {
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    height: 20vh;
-    min-height: 160px;
+  .contact-section__inner {
+    padding: var(--spacing-md) var(--spacing-sm);
   }
 
-  .info-flagship {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--flagship-divider);
-    height: 50vh;
-    min-height: 300px;
+  /* Scale title down so it doesn't crowd narrow screens */
+  .contact-section__title {
+    font-size: clamp(1.8rem, 9vw, 2.5rem);
+    margin-bottom: var(--spacing-sm);
   }
 
-  .info-tile--flagship {
-    position: relative;
-    width: auto;
-    height: auto;
-  }
-
-  .info-tile--bottom {
-    height: 30vh;
-    min-height: 180px;
+  /* Ensure link buttons meet 44px touch target */
+  .contact-section__link {
+    min-height: 44px;
+    padding: 0.6em 1em;
   }
 }
 
@@ -663,6 +722,19 @@ h1, h2, h3, h4, h5, h6, .display-text {
   }
 }
 
+/* Narrow desktop (1024–1279px): 3 flagship columns are too thin at these
+   widths (≈234px each). Drop to 2 columns so tiles stay landscape-ish.
+   If flagship has an odd number of tiles the last one spans full width. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .info-flagship {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info-tile--flagship:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
 /* ==========================================================================
    Site Nav
    ========================================================================== */
@@ -673,6 +745,7 @@ h1, h2, h3, h4, h5, h6, .display-text {
   right: 0;
   z-index: 600;
   height: var(--nav-height);
+  overflow: hidden;
   background: var(--color-surface-translucent);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -714,6 +787,38 @@ h1, h2, h3, h4, h5, h6, .display-text {
 .site-nav__link:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
+}
+
+/* Compact nav for tablet + mobile: tighter spacing + right fade affordance */
+@media (max-width: 1023px) {
+  .site-nav {
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
+    mask-image: linear-gradient(to right, black calc(100% - 28px), transparent 100%);
+  }
+
+  .site-nav__list {
+    gap: var(--spacing-sm);
+    padding: 0 var(--spacing-sm);
+  }
+
+  .site-nav__link {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    /* Ensure both dimensions meet HIG 44px minimum.
+       Horizontal: padding fills the width; vertical: 48px nav height */
+    padding: 0 0.55rem;
+    line-height: var(--nav-height);
+    display: inline-block;
+    min-width: 44px;
+    text-align: center;
+  }
+}
+
+/* Narrowest phones: tighten further */
+@media (max-width: 767px) {
+  .site-nav__list {
+    gap: 0.75rem;
+  }
 }
 
 section,
@@ -1028,31 +1133,56 @@ section {
   outline-offset: 2px;
 }
 
+/* Tablet + mobile: image heroes use cover so no black letterbox bands appear.
+   Video hero overlay gets a top-to-bottom vignette so the dark studio background
+   above the character reads as a deliberate cinematic fade rather than a void. */
+@media (max-width: 1023px) {
+  .project-hero--image {
+    background-size: cover;
+    background-position: center top;
+  }
+
+  .project-hero--video .project-hero__overlay {
+    background: linear-gradient(
+      to bottom,
+      var(--color-bg) 0%,
+      transparent 42%,
+      var(--color-overlay) 72%,
+      var(--color-overlay) 100%
+    );
+  }
+}
+
+/* Mobile project heroes: scale down title font so long names fit; everything
+   stays absolutely positioned to avoid layout-order overlap issues. */
 @media (max-width: 767px) {
   .project-hero {
-    height: 80vh;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
-    gap: var(--spacing-sm);
-    padding-bottom: var(--spacing-md);
+    height: auto;
+    min-height: 62vh;
   }
 
   .project-hero--video {
     height: auto;
+    min-height: 62vh;
     max-height: none;
   }
 
+  .project-hero--image {
+    min-height: 62vh;
+  }
+
+  /* Scale title font so even the longest project names fit on one line.
+     Left/bottom absolute positioning is inherited from the base rule — no
+     conflict with the expand button which sits at bottom: var(--spacing-sm). */
   .project-hero--video .project-hero__title,
   .project-hero--image .project-hero__title {
-    top: auto;
-    bottom: calc(var(--spacing-md) + 2.6rem);
-    left: 0;
-    transform: none;
-    max-width: 100%;
-    padding: 0;
-    border-left: 0;
-    background: transparent;
+    font-size: clamp(1.6rem, 8vw, 2.4rem);
+    max-width: 80%;
+  }
+
+  /* Hide hero tool pills on phones — same information accessible via expanded body */
+  .project-hero__tools {
+    display: none;
   }
 }
 
@@ -1507,6 +1637,31 @@ details[open] > .stage-accordion__summary .stage-accordion__chevron {
   outline-offset: 2px;
 }
 
+/* Lightbox mobile: bigger touch targets, move nav buttons within thumb reach */
+@media (max-width: 767px) {
+  .lightbox__nav {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: auto;
+    bottom: 20%;
+    transform: none;
+  }
+
+  .lightbox__close {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+  }
+}
+
 /* ==========================================================================
    Back to Top
    ========================================================================== */
@@ -1682,6 +1837,12 @@ details[open] > .stage-accordion__summary .stage-accordion__chevron {
   gap: 0.3em;
 }
 
+@media (max-width: 767px) {
+  .project-card__tools {
+    display: none;
+  }
+}
+
 .project-card__tool {
   font-family: var(--font-body);
   font-size: 0.65rem;
@@ -1721,6 +1882,30 @@ details[open] > .stage-accordion__summary .stage-accordion__chevron {
   .project-card {
     aspect-ratio: 16 / 9;
   }
+}
+
+/* ==========================================================================
+   Touch device overrides
+   ========================================================================== */
+
+/* Hero action buttons are opacity:0 until hover — always show on touch */
+@media (hover: none) and (pointer: coarse) {
+  .project-hero__actions {
+    opacity: 1;
+  }
+
+  /* info-personal__pill touch target */
+  .info-personal__pill {
+    min-height: 44px;
+    padding: 0.55em 0.9em;
+  }
+
+  /* project-card tool badges touch target (within mosaic cards) */
+  .project-card__tool {
+    min-height: 36px;
+    padding: 0.3em 0.6em;
+  }
+
 }
 
 /* ==========================================================================

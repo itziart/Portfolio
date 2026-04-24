@@ -4,9 +4,10 @@
 
 ## Sources of truth (in priority order)
 
-1. **`EXTENSION_PLAN.md`** — current planning doc for the in-progress extension (new categories, multi-image stages, video support). Schema v2 lives here.
-2. **`DESIGN.md`** — original design spec. Visual identity, CSS variables, BEM conventions, render-function names. If `DESIGN.md` and `EXTENSION_PLAN.md` disagree, the plan wins, but flag the conflict and propose an update to `DESIGN.md`.
+1. **`EXTENSION_PLAN.md`** — roadmap, answered product questions, and historical migration notes. When it disagrees with **running code**, treat the code as authoritative and update the plan (do not “spec the site back” to old proposals).
+2. **`DESIGN.md`** — visual identity, layout contracts, CSS variables, BEM, render-function names aligned with the current build.
 3. **This file** — workflow + guardrails. Updated when conventions change.
+4. **`.github/copilot-instructions.md`** — short mirror of this file for GitHub Copilot; keep it in sync when conventions change.
 
 If any of those docs are out of date with the code, **say so in your reply** and propose the update. Don't silently work around documentation drift.
 
@@ -14,7 +15,7 @@ If any of those docs are out of date with the code, **say so in your reply** and
 
 ## Project context
 
-Static SPA portfolio for a 3D artist. Plain HTML + CSS + JavaScript. No frameworks, no bundlers, no npm dependencies. Three files: `index.html`, `styles.css`, `scripts.js`. Hosted on GitHub Pages.
+Static SPA portfolio for a 3D artist. Plain HTML + CSS + JavaScript. No frameworks, no bundlers, **no runtime npm dependencies** for the site (`index.html`, `styles.css`, `scripts.js`). Local checks may use Node tools (e.g. Playwright via `test.js`). Hosted on GitHub Pages.
 
 All content is data-driven from a single `portfolioData` object at the top of `scripts.js`. **Never hardcode content in HTML.** Adding a new project should mean editing only `portfolioData` and dropping files into `assets/`.
 
@@ -24,29 +25,33 @@ All content is data-driven from a single `portfolioData` object at the top of `s
 
 ### Data
 - All content (artist info, categories, projects, stages, media) lives in `portfolioData` in `scripts.js`.
-- Schema v2 supports two project types: `"staged"` (Characters / Creatures / Props — has named stages) and `"gallery"` (Makeup / Generalist — single mosaic, no stage labels).
-- Each "stage" or "gallery" holds a `media` array of `{ type: "image" | "video", src, poster?, alt?, aspect? }` items.
+- Schema v2 supports two project types: `"staged"` (named stages + optional **highlights** strip) and `"gallery"` (single mosaic, no stage labels). Categories on disk include **`sfx`** (SFX Makeup & Sculpting) alongside **characters**, **creatures**, **props**, **generalist** — the old `makeup` id is redirected via hash (`#makeup` → `#sfx`) for bookmarks.
+- Each stage or gallery holds a `media` array of `{ type: "image" | "video", src, poster?, alt?, aspect?, hasAudio? }` items. Hero media may set `hasAudio` for fullscreen playback; mosaic videos may too.
+- **Category** objects may include `focalPoint` (or legacy `focalX` / `focalY`) for thumbnail background position, and `layout: "mosaic"` to render that category as a **card grid** with expandable project bodies instead of stacked full-width heroes.
+- **Project** optional fields used in code: `description` (HTML allowed for links), `pinned` (sort to top within a category), `highlights` (array of media shown under the renders block for staged work), `rendersStageLabel` (`null` = no promoted renders block; string = match a stage `label`; omitted = auto-pick `/^render/i` or last stage), `openFullscreenOnly` (mosaic cards: click opens hero video fullscreen instead of expanding body), `hero.focalPoint`, `hero.hasAudio`.
 - Never read content from the DOM. Always read from `portfolioData`.
 
 ### JavaScript
 - Use `const` and `let`. Never `var`.
 - Render functions return HTML strings (or DOM elements) — they never mutate the DOM directly.
 - Naming convention:
-  - `renderInfoSection(data)`
-  - `renderCategorySection(category, projects)`
-  - `renderProjectHero(project)`
-  - `renderProjectBody(project)` — dispatches to staged or gallery
+  - `renderInfoSection(data)` — personal block + flagship + bottom tiles (wired in `renderInfoFlagship` / `renderInfoBottom`)
+  - `renderContactSection(artist)` — `#contact` section body
+  - `renderCategorySection(category, projects)` — dispatches to stacked heroes or `renderCategoryMosaic` when `category.layout === "mosaic"`
+  - `renderProjectHero(project)` / `renderProjectBody(project)` / `renderProjectAbout(project)`
   - `renderProjectStages(project)` / `renderProjectGallery(project)`
-  - `renderStageBlock(stage)` — label + media
-  - `renderMediaMosaic(mediaArray)` / `renderMediaSolo(mediaItem)` / `renderMediaTile(mediaItem)`
-  - `renderLightbox()` — mounted once globally
+  - `pickRendersStage(stages, rendersStageLabel)` / `renderRendersBlock` / `renderHighlightsBlock` / `renderStageAccordion`
+  - `renderStageBlock(stage, projectName)` — label + media (non-accordion block)
+  - `renderMediaMosaic(mediaArray)` / `renderMediaSolo(mediaItem)` / `renderMediaTile(mediaItem)` / `renderStageMedia`
+  - `mountLightbox()` — creates the lightbox DOM and listeners once (there is no `renderLightbox()`)
+  - `renderProjectStage(stage)` — legacy helper returning a single background-image div; not used for v2 bodies
 - Entry point is `init()`, called on `DOMContentLoaded`.
 - No jQuery, no lodash, no external JS libraries unless explicitly requested.
 - Lightbox, masonry, hover-play, keyboard nav, deep-linking — all vanilla.
 
 ### HTML
 - Semantic elements: `<header>`, `<main>`, `<section>`, `<figure>`, `<nav>`, `<picture>`, `<video>`.
-- Section IDs match `category.id` exactly (e.g., `id="characters"`).
+- `index.html` declares `<header id="info-section">`, `<nav class="site-nav" id="site-nav">`, category `<section>` elements (including `generalist`, `sfx`), and `<section id="contact" class="contact-section">`. Section IDs for categories match `category.id` exactly.
 - Asset paths are **always relative** (`assets/...`), never absolute (`/assets/...`) — required for GitHub Pages.
 - No `<form>` elements unless explicitly asked.
 - Every `<img>` has `loading="lazy"`, `decoding="async"`, and `width`/`height` attributes when known.
@@ -63,29 +68,7 @@ All content is data-driven from a single `portfolioData` object at the top of `s
 
 ## CSS variables
 
-```css
-:root {
-  --color-bg: #0e0e0e;
-  --color-surface: #1a1a1a;
-  --color-text: #f0f0f0;
-  --color-text-muted: #888888;
-  --color-accent: #c8a96e;
-  --color-overlay: rgba(0, 0, 0, 0.55);
-
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 2rem;
-  --spacing-lg: 4rem;
-  --spacing-xl: 8rem;
-
-  --transition-default: 0.3s ease;
-}
-```
-
-If you need a new variable, add it here. Don't introduce one-off literal values.
+Core tokens match `DESIGN.md`. The live `styles.css` `:root` also defines layout tokens (e.g. `--info-left-width`, `--nav-height`, `--color-tool-badge-bg`, `--project-hero-desktop-max-height`). If you need a new value, add a variable in `styles.css` and document it in `DESIGN.md` §7 — do not introduce one-off literals for repeated concepts.
 
 ---
 
@@ -99,15 +82,13 @@ If you need a new variable, add it here. Don't introduce one-off literal values.
 - Always use `document.getElementById(id).scrollIntoView({ behavior: 'smooth' })`.
 - Never use `<a href="#section">` anchor jumps.
 
-### Tool icons
-- `<img>` tags pointing to `assets/icons/[tool-slug].png`. White via CSS filter:
-  ```css
-  .project-hero__tool-icon { filter: brightness(0) invert(1); opacity: 0.85; width: 32px; height: 32px; }
-  ```
+### Tool labels (hero + mosaic cards)
+- Tools render as **text badges** (`.project-hero__tool` / `.project-card__tool` with `.project-hero__tool-fallback` / `.project-card__tool-label`). Display names come from `TOOL_DISPLAY_NAMES` in `scripts.js`; unknown slugs fall back to the raw string.
+- Optional PNG icons under `assets/icons/[tool-slug].png` are **not** required for the current hero UI.
 
 ### Mosaic
-- Pure CSS columns (`column-count: 3` desktop, `2` tablet, `1` mobile). No JS masonry library.
-- Single-item stages render full-width centered, not as a 1-column mosaic.
+- Pure CSS **grid** (`repeat(3, 1fr)` desktop, `2` columns ≤1024px, `1` column ≤640px). No JS masonry library.
+- Single-item stages render full-width centered via `renderMediaSolo`, not as a lonely single-column grid cell.
 
 ### Video tiles
 - Idle: poster visible, no autoplay, small "▶" badge.
@@ -156,9 +137,9 @@ If you need a new variable, add it here. Don't introduce one-off literal values.
 2. Add the slug to the project's `tools` array.
 
 **New category:**
-1. Add an object to `portfolioData.categories`.
-2. Drop a `assets/[id]/thumb.jpg`.
-3. Update the `.info-tile:nth-child` grid in `styles.css` if the tile layout needs to change to accommodate a new count.
+1. Add an object to `portfolioData.categories` (with `thumbnail`, `hoverText`, optional `focalPoint` / `layout: "mosaic"`).
+2. Add a matching empty `<section id="[id]">` in `index.html` (structure change is rare; prefer updating the template once per new section).
+3. If the landing tile set changes, update `renderInfoFlagship` / `renderInfoBottom` id lists and any related CSS in `styles.css` (desktop uses `.info-flagship` / `.info-bottom`, not only `nth-child` spans).
 
 ---
 

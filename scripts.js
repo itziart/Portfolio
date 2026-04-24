@@ -1283,11 +1283,11 @@ function init() {
     if (infoSection) sectionObserver.observe(infoSection);
   }
 
-  // About Me tile: tap scrolls to contact section on touch devices
+  // About Me tile: click scrolls to contact section when under the 1024px breakpoint
   const personalEl = document.querySelector('.info-personal');
   if (personalEl) {
     personalEl.addEventListener('click', () => {
-      if (window.matchMedia('(hover: none)').matches) {
+      if (window.innerWidth < 1024) {
         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
       }
     });

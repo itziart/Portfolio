@@ -614,6 +614,14 @@ h1, h2, h3, h4, h5, h6, .display-text {
     aspect-ratio: 16 / 7;
   }
 
+  /* Completely disable About Me hover at all sub-1024px widths,
+     regardless of input device. Overlay stays invisible and non-interactive. */
+  .info-personal .overlay { pointer-events: none; }
+  .info-personal:hover .overlay { opacity: 0; pointer-events: none; }
+  .info-personal:hover .info-personal__hint { opacity: 1; }
+  .info-personal:hover::before { opacity: 0; transform: none; }
+  .info-personal:hover .info-personal__bg { transform: scale(1.02); filter: none; }
+
 }
 
 /* Mobile: single-column stack */
@@ -711,6 +719,19 @@ h1, h2, h3, h4, h5, h6, .display-text {
     position: relative;
     min-height: 0;
     height: 100%;
+  }
+}
+
+/* Narrow desktop (1024–1279px): 3 flagship columns are too thin at these
+   widths (≈234px each). Drop to 2 columns so tiles stay landscape-ish.
+   If flagship has an odd number of tiles the last one spans full width. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .info-flagship {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .info-tile--flagship:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
   }
 }
 
@@ -1885,14 +1906,6 @@ details[open] > .stage-accordion__summary .stage-accordion__chevron {
     padding: 0.3em 0.6em;
   }
 
-  /* Suppress sticky-hover side-effects on the About Me tile.
-     Crucially, keep pointer-events: none so a tap that briefly
-     triggers :hover cannot accidentally activate the ArtStation link. */
-  .info-personal .overlay { pointer-events: none; }
-  .info-personal:hover .overlay { opacity: 0; pointer-events: none; }
-  .info-personal:hover .info-personal__hint { opacity: 1; }
-  .info-personal:hover::before { opacity: 0; transform: none; }
-  .info-personal:hover .info-personal__bg { transform: scale(1.02); filter: none; }
 }
 
 /* ==========================================================================

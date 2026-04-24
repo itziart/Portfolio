@@ -282,38 +282,6 @@ const portfolioData = {
         { type: "image", src: "assets/generalist/black-lodge/itzi-art-noche-background.jpg", aspect: 1.778 }
       ]
     },
-    {
-      id: "dolfo",
-      category: "generalist",
-      type: "staged",
-      name: "Dolfo (Stop Motion + Character Cards)",
-      description: "Stop Motion project executed by my classmates and I, the challenge was to create 9 cm figures with Jovi Clay and being able to animate them. I designed, sculpted and animated every character on this project.",
-      tools: [],
-      rendersStageLabel: "Stop Motion",
-      hero: { type: "video", src: "assets/generalist/dolfo/dolfo.mp4", poster: "assets/generalist/dolfo/dolfo-01.jpg", aspect: 1.333 },
-      stages: [
-        {
-          label: "Stop Motion",
-          media: [
-            { type: "video", src: "assets/generalist/dolfo/dolfo.mp4", poster: "assets/generalist/dolfo/dolfo-poster.jpg", aspect: 1.778, hasAudio: true },
-            { type: "image", src: "assets/generalist/dolfo/dolfo-01.jpg", aspect: 1.333 }
-          ]
-        },
-        {
-          label: "Dolfo, Snake & Tiger Sketches",
-          media: [
-            { type: "image", src: "assets/generalist/dolfo-snake/concept-dolfo.jpg",    aspect: 0.726 },
-            { type: "image", src: "assets/generalist/dolfo-snake/concept-misc.jpg",     aspect: 0.726 },
-            { type: "image", src: "assets/generalist/dolfo-snake/concept-snake.jpg",    aspect: 0.726 },
-            { type: "image", src: "assets/generalist/dolfo-snake/dolfo-poses.jpg",      aspect: 0.726 },
-            { type: "image", src: "assets/generalist/dolfo-snake/expression-snake.jpg", aspect: 0.726 },
-            { type: "image", src: "assets/generalist/dolfo-snake/concept-tiger.jpg",    aspect: 0.726 },
-            { type: "image", src: "assets/generalist/dolfo-snake/expression-tiger.jpg", aspect: 0.726 }
-          ]
-        }
-      ]
-    },
-
   ]
 };
 

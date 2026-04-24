@@ -77,6 +77,8 @@ Core tokens match `DESIGN.md`. The live `styles.css` `:root` also defines layout
 ### Hover overlays (info section, gallery tiles)
 - Dark overlay appears on hover. `opacity: 0` → `opacity: 1` transition. Never `display: none`.
 - Overlay is `position: absolute; inset: 0` inside a `position: relative` parent.
+- Overlay always has `pointer-events: none` by default; `pointer-events: auto` is only restored on `:hover` (desktop). This prevents invisible links from being tapped on touch devices.
+- **`.info-personal` hover is completely disabled at ≤1023px** via `@media (max-width: 1023px)` — width-based, not device-based. At this width, clicking the tile scrolls to `#contact` (JS: `window.innerWidth < 1024` guard). Do not add any hover reveal logic for `.info-personal` below 1024px.
 
 ### Scroll-to-section
 - Always use `document.getElementById(id).scrollIntoView({ behavior: 'smooth' })`.
@@ -88,6 +90,7 @@ Core tokens match `DESIGN.md`. The live `styles.css` `:root` also defines layout
 
 ### Mosaic
 - Pure CSS **grid** (`repeat(3, 1fr)` desktop, `2` columns ≤1024px, `1` column ≤640px). No JS masonry library.
+- **Tool pills** (`.project-hero__tools`, `.project-card__tools`) are hidden (`display: none`) at ≤767px. The hide rule for `.project-card__tools` is declared immediately after its base `display: flex` rule to win the cascade.
 - Single-item stages render full-width centered via `renderMediaSolo`, not as a lonely single-column grid cell.
 
 ### Video tiles
@@ -100,6 +103,14 @@ Core tokens match `DESIGN.md`. The live `styles.css` `:root` also defines layout
 - Click any mosaic item → fullscreen overlay with prev / next.
 - Esc closes. Arrow keys navigate. Click backdrop closes.
 - Videos in lightbox get `controls`.
+
+### Responsive breakpoints
+- Desktop ≥1280px: 3-column flagship grid, full info-section row layout.
+- Narrow desktop 1024–1279px: flagship drops to 2 columns; odd trailing tile spans full width.
+- Tablet 768–1023px: info section stacks vertically; 2-col category grid; compact nav.
+- Mobile ≤767px: single-column tiles; hero auto-height; tool pills hidden.
+- `body { overflow-x: clip }` globally prevents horizontal scroll without breaking `position: fixed`.
+- `.site-nav` has `overflow: hidden` so its internal scrollable list doesn't leak into page width.
 
 ### Reduced motion
 - `@media (prefers-reduced-motion: reduce)` disables hover-video and overlay transitions.

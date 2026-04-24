@@ -493,14 +493,65 @@ The extension was additive. **If this plan conflicts with `DESIGN.md` or with th
 
 ## 12. Responsive rebuild (Apr 2026)
 
-Full CSS-only responsive pass targeting all viewports from 360px up. Desktop (≥1024px) styles were locked throughout.
+Full responsive pass targeting all viewports from 360px up. Desktop (≥1024px) base styles were locked throughout — all overrides live in `max-width` blocks or in the narrow-desktop band described below.
 
-**What changed:**
+### 12.1 Breakpoints in effect
 
-- **Info section (≤1023px):** Desktop's 320px avatar column + 65/35 flagship/bottom split replaced with a vertical stack — full-width personal tile on top, then a 2-column `aspect-ratio: 4/3` category grid below. At ≤767px drops to single column with `aspect-ratio: 16/9` tiles.
-- **Site nav (≤1023px):** Compact spacing + right-edge `mask-image` fade affordance. Each link enforces `min-width: 44px` + 48px height (HIG 44×44). No hamburger.
-- **Project heroes:** Image heroes switch to `background-size: cover; background-position: center top` at ≤1023px. Video heroes gain a cinematic top-vignette overlay. At ≤767px, hero is `height: auto; min-height: 62vh`; title un-absoluted and font-scaled to `clamp(2rem, 9vw, 2.75rem)`; tools un-absoluted to a full-width flex row below the title.
-- **Tool pills:** `min-height: 44px` at ≤767px.
-- **Lightbox:** Pointer swipe added in `mountLightbox()` (pointerdown/pointerup, deltaX > 50px in < 500ms). Buttons resized to 48×48 on mobile and repositioned to bottom-20%.
-- **Hero actions:** `@media (hover: none) and (pointer: coarse)` keeps `.project-hero__actions` always visible on touch.
-- **Verification script:** `scripts/verify-responsive.mjs` — asserts no horizontal scroll + 44×44 tap-target audit at all 6 viewports.
+| Range | Label | Key changes |
+|-------|-------|-------------|
+| ≥1280px | Wide desktop | Original approved layout — unchanged |
+| 1024–1279px | Narrow desktop | Flagship grid drops to **2 columns**; odd trailing tile spans full width |
+| 768–1023px | Tablet | Info section stacks vertically; 2-col category grid; compact nav |
+| ≤767px | Mobile | Single-col category grid; hero auto-height; tool pills hidden |
+
+### 12.2 Info section
+
+**Tablet (≤1023px):** Desktop's horizontal split (320px avatar column + `65/35` flagship/bottom right) is replaced with a full-width vertical stack: `info-personal` on top (`height: 38vh; min-height: 240px`), then a **2-column `aspect-ratio: 4/3`** flagship grid, then a 2-column bottom grid. An odd trailing bottom tile spans full width at `aspect-ratio: 16/7`.
+
+**Mobile (≤767px):** Both flagship and bottom grids collapse to **1 column** with `aspect-ratio: 16/9`.
+
+**Narrow desktop (1024–1279px):** The flagship grid is overridden from `repeat(3, 1fr)` to `repeat(2, 1fr)` — at 1024px the three-column layout produced tiles only ~234px wide which made thumbnails unreadable. An odd trailing flagship tile gets `grid-column: 1 / -1`. The bottom 2-column row is unchanged.
+
+### 12.3 About Me tile (`.info-personal`)
+
+**Desktop (≥1024px):** Hover shows the full bio + contact overlay. Unchanged.
+
+**Sub-1024px (all inputs, including mouse at half-screen):** Hover is **completely disabled** via `@media (max-width: 1023px)` — all hover effects on `.info-personal` (overlay opacity, hint fade, bg scale, ::before) are reset inside this block. This is width-based, not device-capability-based, so a desktop browser resized to 1023px also gets the touch experience.
+
+**Tap / click at <1024px:** `init()` attaches a click listener on `.info-personal` that scrolls to `#contact` when `window.innerWidth < 1024`. The condition mirrors the CSS breakpoint exactly.
+
+**Ghost-link protection:** `.overlay` has `pointer-events: none` by default (base CSS); `pointer-events: auto` is only restored on `:hover` inside `@media (min-width: 1024px)` context. An additional `@media (max-width: 1023px)` rule locks `pointer-events: none` on the overlay unconditionally — prevents iOS sticky-hover from making the invisible ArtStation / LinkedIn links accidentally tappable.
+
+### 12.4 Site nav
+
+At ≤1023px: horizontal scroll (`overflow-x: auto`, hidden scrollbar), right-edge `mask-image` fade affordance. Each link: `min-width: 44px`, `line-height: var(--nav-height)` (48px) — satisfies HIG 44×44. `overflow: hidden` added to `.site-nav` itself so the nav's internal scroll does not contribute to page horizontal scroll on mobile WebKit.
+
+### 12.5 Project heroes
+
+At ≤1023px: image heroes use `background-size: cover; background-position: center top`. Video heroes gain a top-to-bottom vignette overlay (dark → transparent → standard scrim) to frame the studio background intentionally.
+
+At ≤767px: hero is `height: auto; min-height: 62vh`. Title stays `position: absolute` but font-size is `clamp(1.6rem, 8vw, 2.4rem)` with `max-width: 80%` to avoid wrapping into the Show More button. **`.project-hero__tools` and `.project-card__tools` are both hidden** (`display: none`) — tool information is accessible via the expanded project body.
+
+### 12.6 Contact section
+
+At ≤767px: outer section padding reduced from `8rem 2rem` to `2rem 0.5rem`; inner box padding from `4rem 2rem` to `2rem 1rem` — this recovers the ~128px of combined horizontal padding that was making the content column only ~262px wide on a 390px phone. Title scaled to `clamp(1.8rem, 9vw, 2.5rem)`. Social links `min-height: 44px`.
+
+### 12.7 Overflow prevention
+
+`body { overflow-x: clip }` — global safety net. Uses `clip` (not `hidden`) to avoid creating a scroll container that would break `position: fixed` in Safari. The fixed nav's own content overflow is capped by `overflow: hidden` on `.site-nav`.
+
+### 12.8 Lightbox
+
+Pointer swipe added to `mountLightbox()` (`pointerdown` / `pointerup`, `deltaX > 50px` in `< 500ms`; skipped when tap originates on a video element). Nav buttons are 48×48px on mobile, repositioned to `bottom: 20%` for thumb reach.
+
+### 12.9 Touch visibility
+
+`.project-hero__actions` is `opacity: 1` inside `@media (hover: none) and (pointer: coarse)` so fullscreen / deep-link buttons are always reachable on touch.
+
+### 12.10 Ultra-wide confirmed
+
+Layout tested at 2560×1440 (QHD) and 3440×1440 (ultrawide 21:9). No crashes — `1fr` flagship columns and `background-size: cover` hero images scale cleanly. Contact section is constrained by `max-width: 980px; margin: 0 auto`.
+
+### 12.11 Verification
+
+`scripts/verify-responsive.mjs` — Playwright script asserting no horizontal scroll overflow and ≥44×44 tap-target sizes across all 6 test viewports (1440, 1024, 820, 414, 390, 360px wide).

@@ -21,7 +21,7 @@ const portfolioData = {
     { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures", focalPoint: "15% 100%" },
     { id: "props",      label: "Props",                  thumbnail: "assets/props/crime-shoes/hero-poster.jpg",       hoverText: "View Props", focalPoint: "40% 50%" },
     { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/the-foot/hero-poster.jpg", hoverText: "View Generalist", focalPoint: "50% 50%", layout: "mosaic" },
-    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/sfx/highlights/details-face.jpg",           hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }
+    { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/sfx/highlights/doll-02.png",           hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }
   ],
 
   projects: [
@@ -181,34 +181,22 @@ const portfolioData = {
       id: "the-doll-clay-face",
       category: "sfx",
       type: "staged",
-      name: "Scary stories to tell in the dark (Miniature Doll + Clay Face)",
+      name: "Scary stories to tell in the dark (Miniature Doll + Prosthetic)",
       description: "Project based on the movie that was inspired by a book with different stories. I merged 2 of them and designed the character based on it. It helped me understand better what happens to your body while decomposing.",
       tools: [],
-      rendersStageLabel: null,
-      hero: { type: "image", src: "assets/sfx/highlights/doll-07.png", aspect: 1.001 },
-      highlights: [
-        { type: "image", src: "assets/sfx/highlights/doll-01.png",      aspect: 1.001 },
-        { type: "image", src: "assets/sfx/highlights/doll-07.png",      aspect: 1.001 },
-        { type: "image", src: "assets/sfx/highlights/details-face.jpg", aspect: 0.75  },
-        { type: "image", src: "assets/sfx/highlights/side-face.jpg",    aspect: 0.75  }
-      ],
+      rendersStageLabel: "Main",
+      hero: { type: "image", src: "assets/sfx/highlights/doll-02.png", aspect: 1.001 },
       stages: [
         {
-          label: "Doll Miniature Visualization",
+          label: "Main",
           media: [
-            { type: "image", src: "assets/sfx/the-doll/doll-02.png", aspect: 1.001 },
-            { type: "image", src: "assets/sfx/the-doll/doll-03.png", aspect: 1.001 },
-            { type: "image", src: "assets/sfx/the-doll/doll-04.png", aspect: 1.001 },
-            { type: "image", src: "assets/sfx/the-doll/doll-05.png", aspect: 1.001 },
-            { type: "image", src: "assets/sfx/the-doll/doll-06.png", aspect: 1.001 }
-          ]
-        },
-        {
-          label: "The Clay Face",
-          media: [
-            { type: "image", src: "assets/sfx/clay-face/clay-face-01.jpg",     aspect: 0.75  },
-            { type: "image", src: "assets/sfx/clay-face/face-01.jpg",          aspect: 0.75  },
-            { type: "image", src: "assets/sfx/clay-face/prosthetic.jpg",       aspect: 0.75  }
+            { type: "image", src: "assets/sfx/highlights/doll-01.png",  aspect: 1.001 },
+            { type: "image", src: "assets/sfx/highlights/doll-02.png",  aspect: 1.001 },
+            { type: "image", src: "assets/sfx/highlights/doll-03.png",  aspect: 1.001 },
+            { type: "image", src: "assets/sfx/highlights/prost-01.jpg", aspect: 0.75  },
+            { type: "image", src: "assets/sfx/highlights/prost-02.jpg", aspect: 0.75  },
+            { type: "image", src: "assets/sfx/highlights/prost-03.jpg", aspect: 0.75  },
+            { type: "image", src: "assets/sfx/highlights/prost-04.jpg", aspect: 0.75  }
           ]
         }
       ]
@@ -242,32 +230,6 @@ const portfolioData = {
       ]
     },
     // ── GENERALIST ──────────────────────────────────────────────────────────
-    {
-      id: "showreel",
-      category: "generalist",
-      type: "gallery",
-      pinned: true,
-      openFullscreenOnly: true,
-      name: "Generalist Showreel",
-      tools: [],
-      hero: { type: "video", src: "assets/generalist/showreel/showreel.mp4", poster: "assets/generalist/showreel/showreel-poster.jpg", aspect: 1.778, hasAudio: true },
-      media: [
-        { type: "video", src: "assets/generalist/showreel/showreel.mp4", poster: "assets/generalist/showreel/showreel-poster.jpg", aspect: 1.778, hasAudio: true }
-      ]
-    },
-    {
-      id: "animation-10s",
-      category: "generalist",
-      type: "gallery",
-      pinned: true,
-      openFullscreenOnly: true,
-      name: "10s Frame to Frame Animation",
-      tools: [],
-      hero: { type: "video", src: "assets/generalist/showreel/animation-10s.mp4", poster: "assets/generalist/showreel/animation-10s-poster.jpg", aspect: 1.778, hasAudio: true },
-      media: [
-        { type: "video", src: "assets/generalist/showreel/animation-10s.mp4", poster: "assets/generalist/showreel/animation-10s-poster.jpg", aspect: 1.778, hasAudio: true }
-      ]
-    },
     {
       id: "the-foot",
       category: "generalist",
@@ -351,19 +313,6 @@ const portfolioData = {
         }
       ]
     },
-    {
-      id: "player",
-      category: "generalist",
-      type: "gallery",
-      name: "Player",
-      tools: [],
-      hero: { type: "image", src: "assets/generalist/player/game-player-04.png", aspect: 1 },
-      media: [
-        { type: "image", src: "assets/generalist/player/game-player-04.png", aspect: 1 },
-        { type: "image", src: "assets/generalist/player/death-player.png",   aspect: 1 },
-        { type: "image", src: "assets/generalist/player/game-player.gif",    aspect: 1 }
-      ]
-    }
 
   ]
 };
@@ -402,7 +351,7 @@ function renderMediaTile(mediaItem, altText) {
       </figure>
     `;
   }
-
+  2
   return `
     <figure class="media-tile" tabindex="0"
       data-type="image" data-src="${mediaItem.src}"${aspectStyle}>
@@ -777,6 +726,14 @@ function renderCategoryMosaic(category, projects) {
     const heroVideoHtml = hero?.type === "video" && !alreadyInMedia
       ? renderMediaSolo(hero, normalized.name)
       : '';
+    const collapseBtn = `
+      <div class="project-body__collapse">
+        <button class="project-hero__expand-btn project-hero__expand-btn--open" type="button"
+          data-target="body-${p.id}" aria-expanded="true" aria-controls="body-${p.id}">
+          <span class="project-hero__expand-label">Hide</span>
+          <span class="project-hero__expand-chevron" aria-hidden="true">▾</span>
+        </button>
+      </div>`;
 
     return `
       <div class="category-mosaic__body project-body" id="body-${p.id}">
@@ -784,6 +741,7 @@ function renderCategoryMosaic(category, projects) {
         ${renderProjectAbout(normalized)}
         ${heroVideoHtml}
         ${inner}
+        ${collapseBtn}
       </div>`;
   }).join('');
 
@@ -1153,6 +1111,14 @@ function init() {
     if (!willOpen) {
       const hero = document.getElementById(btn.dataset.target.replace('body-', ''));
       if (hero) hero.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Keep mosaic cards in sync when an expanded body is hidden via the body button.
+      const mosaic = body.closest('.category-mosaic');
+      if (mosaic) {
+        const card = mosaic.querySelector(`.project-card__trigger[data-target="${btn.dataset.target}"]`);
+        card?.setAttribute('aria-expanded', 'false');
+        card?.closest('.project-card')?.classList.remove('project-card--active');
+      }
     }
   });
 

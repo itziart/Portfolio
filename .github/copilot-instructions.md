@@ -34,13 +34,26 @@
 - **BEM:** `.block__element--modifier`. **No `id` selectors** in CSS (exception: `#info-section` may appear for viewport lock; prefer extending via classes when touching styles).
 - **Mosaic:** `.media-mosaic` is a **CSS grid** (3 → 2 → 1 columns), not `column-count`.
 
+## Responsive breakpoints
+
+| Range | Info section | Heroes / tools |
+|-------|--------------|----------------|
+| ≥1280px | 3-col flagship, row layout | Full desktop |
+| 1024–1279px | 2-col flagship (odd tile full-width) | Full desktop |
+| 768–1023px | Stacked: personal tile + 2-col grid | Cover image; top-vignette on video |
+| ≤767px | 1-col tiles, 16:9 | Auto-height; tool pills hidden |
+
+- `body { overflow-x: clip }` globally.  `.site-nav { overflow: hidden }`.
+- **About Me hover disabled at ≤1023px** (width-based). Tap scrolls to `#contact` (`window.innerWidth < 1024` in JS).
+- `.overlay` always `pointer-events: none`; only `pointer-events: auto` on `:hover` at ≥1024px.
+
 ## Behaviors (must preserve)
 
-- **Overlays:** opacity transitions, not `display: none/block` toggles.
+- **Overlays:** opacity transitions, not `display: none/block` toggles. Base state is `opacity: 0; pointer-events: none`.
 - **Scroll:** `scrollIntoView({ behavior: 'smooth', block: 'start' })` for tiles and nav (nav uses `preventDefault` on links).
 - **Video tiles:** hover-play on pointer devices; `@media (hover: none)` may autoplay; respect `prefers-reduced-motion`.
-- **Lightbox:** Esc, arrows, backdrop close; videos get controls in the viewer.
-- **Tools:** text badges from `TOOL_DISPLAY_NAMES`, not required PNG icons in the hero.
+- **Lightbox:** Esc, arrows, pointer swipe (`deltaX > 50px / 500ms`), backdrop close; videos get controls in the viewer.
+- **Tools:** text badges from `TOOL_DISPLAY_NAMES`, hidden on phones (≤767px) via `display: none`.
 
 ## Adding a project
 

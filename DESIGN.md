@@ -181,29 +181,26 @@ Category `<section>` shells are declared in `index.html`; inner HTML is replaced
 | Right — Bottom | 2-column grid | Two `.info-tile--bottom` buttons |
 
 **Personal block (`.info-personal`):**
-- On hover: overlay shows “Contact” header, bio, mail/phone/languages/location list, Instagram / ArtStation / LinkedIn pills.
+- **Desktop (≥ 1024px):** On hover, overlay shows “Contact” header, bio, mail/phone/languages/location list, Instagram / ArtStation / LinkedIn pills.
+- **Sub-1024px:** Hover is **completely disabled** via `@media (max-width: 1023px)` — this is width-based so it applies to any browser (including a desktop browser at half-screen), not just touch devices. Click / tap navigates to `#contact` via JS (`window.innerWidth < 1024` check). The overlay links are permanently `pointer-events: none` at this width to prevent iOS sticky-hover from triggering invisible links.
 
 **Category tiles (`.info-tile`):**
 - Background from `category.thumbnail` with `background-position` from `focalPoint` (or `focalX` / `focalY`).
 - Indexed label + arrow; hover shows centered `hoverText` and scales background slightly.
 - Click scrolls to `#${id}-scroll` when present (section banners), else `#${id}` — `scrollIntoView({ behavior: 'smooth', block: 'start' })`.
 
-**Hover behavior (both columns):**
+**Overlay behavior:**
 ```css
-.overlay {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.7);
-  opacity: 0;
-  transition: opacity var(--transition-default);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
+/* Base — hidden and non-interactive by default */
+.overlay { opacity: 0; pointer-events: none; transition: opacity var(--transition-default); }
+/* Desktop: hover reveals overlay */
 .info-personal:hover .overlay,
-.info-tile:hover .overlay { opacity: 1; }
+.info-tile:hover .overlay { opacity: 1; pointer-events: auto; }
+/* Sub-1024px: hover suppressed regardless of input device */
+@media (max-width: 1023px) {
+  .info-personal .overlay,
+  .info-personal:hover .overlay { opacity: 0; pointer-events: none; }
+}
 ```
 
 Never use `display: none / block` for overlay show/hide — always `opacity`.
@@ -359,22 +356,28 @@ Clicking any `.media-tile` outside the lightbox itself opens a fullscreen overla
 
 ## 6. Responsive Breakpoints
 
-Test viewports: 1440, 1024, 820, 414, 390, 360px wide.
+Test viewports: 1440, 1024, 820, 414, 390, 360 px wide.
 
-| Breakpoint | Info section | Project heroes | Nav |
-|------------|--------------|----------------|-----|
-| Mobile (`max-width: 767px`) | Single-column: personal tile (`aspect-ratio: 16/9`) then all category tiles stacked (`aspect-ratio: 16/9` each) | `height: auto; min-height: 62vh`; title `position: relative` at `clamp(2rem, 9vw, 2.75rem)`; tools re-flow as full-width row below title; pill `min-height: 44px` | Gap `0.75rem`; links `min-width: 44px` |
-| Tablet portrait (`768px – 1023px`) | Full-width personal tile (`38vh` min 240px, `background-position: center top`); flagship + bottom each **2-column** grid (`aspect-ratio: 4/3`); last bottom tile spans full row when odd | Image heroes: `background-size: cover; background-position: center top`; video heroes: cinematic top-vignette overlay (dark → transparent → standard scrim); title/tools retain desktop absolute layout | Gap `var(--spacing-sm)`; font-size `0.78rem`; right-edge fade mask affordance |
-| Desktop (`min-width: 1024px`) | `#info-section` locked to `100vh`; `.info-layout` row: fixed `320px` personal column + `.info-right` (65% flagship / 35% bottom); flagship three-up; bottom two-up | Full desktop layout — unchanged | Full desktop layout — unchanged |
+| Range | Info section | Project heroes | Nav |
+|-------|--------------|----------------|-----|
+| **Wide desktop** ≥ 1280px | `#info-section` 100 vh; `.info-layout` row: 320 px personal + `.info-right` (65 % flagship / 35 % bottom); flagship **3-column**; bottom **2-column** | Full desktop — unchanged | Full desktop — unchanged |
+| **Narrow desktop** 1024 – 1279px | Same row layout; flagship drops to **2-column** (`repeat(2, 1fr)`); odd trailing flagship tile spans full width | Full desktop — unchanged | Full desktop — unchanged |
+| **Tablet** 768 – 1023px | Full-width personal tile (`38vh` min 240 px); flagship + bottom each **2-column** `aspect-ratio: 4/3`; last bottom tile full-width when odd | Image heroes: `cover; center top`. Video heroes: cinematic top-vignette. Title + tools retain absolute desktop layout | Compact gaps; `font-size: 0.78rem`; right-edge fade mask; `min-width: 44px` per link |
+| **Mobile** ≤ 767px | 1-column stack; all tiles `aspect-ratio: 16/9`. Contact section padding reduced | `height: auto; min-height: 62vh`; title stays `position: absolute`, `clamp(1.6rem, 8vw, 2.4rem)`, `max-width: 80%`. **Tool pills hidden** (`display: none`) on both `.project-hero__tools` and `.project-card__tools` | Gap `0.75rem`; `min-width: 44px` per link |
 
-**Mosaic grid:** `.media-mosaic` uses **3 → 2 → 1** columns at `default` / `max-width: 1024px` / `max-width: 640px`. `.category-mosaic__grid` follows the same pattern.
+**Mosaic grid:** `.media-mosaic` and `.category-mosaic__grid` use **3 → 2 → 1** columns at default / `≤ 1024px` / `≤ 640px`.
 
-**Nav:** Horizontal scroll (`overflow-x: auto`, hidden scrollbar) at all widths ≤1023px. Right-edge `mask-image` fade signals scrollability. No hamburger. Every link has `min-width: 44px` and 48px nav height — satisfies HIG 44×44.
+**Nav:** `overflow: hidden` on `.site-nav` prevents fixed-bar content from contributing to page scroll width. List scrolls horizontally inside (`overflow-x: auto`, hidden scrollbar). Right-edge `mask-image` fade. No hamburger. Each link `min-width: 44px` × 48 px height (HIG 44 × 44).
 
-**Lightbox:** Keyboard (Esc/Arrow) + pointer swipe (deltaX > 50px in < 500ms) navigation. Buttons are 48×48 on mobile, repositioned to bottom-20% for thumb reach. Swipe is skipped when originating on video controls.
+**About Me tile:** Hover disabled at ≤ 1023px (width-based, not device-based). Click/tap scrolls to `#contact`. Overlay has `pointer-events: none` unconditionally at this width.
 
-**Touch visibility:** `@media (hover: none) and (pointer: coarse)` keeps `.project-hero__actions` always visible (not gated on hover).
+**Overflow prevention:** `body { overflow-x: clip }` globally. Uses `clip` not `hidden` to avoid breaking `position: fixed` in Safari.
 
+**Lightbox:** Keyboard (Esc/Arrow) + pointer swipe (`deltaX > 50px` in `< 500ms`; skipped on video taps). Buttons 48 × 48 px on mobile, repositioned to `bottom: 20%` for thumb reach.
+
+**Touch visibility:** `@media (hover: none) and (pointer: coarse)` keeps `.project-hero__actions` always visible.
+
+**Ultra-wide:** Tested to 3440 × 1440px (21:9). `1fr` columns and `background-size: cover` scale cleanly. Contact capped at `max-width: 980px`.
 ---
 
 ## 7. CSS Conventions

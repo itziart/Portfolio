@@ -421,10 +421,20 @@ Core palette / typography / spacing (always use variables; extend `:root` rather
 }
 ```
 
-**Google Fonts import:**
-```html
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+**Self-hosted fonts:**
+```css
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('assets/fonts/bebas-neue-400-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('assets/fonts/dm-sans-300-500-latin.woff2') format('woff2');
+}
 ```
+
+Fonts must be loaded from local `assets/fonts/` files, not from third-party CDNs.
 
 ---
 
@@ -504,3 +514,23 @@ Optional PNG icons may live under `assets/icons/[tool-slug].png` for future use,
 4. Custom domain: add a `CNAME` file to the root, configure DNS at registrar
 
 **All asset paths must be relative** (`assets/avatar.png`, not `/assets/avatar.png`) — GitHub Pages serves from a subdirectory path when no custom domain is set.
+
+### 10.1 Cloudflare security baseline (recommended)
+
+If the site is proxied by Cloudflare, configure response headers at the edge so scanners and browsers see a strict policy even before JS runs:
+
+- `Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-src 'none'; frame-ancestors 'none'; connect-src 'self'; upgrade-insecure-requests`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `X-Content-Type-Options: nosniff`
+- `Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()`
+
+WAF / managed rules:
+- Keep managed WAF enabled.
+- If fonts or media get blocked due to injected/non-standard client headers, create a narrow allow exception scoped to static asset paths (`/assets/fonts/*`, `/assets/*`) and keep challenge mode for suspicious dynamic requests.
+- Avoid broad hostname-wide bypass rules.
+
+Verification checklist after deploy:
+1. DevTools Network: all fonts/scripts/media load from own origin.
+2. DevTools Console: no CSP violation errors.
+3. Cloudflare Security Events: no repeated false positives for static asset requests.
+4. External header scan confirms CSP + `nosniff` + referrer policy are present.

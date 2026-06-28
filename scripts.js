@@ -59,7 +59,8 @@ const portfolioData = {
             { type: "image", src: "assets/characters/assassin-elf/render/render-01.png", aspect: 1.778 },
             { type: "image", src: "assets/characters/assassin-elf/render/render-02.png", aspect: 1.778 },
             { type: "image", src: "assets/characters/assassin-elf/render/render-03.png", aspect: 1.778 },
-            { type: "image", src: "assets/characters/assassin-elf/render/render-04.png", aspect: 1.778 }
+            { type: "image", src: "assets/characters/assassin-elf/render/render-04.png", aspect: 1.778 },
+            { type: "image", src: "assets/characters/assassin-elf/render/render-05.png", aspect: 1.778 }
           ]
         }
       ]
@@ -94,7 +95,8 @@ const portfolioData = {
             { type: "image", src: "assets/creatures/alien/render/render-03.png", aspect: 1.778 },
             { type: "image", src: "assets/creatures/alien/render/render-04.png", aspect: 1.778 },
             { type: "image", src: "assets/creatures/alien/render/render-05.png", aspect: 1.778 },
-            { type: "image", src: "assets/creatures/alien/render/render-06.png", aspect: 1.778 }
+            { type: "image", src: "assets/creatures/alien/render/render-06.png", aspect: 1.778 },
+            { type: "image", src: "assets/creatures/alien/render/render-07.png", aspect: 1.778 }
           ]
         }
       ]
@@ -139,7 +141,8 @@ const portfolioData = {
             { type: "image", src: "assets/props/crime-shoes/render/render-03.png", aspect: 1.778 },
             { type: "image", src: "assets/props/crime-shoes/render/render-04.png", aspect: 1.778 },
             { type: "image", src: "assets/props/crime-shoes/render/render-05.png", aspect: 1.778 },
-            { type: "image", src: "assets/props/crime-shoes/render/render-06.png", aspect: 1.778 }
+            { type: "image", src: "assets/props/crime-shoes/render/render-06.png", aspect: 1.778 },
+            { type: "image", src: "assets/props/crime-shoes/render/render-07.jpg", aspect: 1.778 }
           ]
         }
       ]
@@ -301,6 +304,71 @@ function normalizeProject(project) {
   return { ...project, type };
 }
 
+function sanitizeUrl(rawUrl, allowedProtocols, { allowRelative = false } = {}) {
+  if (typeof rawUrl !== 'string' || !rawUrl.trim()) return '';
+  const candidate = rawUrl.trim();
+  if (allowRelative && /^(?:\.{1,2}\/|\/|assets\/)/.test(candidate)) {
+    return candidate;
+  }
+
+  try {
+    const parsed = new URL(candidate, window.location.origin);
+    if (!allowedProtocols.includes(parsed.protocol)) return '';
+    return parsed.href;
+  } catch {
+    return '';
+  }
+}
+
+function renderTrustedExternalLink(rawUrl, label, className) {
+  const safeUrl = sanitizeUrl(rawUrl, ['https:']);
+  if (!safeUrl) return '';
+  return `<a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="${className}">${label}</a>`;
+}
+
+function sanitizeProjectDescriptionHtml(html) {
+  if (typeof html !== 'string' || !html.trim()) return '';
+
+  const template = document.createElement('template');
+  template.innerHTML = html;
+
+  const output = document.createElement('div');
+
+  const appendSanitizedNodes = (sourceNode, targetNode) => {
+    sourceNode.childNodes.forEach(node => {
+      if (node.nodeType === Node.TEXT_NODE) {
+        targetNode.appendChild(document.createTextNode(node.textContent || ''));
+        return;
+      }
+
+      if (node.nodeType !== Node.ELEMENT_NODE) return;
+
+      const tag = node.tagName.toLowerCase();
+      if (tag === 'a') {
+        const safeHref = sanitizeUrl(node.getAttribute('href') || '', ['https:']);
+        if (!safeHref) {
+          targetNode.appendChild(document.createTextNode(node.textContent || ''));
+          return;
+        }
+
+        const link = document.createElement('a');
+        link.href = safeHref;
+        link.textContent = node.textContent || '';
+        link.className = 'project-about__link';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        targetNode.appendChild(link);
+        return;
+      }
+
+      appendSanitizedNodes(node, targetNode);
+    });
+  };
+
+  appendSanitizedNodes(template.content, output);
+  return output.innerHTML;
+}
+
 // 3. RENDER FUNCTIONS
 
 function renderMediaTile(mediaItem, altText) {
@@ -407,16 +475,35 @@ function mountLightbox() {
     const content = lb.querySelector('.lightbox__content');
     const prevVideo = content.querySelector('video');
     if (prevVideo) prevVideo.pause();
+    content.replaceChildren();
 
     if (type === 'video') {
-      const mutedAttr = hasAudio === 'true' ? 'muted data-has-audio="true"' : 'muted';
-      content.innerHTML = `
-        <video controls autoplay ${mutedAttr} loop playsinline poster="${poster}">
-          <source src="${src}" type="video/mp4">
-        </video>
-      `;
+      const safeSrc = sanitizeUrl(src, ['http:', 'https:'], { allowRelative: true });
+      if (!safeSrc) return;
+
+      const video = document.createElement('video');
+      video.setAttribute('controls', '');
+      video.setAttribute('autoplay', '');
+      video.setAttribute('muted', '');
+      video.setAttribute('loop', '');
+      video.setAttribute('playsinline', '');
+      if (hasAudio === 'true') video.dataset.hasAudio = 'true';
+
+      const safePoster = sanitizeUrl(poster, ['http:', 'https:'], { allowRelative: true });
+      if (safePoster) video.poster = safePoster;
+
+      const source = document.createElement('source');
+      source.src = safeSrc;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      content.appendChild(video);
     } else {
-      content.innerHTML = `<img src="${src}" alt="">`;
+      const safeSrc = sanitizeUrl(src, ['http:', 'https:'], { allowRelative: true });
+      if (!safeSrc) return;
+      const image = document.createElement('img');
+      image.src = safeSrc;
+      image.alt = '';
+      content.appendChild(image);
     }
 
     lb.querySelector('.lightbox__counter').textContent = `${index + 1} / ${items.length}`;
@@ -435,7 +522,7 @@ function mountLightbox() {
     document.body.style.overflow = '';
     const video = lb.querySelector('video');
     if (video) video.pause();
-    setTimeout(() => { lb.querySelector('.lightbox__content').innerHTML = ''; }, 300);
+    setTimeout(() => { lb.querySelector('.lightbox__content').replaceChildren(); }, 300);
   }
 
   function navigate(dir) {
@@ -512,9 +599,9 @@ function renderInfoPersonal(artist) {
         <span class="info-personal__meta-value">${location}</span>
       </li>`;
 
-    if (instagram) pillsHtml += `<a href="${instagram}" target="_blank" rel="noopener noreferrer" class="info-personal__pill">Instagram</a>`;
-    if (artstation) pillsHtml += `<a href="${artstation}" target="_blank" rel="noopener noreferrer" class="info-personal__pill">ArtStation</a>`;
-    if (linkedin) pillsHtml += `<a href="${linkedin}" target="_blank" rel="noopener noreferrer" class="info-personal__pill">LinkedIn</a>`;
+    if (instagram) pillsHtml += renderTrustedExternalLink(instagram, 'Instagram', 'info-personal__pill');
+    if (artstation) pillsHtml += renderTrustedExternalLink(artstation, 'ArtStation', 'info-personal__pill');
+    if (linkedin) pillsHtml += renderTrustedExternalLink(linkedin, 'LinkedIn', 'info-personal__pill');
   }
 
   return `
@@ -550,13 +637,16 @@ function renderContactSection(artist) {
     contactRows.push(`<li class="contact-section__item"><span class="contact-section__label">Phone</span><span class="contact-section__value">${contact.phone}</span></li>`);
   }
   if (contact.instagram) {
-    socialLinks.push(`<a href="${contact.instagram}" target="_blank" rel="noopener noreferrer" class="contact-section__link">Instagram</a>`);
+    const instagramLink = renderTrustedExternalLink(contact.instagram, 'Instagram', 'contact-section__link');
+    if (instagramLink) socialLinks.push(instagramLink);
   }
   if (contact.linkedin) {
-    socialLinks.push(`<a href="${contact.linkedin}" target="_blank" rel="noopener noreferrer" class="contact-section__link">LinkedIn</a>`);
+    const linkedinLink = renderTrustedExternalLink(contact.linkedin, 'LinkedIn', 'contact-section__link');
+    if (linkedinLink) socialLinks.push(linkedinLink);
   }
   if (contact.artstation) {
-    socialLinks.push(`<a href="${contact.artstation}" target="_blank" rel="noopener noreferrer" class="contact-section__link">ArtStation</a>`);
+    const artstationLink = renderTrustedExternalLink(contact.artstation, 'ArtStation', 'contact-section__link');
+    if (artstationLink) socialLinks.push(artstationLink);
   }
   if (contact.languages) {
     contactRows.push(`<li class="contact-section__item"><span class="contact-section__label">Languages</span><span class="contact-section__value">${contact.languages}</span></li>`);
@@ -949,10 +1039,11 @@ function openFullscreenPlaybackVideo(src, poster, hasAudio) {
 
 function renderProjectAbout(project) {
   if (!project.description) return '';
+  const safeDescription = sanitizeProjectDescriptionHtml(project.description);
   return `
     <div class="project-about">
       <div class="project-about__label"><span>ABOUT</span></div>
-      <p class="project-about__text">${project.description}</p>
+      <p class="project-about__text">${safeDescription}</p>
     </div>`;
 }
 

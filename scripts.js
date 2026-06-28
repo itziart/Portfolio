@@ -60,7 +60,8 @@ const portfolioData = {
             { type: "image", src: "assets/characters/assassin-elf/render/render-02.png", aspect: 1.778 },
             { type: "image", src: "assets/characters/assassin-elf/render/render-03.png", aspect: 1.778 },
             { type: "image", src: "assets/characters/assassin-elf/render/render-04.png", aspect: 1.778 },
-            { type: "image", src: "assets/characters/assassin-elf/render/render-05.png", aspect: 1.778 }
+            { type: "image", src: "assets/characters/assassin-elf/render/render-05.png", aspect: 1.778 },
+            { type: "image", src: "assets/characters/assassin-elf/render/render-06.png", aspect: 1.778 }
           ]
         }
       ]

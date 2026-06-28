@@ -18,7 +18,7 @@ const portfolioData = {
 
   categories: [
     { id: "characters", label: "Characters",             thumbnail: "assets/characters/assassin-elf/hero-poster.jpg", hoverText: "View Characters", focalPoint: "10% 50%" },
-    { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures", focalPoint: "78% 50%" },
+    { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures", focalPoint: "80% 50%" },
     { id: "props",      label: "Props",                  thumbnail: "assets/props/crime-shoes/hero-poster.jpg",       hoverText: "View Props", focalPoint: "40% 50%" },
     { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/the-foot/hero-poster.jpg", hoverText: "View Generalist", focalPoint: "50% 50%", layout: "mosaic" },
     { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/sfx/highlights/doll-02.png",           hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }

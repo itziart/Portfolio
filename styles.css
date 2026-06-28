@@ -1864,7 +1864,7 @@ details[open] > .stage-accordion__summary .stage-accordion__chevron {
   font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
+  color: var(--color-accent);
   border: 1px solid rgba(255,255,255,0.15);
   border-radius: 2px;
   padding: 0.15em 0.5em;

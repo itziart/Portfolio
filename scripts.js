@@ -17,8 +17,8 @@ const portfolioData = {
   },
 
   categories: [
-    { id: "characters", label: "Characters",             thumbnail: "assets/characters/assassin-elf/hero-poster.jpg", hoverText: "View Characters", focalPoint: "15% 50%" },
-    { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures", focalPoint: "15% 100%" },
+    { id: "characters", label: "Characters",             thumbnail: "assets/characters/assassin-elf/hero-poster.jpg", hoverText: "View Characters", focalPoint: "10% 50%" },
+    { id: "creatures",  label: "Creatures",              thumbnail: "assets/creatures/alien/hero-poster.jpg",         hoverText: "View Creatures", focalPoint: "75% 50%" },
     { id: "props",      label: "Props",                  thumbnail: "assets/props/crime-shoes/hero-poster.jpg",       hoverText: "View Props", focalPoint: "40% 50%" },
     { id: "generalist", label: "Generalist",             thumbnail: "assets/generalist/the-foot/hero-poster.jpg", hoverText: "View Generalist", focalPoint: "50% 50%", layout: "mosaic" },
     { id: "sfx",        label: "SFX Makeup & Sculpting", thumbnail: "assets/sfx/highlights/doll-02.png",           hoverText: "View SFX", focalPoint: "50% 30%", layout: "mosaic" }
@@ -95,8 +95,7 @@ const portfolioData = {
             { type: "image", src: "assets/creatures/alien/render/render-03.png", aspect: 1.778 },
             { type: "image", src: "assets/creatures/alien/render/render-04.png", aspect: 1.778 },
             { type: "image", src: "assets/creatures/alien/render/render-05.png", aspect: 1.778 },
-            { type: "image", src: "assets/creatures/alien/render/render-06.png", aspect: 1.778 },
-            { type: "image", src: "assets/creatures/alien/render/render-07.png", aspect: 1.778 }
+            { type: "image", src: "assets/creatures/alien/render/render-06.png", aspect: 1.778 }
           ]
         }
       ]
@@ -141,8 +140,7 @@ const portfolioData = {
             { type: "image", src: "assets/props/crime-shoes/render/render-03.png", aspect: 1.778 },
             { type: "image", src: "assets/props/crime-shoes/render/render-04.png", aspect: 1.778 },
             { type: "image", src: "assets/props/crime-shoes/render/render-05.png", aspect: 1.778 },
-            { type: "image", src: "assets/props/crime-shoes/render/render-06.png", aspect: 1.778 },
-            { type: "image", src: "assets/props/crime-shoes/render/render-07.jpg", aspect: 1.778 }
+            { type: "image", src: "assets/props/crime-shoes/render/render-06.jpg", aspect: 1.778 }
           ]
         }
       ]
